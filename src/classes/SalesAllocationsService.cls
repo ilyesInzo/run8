@@ -603,5 +603,68 @@ public class SalesAllocationsService extends SalesService {
 
 
     }
-    
+
+    /********************** UPDATE MEMBERS VISIBILITY NEW VERSION ************************/
+    // in this method we prepare ourselves
+    public void manageTeamMemberVisibility(list<Sales_Allocations__c>  newSalesAllocations, Map<Id,Sales_Allocations__c> oldSalesAllocationsById, boolean isInsert){
+
+        // We need the accountIds of the changed Sales Allocation to get ALL the Allocation later
+        // We need them to guess if an updated team member need to be created/removed/updated or nothing
+        set<Id> accountIds = new set<Id>();
+
+        // we need this as the SA could be updated normally (no ST changed),
+        // but the visibility could change only if the ST change
+        Map<Id, Sales_Allocations__c> allocationWithUpdatedSalesTeam = new Map<Id, Sales_Allocations__c>();
+
+        // We will get the id of the new and old ST
+        // we can have the same ST in both Set (because we can affect a new ST(not archived) the SA)
+        // the request to get the needed values will be done later
+        // of course this set don't make sense if insert operation
+        set<Id> newSalesTeamIDs = new set<Id>();
+        set<Id> oldSalesTeamIDs = new set<Id>();
+        List<Sales_Allocations__c> newSalesAllocationsToUpdate = new List<Sales_Allocations__c>();
+        //in case of insert we are only interested on SA with a ST affected (they affect visibility)
+        System.debug(isInsert);
+        System.debug(newSalesAllocations);
+        for (Sales_Allocations__c sa: newSalesAllocations) {
+
+            accountIds.add(sa.Account__c);
+            // No archived
+            if (sa.Valid_From__c <= Date.Today() && sa.Valid_To__c >= Date.Today()) {
+                // Those Sales Allocation will be inserted
+                // We don't have to check visibility if the allocation is not affected to ST (simple insert)
+                // I separated the two condition for better visibility instead of using ||
+
+                if (isInsert == true) {
+                    if(sa.Sales_Team__c != null){
+                        // The SA Sales team could be changed for many reasons :
+                        // 1 - The SalesTeam was empty in the SA and it is newly added/affected
+                        // 2 - The old SalesTeam was archived and the new one affected
+                        newSalesTeamIDs.add(sa.Sales_Team__c);
+                        newSalesAllocationsToUpdate.add(sa);
+                    }//else we do nothing it is a simple insert without visibility to add/update
+
+                } else if (sa.Sales_Team__c != oldSalesAllocationsById.get(sa.Id).Sales_Team__c) {
+                    allocationWithUpdatedSalesTeam.put(sa.Id, sa);
+                    newSalesAllocationsToUpdate.add(sa);
+                    if(sa.Sales_Team__c != null){
+                        newSalesTeamIDs.add(sa.Sales_Team__c);
+                    }
+                    if(oldSalesAllocationsById.get(sa.Id).Sales_Team__c != null){
+                        oldSalesTeamIDs.add(oldSalesAllocationsById.get(sa.Id).Sales_Team__c);
+                    }
+                }
+            }
+        }
+        // if we have SA with updated ST
+        if(!newSalesAllocationsToUpdate.isEmpty()){
+            VisibilityTeamMemberService.getNewTeamVisibility(allocationWithUpdatedSalesTeam, newSalesAllocationsToUpdate, oldSalesAllocationsById, accountIds, newSalesTeamIDs, oldSalesTeamIDs, isInsert);
+        }
+
+
+        // now we have we can begin our request and get the information needed
+
+
+
+    }
 }

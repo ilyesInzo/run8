@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="578e5ce9-f56c-45f9-a48b-d163666f303c" name="Default Changelist" comment="" />
+    <list default="true" id="578e5ce9-f56c-45f9-a48b-d163666f303c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/SalesAllocationsService.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/SalesAllocationsService.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/SalesAllocationsTriggerHandler.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/SalesAllocationsTriggerHandler.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/SalesTeamService.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/SalesTeamService.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/SalesTeamTriggerHandler.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/SalesTeamTriggerHandler.cls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/VisibilityTeamMemberService.cls" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/VisibilityTeamMemberService.cls" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,10 +54,58 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/VisibilityTeamMemberService.cls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="374">
+              <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#416#432#0" expanded="true" />
+                <element signature="e#1981#2000#0" expanded="true" />
+                <element signature="e#2463#2482#0" expanded="true" />
+                <element signature="e#2792#2824#0" expanded="true" />
+                <element signature="e#2801#2824#0" expanded="true" />
+                <element signature="e#3076#3106#0" expanded="true" />
+                <element signature="e#3084#3106#0" expanded="true" />
+                <element signature="e#3096#3106#0" expanded="true" />
+                <element signature="e#3380#3402#0" expanded="true" />
+                <element signature="e#5953#5975#0" expanded="true" />
+                <element signature="e#7039#7061#0" expanded="true" />
+                <element signature="e#8234#8260#0" expanded="true" />
+                <element signature="e#8242#8260#0" expanded="true" />
+                <element signature="e#8250#8260#0" expanded="true" />
+                <element signature="e#8543#8561#0" expanded="true" />
+                <element signature="e#9425#9442#0" expanded="true" />
+                <element signature="e#9433#9442#0" expanded="true" />
+                <element signature="e#10635#10643#0" expanded="true" />
+                <element signature="e#11360#11368#0" expanded="true" />
+                <element signature="e#11760#11779#0" expanded="true" />
+                <element signature="e#12916#12935#0" expanded="true" />
+                <element signature="e#15207#15226#0" expanded="true" />
+                <element signature="e#16078#16123#0" expanded="true" />
+                <element signature="e#16086#16123#0" expanded="true" />
+                <element signature="e#16094#16123#0" expanded="true" />
+                <element signature="e#16474#16510#0" expanded="true" />
+                <element signature="e#16482#16510#0" expanded="true" />
+                <element signature="e#16571#16598#0" expanded="true" />
+                <element signature="e#17097#17124#0" expanded="true" />
+                <element signature="e#18581#18585#0" expanded="true" />
+                <element signature="e#19345#19359#0" expanded="true" />
+                <element signature="e#19424#19438#0" expanded="true" />
+                <element signature="e#24731#24748#0" expanded="true" />
+                <element signature="e#25246#25273#0" expanded="true" />
+                <element signature="e#26021#26061#0" expanded="true" />
+                <element signature="e#26029#26061#0" expanded="true" />
+                <element signature="e#26476#26506#0" expanded="true" />
+                <element signature="e#31980#31994#0" expanded="true" />
+                <element signature="e#32507#32521#0" expanded="true" />
+                <element signature="e#36533#36552#0" expanded="true" />
+                <element signature="e#36603#36607#0" expanded="true" />
+                <element signature="e#39218#39237#0" expanded="true" />
+                <element signature="e#39305#39324#0" expanded="true" />
+                <element signature="e#39434#39453#0" expanded="true" />
+                <element signature="e#39641#39664#0" expanded="true" />
+                <element signature="e#39740#39763#0" expanded="true" />
+                <element signature="e#39842#39865#0" expanded="true" />
+                <element signature="e#39952#39965#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,8 +114,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/SalesAllocationsTriggerHandler.cls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+            <state relative-caret-position="357">
+              <caret line="28" column="10" lean-forward="true" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -68,8 +123,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/SalesTeamTriggerHandler.cls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="357">
+              <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -77,8 +132,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/classes/SalesTeamService.cls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="1137" selection-start-line="1137" selection-end-line="1137" />
+            <state relative-caret-position="440">
+              <caret line="1137" selection-start-line="1137" selection-end-line="1170" selection-end-column="5" />
+              <folding>
+                <element signature="e#55640#55644#0" expanded="true" />
+                <element signature="e#55694#55702#0" expanded="true" />
+                <element signature="e#56492#56507#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,10 +146,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/classes/SalesAllocationsService.cls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="605" column="4" selection-start-line="605" selection-start-column="4" selection-end-line="605" selection-end-column="4" />
+            <state relative-caret-position="480">
+              <caret line="606" selection-start-line="606" selection-end-line="668" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#27780#27784#0" expanded="true" />
+                <element signature="e#28009#28035#0" expanded="true" />
+                <element signature="e#28368#28372#0" expanded="true" />
+                <element signature="e#28417#28421#0" expanded="true" />
+                <element signature="e#28498#28520#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,6 +172,9 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -131,6 +199,26 @@
         </entry>
       </map>
     </option>
+    <option name="projectWorkspaceSettings">
+      <ProjectWorkspaceSettings>
+        <option name="connectionWorkspaceSettings">
+          <map>
+            <entry key="Run8">
+              <value>
+                <ConnectionWorkspaceSettings>
+                  <option name="buildSuccessDatesBySourceRootRelativePath">
+                    <map>
+                      <entry key="CLASSES/SALESALLOCATIONSSERVICE.CLS" value="1632912363563" />
+                      <entry key="CLASSES/VISIBILITYTEAMMEMBERSERVICE.CLS" value="1632912321480" />
+                    </map>
+                  </option>
+                </ConnectionWorkspaceSettings>
+              </value>
+            </entry>
+          </map>
+        </option>
+      </ProjectWorkspaceSettings>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -144,6 +232,7 @@
     <option name="width" value="1750" />
     <option name="height" value="970" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="1" />
   </component>
@@ -159,23 +248,6 @@
               <item name="run8" type="b2602c69:ProjectViewProjectNode" />
               <item name="run8" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="run8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="run8" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="run8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="run8" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="run8" type="b2602c69:ProjectViewProjectNode" />
-              <item name="run8" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="triggers" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -187,6 +259,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1632912454852" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -214,16 +287,15 @@
       <option name="presentableId" value="Default" />
       <updated>1632899182864</updated>
       <workItem from="1632899187323" duration="144000" />
-      <workItem from="1632899336288" duration="3634000" />
+      <workItem from="1632899336288" duration="4218000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3778000" />
+    <option name="totallyTimeSpent" value="4362000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20872483" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -232,6 +304,7 @@
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
+      <window_info anchor="bottom" id="Problems" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -299,41 +372,99 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/VisibilityTeamMemberService.cls">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="374">
+          <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#416#432#0" expanded="true" />
+            <element signature="e#1981#2000#0" expanded="true" />
+            <element signature="e#2463#2482#0" expanded="true" />
+            <element signature="e#2792#2824#0" expanded="true" />
+            <element signature="e#2801#2824#0" expanded="true" />
+            <element signature="e#3076#3106#0" expanded="true" />
+            <element signature="e#3084#3106#0" expanded="true" />
+            <element signature="e#3096#3106#0" expanded="true" />
+            <element signature="e#3380#3402#0" expanded="true" />
+            <element signature="e#5953#5975#0" expanded="true" />
+            <element signature="e#7039#7061#0" expanded="true" />
+            <element signature="e#8234#8260#0" expanded="true" />
+            <element signature="e#8242#8260#0" expanded="true" />
+            <element signature="e#8250#8260#0" expanded="true" />
+            <element signature="e#8543#8561#0" expanded="true" />
+            <element signature="e#9425#9442#0" expanded="true" />
+            <element signature="e#9433#9442#0" expanded="true" />
+            <element signature="e#10635#10643#0" expanded="true" />
+            <element signature="e#11360#11368#0" expanded="true" />
+            <element signature="e#11760#11779#0" expanded="true" />
+            <element signature="e#12916#12935#0" expanded="true" />
+            <element signature="e#15207#15226#0" expanded="true" />
+            <element signature="e#16078#16123#0" expanded="true" />
+            <element signature="e#16086#16123#0" expanded="true" />
+            <element signature="e#16094#16123#0" expanded="true" />
+            <element signature="e#16474#16510#0" expanded="true" />
+            <element signature="e#16482#16510#0" expanded="true" />
+            <element signature="e#16571#16598#0" expanded="true" />
+            <element signature="e#17097#17124#0" expanded="true" />
+            <element signature="e#18581#18585#0" expanded="true" />
+            <element signature="e#19345#19359#0" expanded="true" />
+            <element signature="e#19424#19438#0" expanded="true" />
+            <element signature="e#24731#24748#0" expanded="true" />
+            <element signature="e#25246#25273#0" expanded="true" />
+            <element signature="e#26021#26061#0" expanded="true" />
+            <element signature="e#26029#26061#0" expanded="true" />
+            <element signature="e#26476#26506#0" expanded="true" />
+            <element signature="e#31980#31994#0" expanded="true" />
+            <element signature="e#32507#32521#0" expanded="true" />
+            <element signature="e#36533#36552#0" expanded="true" />
+            <element signature="e#36603#36607#0" expanded="true" />
+            <element signature="e#39218#39237#0" expanded="true" />
+            <element signature="e#39305#39324#0" expanded="true" />
+            <element signature="e#39434#39453#0" expanded="true" />
+            <element signature="e#39641#39664#0" expanded="true" />
+            <element signature="e#39740#39763#0" expanded="true" />
+            <element signature="e#39842#39865#0" expanded="true" />
+            <element signature="e#39952#39965#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SalesAllocationsTriggerHandler.cls">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+        <state relative-caret-position="357">
+          <caret line="28" column="10" lean-forward="true" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SalesTeamTriggerHandler.cls">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="357">
+          <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SalesTeamService.cls">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="1137" selection-start-line="1137" selection-end-line="1137" />
+        <state relative-caret-position="440">
+          <caret line="1137" selection-start-line="1137" selection-end-line="1170" selection-end-column="5" />
+          <folding>
+            <element signature="e#55640#55644#0" expanded="true" />
+            <element signature="e#55694#55702#0" expanded="true" />
+            <element signature="e#56492#56507#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/classes/SalesAllocationsService.cls">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="605" column="4" selection-start-line="605" selection-start-column="4" selection-end-line="605" selection-end-column="4" />
+        <state relative-caret-position="480">
+          <caret line="606" selection-start-line="606" selection-end-line="668" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#27780#27784#0" expanded="true" />
+            <element signature="e#28009#28035#0" expanded="true" />
+            <element signature="e#28368#28372#0" expanded="true" />
+            <element signature="e#28417#28421#0" expanded="true" />
+            <element signature="e#28498#28520#0" expanded="true" />
           </folding>
         </state>
       </provider>

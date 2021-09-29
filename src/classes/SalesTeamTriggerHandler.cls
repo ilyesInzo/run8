@@ -28,12 +28,13 @@ public with sharing class SalesTeamTriggerHandler extends TriggerHandler {
 
 	public override void afterUpdate() {
 
+		SalesTeamService.getInstance().affectNewSalesTeamToSalesAllocation(newSalesTeams,oldSalesTeamsById);
 
 		// The update will be done only when new and old Sales Teams will change, when the Sales Team is not cloned and Sales Allocations
 		// are not archived (for example when a Sales Team is updated twice the same day)
-		TriggerHandler.bypass('OpportunityTriggerHandler');
+		/*TriggerHandler.bypass('OpportunityTriggerHandler');
 		OpportunityService.getInstance().updateOpptyOwnerId(newSalesTeams,oldSalesTeamsById);		
-		TriggerHandler.clearBypass('OpportunityTriggerHandler');
+		TriggerHandler.clearBypass('OpportunityTriggerHandler');*/
 
 		SalesTeamService.getInstance().afterUpdateSalesTeam(newSalesTeamsById);
        // SalesTeamService.getInstance().updateSalesTeamsVisibility(newSalesTeams, oldSalesTeamsById, false);

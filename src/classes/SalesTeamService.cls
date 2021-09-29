@@ -1135,6 +1135,39 @@ public class SalesTeamService extends SalesService {
         }
 
     }
+    // we will do the same as updateSalesTeam but without creating the newSalesTeam as they are already created
+    // we will just get them and update the salesAllocation to point to them
+    public void affectNewSalesTeamToSalesAllocation(List<Sales_Team__c> newSTeams, Map<id, Sales_Team__c> oldSTeamsById){
 
+        system.debug('**************affectNewSalesTeamToSalesAllocation**************');
+
+        Set<Id> salesTeamToResetIds = new Set<Id>();
+
+        Set<String> fieldsToCompare = new Set<String>{'KAM__c','Manager__c','Director__c','Additional__c'};
+        for (Sales_Team__c st : newSTeams) {
+            // Check if SalesTeam users have been modified
+            system.debug(LoggingLevel.ERROR,'SalesTeamService.affectNewSalesTeamToSalesAllocation : Name = '+st.Name+' Valid_From__c = '+st.Valid_From__c+' Valid_To__c = '+st.Valid_To__c);
+            if (SObjectUtils.isModified(st,oldSTeamsById.get(st.id),fieldsToCompare) && st.Valid_From__c != CURRENT_DATE && st.Valid_To__c >= CURRENT_DATE) {
+                salesTeamToResetIds.add(st.Id);
+            }
+        }
+
+        // first we get the new created SalesTeam using the Tech_id pointing to the old once
+
+        if(!salesTeamToResetIds.isEmpty())
+        {
+            List<Sales_Team__c> newSalesTeamsInserted = new List<Sales_Team__c>([
+                    SELECT Id, Sales_Team__c , Tech_Overlapped_SalesTeam__c
+                    FROM Sales_Team__c
+                    WHERE Tech_Overlapped_SalesTeam__c IN :salesTeamToResetIds
+                    AND Valid_From__c <= TODAY
+                    AND Valid_To__c >= TODAY
+            ]);
+            // we call the method called before in the updateSalesTeam method
+            if(!newSalesTeamsInserted.isEmpty()) {
+                SalesAllocationsService.getInstance().linkClonedSalesTeamsToSalesAllocations(salesTeamToResetIds, newSalesTeamsInserted);
+            }
+        }
+    }
 
 }

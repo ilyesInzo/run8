@@ -22,19 +22,21 @@ public class SalesAllocationsTriggerHandler extends TriggerHandler {
 
 	public override void beforeInsert() {
 		SalesAllocationsService.getInstance().setSalesAllocationUniqueChecker(newSalesAllocations);		
-
+		// we will delegate the call to an async mechanism
+		SalesAllocationsService.getInstance().manageTeamMemberVisibility(newSalesAllocations, oldSalesAllocationsById, true);
 		//SalesAllocationsService.getInstance().updateRequestForSalesAllocations(newSalesAllocations, oldSalesAllocationsById);
 		// This call is intended to be removed and replaced by manageTeamMemberVisibility
-		SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, true);
+		// SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, true);
 	}
 
 	
 	public override void beforeUpdate() {
 		SalesAllocationsService.getInstance().setSalesAllocationUniqueChecker(newSalesAllocations);
-
+		// we will delegate the call to an async mechanism
+		SalesAllocationsService.getInstance().manageTeamMemberVisibility(newSalesAllocations, oldSalesAllocationsById, false);
 		SalesAllocationsService.getInstance().updateRequestForSalesAllocations(newSalesAllocations, oldSalesAllocationsById);
 		// This call is intended to be removed and replaced by manageTeamMemberVisibility
-		SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, false);
+		// SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, false);
 	}
 
 	
