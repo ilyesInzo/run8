@@ -1,0 +1,72 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="21. Coloring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Coloring__c"
+									value="{!v.selectedconfig.Coloring__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Color', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Material_Shape__c']"
+									saveddependentfields="['Material__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="24. Silk-Screening Back" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Passes__c" 
+									savedfieldName="Silk_Screening_Back__c"
+									value="{!v.selectedconfig.Silk_Screening_Back__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Oval', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Shape__c','Size__c']"
+									saveddependentfields="['Bottle_Shape__c','Neck__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="22. Silk-Screening" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Passes__c" 
+									savedfieldName="Silk_Screening__c"
+									value="{!v.selectedconfig.Silk_Screening__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Round', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Shape__c','Size__c']"
+									saveddependentfields="['Bottle_Shape__c','Neck__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="25.	Hot Stamping" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Hot_Stamping__c" 
+									savedfieldName="Bottle_Hot_Stamping__c"
+									value="{!v.selectedconfig.Bottle_Hot_Stamping__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Hot Stamping', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+											selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="23. Silk-Screening Front" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Passes__c" 
+									savedfieldName="Silk_Screening_Front__c"
+									value="{!v.selectedconfig.Silk_Screening_Front__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Oval', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Shape__c','Size__c']"
+									saveddependentfields="['Bottle_Shape__c','Neck__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        
+        
+    </div>
+</aura:component>

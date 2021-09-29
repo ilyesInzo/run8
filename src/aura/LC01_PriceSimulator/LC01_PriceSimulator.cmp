@@ -1,0 +1,104 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" 
+               controller="LC01_PriceSimulatorController" > 
+
+    
+    <aura:handler event="aura:donewaiting" action="{!c.hideSpinner}"/>
+
+    <aura:attribute name="subProducts" type="String[]" default=""/>
+
+    <aura:attribute name="selectedSubProduct" type="String"/>
+
+    <aura:attribute name="plasticproduct" type="String" default="Plastic Tubes" />
+    
+    <aura:attribute name="marketOfApplication" type="String"/>
+	<aura:attribute name="marketOfApplicationList" type="String[]"/>	
+    
+    <aura:attribute name="accountName" type="Account"/>
+
+    <aura:attribute name="opportunityName" type="String"/>
+    <aura:attribute name="qliID" type="String"/>
+    <aura:attribute name="annualQuantity" type="String"/>
+    <aura:attribute name="purefoil" type="Boolean" default="false"/>
+
+ 	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:attribute name="accounts" type="String[]" default=""/>
+
+    <aura:handler name="change" value="{!v.accountName}" action="{!c.accountChange}"/>
+    
+	<!-- PAGE HEADER -->
+	<div class="slds-page-header">
+  		<div class="slds-grid">
+        	<div class="slds-col slds-has-flexi-truncate">
+              <!--<p class="slds-text-title_caps slds-line-height_reset">PriceMatrix</p>-->
+              <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate"  title="PricematriX Simulator">PricematriX Simulator</h1>
+            </div>
+    	</div>
+    </div>
+	<!-- / PAGE HEADER -->
+    <!--  PAGE BODY -->
+    <div class="slds-page-body">
+    
+    	<div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              <!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  <span class="slds-assistive-text">Loading</span>
+                  <div class="slds-spinner__dot-a"></div>
+                  <div class="slds-spinner__dot-b"></div>
+                </div>
+              </div>
+     	</div>    
+        
+    <div class="slds-form-element">
+    	<c:customLookup objectAPIName="account" IconName="standard:account" label="Account Name" selectedRecord="{!v.accountName}"/>
+    </div>
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" >Opportunity Name</label>
+        <ui:inputText  value="{!v.opportunityName}" required="true"/>              
+    </div>
+    
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" >Sub Segment Product</label>
+        <ui:inputSelect aura:id="inputSelectId" value="{!v.selectedSubProduct}" class="slds-select" required="true">
+            <option>--None--</option>
+            <aura:iteration items="{!v.subProducts}" var="subProductItem" indexVar="index">
+                <option value="{!subProductItem}">{!subProductItem}</option>
+            </aura:iteration>
+        </ui:inputSelect>
+    </div>
+        
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" >Annual Quantity (KU)</label>
+        <ui:inputNumber  value="{!v.annualQuantity}" required="true"/>              
+    </div>
+        
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" >Market Of Application</label>
+        <ui:inputSelect value="{!v.marketOfApplication}" class="slds-select" required="true">
+        	<aura:iteration items="{!v.marketOfApplicationList}" var="market" indexVar="index">
+                    <option text ="{!market}" value="{!market}" />
+            </aura:iteration>
+        </ui:inputSelect>
+    </div>
+
+    <aura:if isTrue="{!v.selectedSubProduct == v.plasticproduct}">
+
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" >Purefoil Segment ? </label>
+            <ui:inputCheckbox aura:id="checkbox" value="{!v.purefoil}"/>              
+        </div>
+    </aura:if>    
+        <br/>
+    <div class="slds-form-element">
+    	<div class="slds-text-align--right">
+        	<div class="open-productconfig-laminatetube-page"  >
+            	<lightning:button variant="brand" label="Simulation" 
+                              iconName="utility:settings" iconPosition="left" onclick="{!c.openProductConfigPage}"
+                             />
+            </div>
+     	</div>
+    </div>
+    </div>
+    <!-- / PAGE BODY -->
+</aura:component>

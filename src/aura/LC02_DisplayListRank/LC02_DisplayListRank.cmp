@@ -1,0 +1,128 @@
+<aura:component controller="LC02_DetailRankController" implements="force:appHostable">
+
+       	<aura:attribute name="contactId" type="String"/>
+    	<!--<aura:attribute name="badgeId" type="String"/>-->
+    	<aura:attribute name="badgeName" type="String"/>
+    	
+    	<aura:attribute name="badgeList" type="List" />
+    	<aura:attribute name="yourPosition" type="Object"/>
+    	<aura:attribute name="start" type="Object" default="0"/>
+    	<aura:attribute name="end" type="Object" default="10"/>
+    	<aura:attribute name="color" type="String" default=""/>
+    
+    	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <div>
+    	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal--large">
+		    <div class="slds-modal__container">
+                <div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              			<!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              			<div class="slds-spinner_container">
+                			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  				<span class="slds-assistive-text">Loading</span>
+                  				<div class="slds-spinner__dot-a"></div>
+                  				<div class="slds-spinner__dot-b"></div>
+                			</div>
+              			</div>
+     				  </div>
+		    	<!-- Modal Header -->
+			    <header class="slds-modal__header">
+			        <lightning:buttonIcon iconName="utility:close" class="slds-modal__close" size="large" variant="bare" alternativeText="Close" onclick="{! c.closeModal }"/>
+			        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.badgeName} : Top 10</h2>
+			     </header>
+    			 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+               
+    				<div class="slds-box slds-theme_shade slds-theme_alert-texture">
+                           <strong>Top 10 :</strong>
+                       </div>
+                     <br/>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Rank">Rank</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="User Name">User name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Won Points">Won points</div>
+                                </th>
+                            </tr>
+                        </thead>
+                          <tbody>
+                              <aura:iteration items="{!v.badgeList}" var="contact" indexVar="i">
+                                  <aura:if isTrue="{!v.end > i}">
+                                	<aura:if isTrue="{!v.contactId == contact.Contact__c}">
+                                        <tr bgcolor="#F3F2F2" class="slds-hint-parent">
+                                            <th data-label="rank" scope="row">
+                                                <div class="slds-truncate" title="rank">{!i+1}</div>
+                                            </th>
+                                            <td data-label="Contact Name">
+                                                <div class="slds-truncate" title="Namecontact">{!contact.Contact__r.Name}</div>
+                                            </td>
+                                            <td data-label="Close Date">
+                                                <div class="slds-truncate" title="wonpoints">{!contact.Won_points__c}</div>
+                                            </td>
+                                        </tr>
+                                        <aura:set attribute="else">
+                                            <tr class="slds-hint-parent">
+                                              <th data-label="rank" scope="row">
+                                                <div class="slds-truncate" title="rank">{!i+1}</div>
+                                              </th>
+                                              <td data-label="Contact Name">
+                                                <div class="slds-truncate" title="Namecontact">{!contact.Contact__r.Name}</div>
+                                              </td>
+                                              <td data-label="Close Date">
+                                                <div class="slds-truncate" title="wonpoints">{!contact.Won_points__c}</div>
+                                              </td>
+                                            </tr>  
+                                        </aura:set>	
+                                	</aura:if>   
+                                </aura:if>
+                              </aura:iteration>
+                          </tbody>
+                    </table>
+                     <br/>
+                   <aura:if isTrue = "{!v.yourPosition != null}">
+                       <div class="slds-box slds-theme_shade slds-theme_alert-texture">
+                           <strong>Your Rank :</strong>
+                       </div>
+                    	<br/>
+                       <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Rank">Rank</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="User Name">User name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Won Points">Won points</div>
+                                </th>
+                            </tr>
+                        </thead>
+                          <tbody>
+                              
+                                <tr class="slds-hint-parent">
+                                  <th data-label="rank" scope="row">
+                                    <div class="slds-truncate" title="rank">{!v.yourPosition.Badge__r.Name}</div>
+                                  </th>
+                                  <td data-label="Contact Name">
+                                    <div class="slds-truncate" title="Namecontact">{!v.yourPosition.Contact__r.Name}</div>
+                                  </td>
+                                  <td data-label="Close Date">
+                                    <div class="slds-truncate" title="wonpoints">{!v.yourPosition.Won_points__c}</div>
+                                  </td>
+                                </tr>
+                              
+                          </tbody>
+                    </table> 
+                   </aura:if>
+                </div>
+            </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

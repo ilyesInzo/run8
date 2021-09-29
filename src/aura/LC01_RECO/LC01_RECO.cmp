@@ -1,0 +1,79 @@
+<aura:component implements="force:appHostable" access="global" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" afterScriptsLoaded="{!c.initial}"/>
+<!--     <aura:attribute name="qli" type="QuoteLineItem" required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="lstQuotedPriceMOQ" type="List" />
+    <aura:attribute name="LayoutEUTube" type="boolean" default="false" />
+    <aura:attribute name="productLine" type="string" default="Tubes" />
+    <aura:attribute type="Aura.Component[]" name="position3" />
+    <aura:attribute type="Aura.Component[]" name="position5" />
+    <aura:attribute type="Aura.Component[]" name="position6" />
+    <aura:attribute type="Aura.Component[]" name="header4" />
+    <aura:attribute type="Aura.Component[]" name="header5" />
+    <aura:attribute type="Aura.Component[]" name="header6" />
+    <aura:handler name="LE00_QuoteLineReady" event="c:LE00_QuoteLineReady" action="{!c.doInit}"/>
+    <div class="slds pm">
+        <c:LC01_Header pageName="RECO" qli="{!v.qli}"/>
+        <!-- div class="slds-text-align- -right slds-p-right- -medium">Customer Name - Project Name</div -->
+        <c:LC01_Wizard qliId="{!v.qliId}" />
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-right--medium slds-m-top--medium">
+               
+                 <c:LC00_RECO_Header  headerName="{!$Label.c.LBL_CustomerDealServiceScoring}" /> 
+                <c:LC01_RECO_Scorings qli="{!v.qli}" />
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-left--medium slds-m-top--medium">
+                <c:LC00_RECO_Header  headerName="{!$Label.c.LBL_ProductConfiguration}" helpText="{!$Label.c.HT_Product_Config}" width="200px"/>           
+                <c:LC01_RECO_ProductConfig qliId="{!v.qliId}" qli="{!v.qli}" />
+            </div>
+        </div>
+        
+        <div class="slds-grid slds-wrap">
+            <aura:if isTrue="{!v.LayoutEUTube}" >
+            <div class="slds-col slds-size--1-of-1 slds-large-size--1-of-1 slds-p-bottom--small slds-p-right--medium">
+                <c:LC00_RECO_Header  headerName="{!$Label.c.LBL_CustomerProductKeyInformation}" />              
+                <c:LC01_RECO_RecapTable   qli="{!v.qli}"  />            
+            </div>
+           <aura:set attribute="else">                  
+                <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-right--medium">
+                     <c:LC00_RECO_Header  headerName="{!$Label.c.LBL_CustomerProductKeyInformation}" />                 
+                    <c:LC01_RECO_CustomerProductKeyInfo qliId="{!v.qliId}"  qli="{!v.qli}"/>
+            	</div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-left--medium">
+               <c:LC00_RECO_Header headerNumber="4." headerName="{!$Label.c.LBL_PriceRecoProduct}" helpText="{!$Label.c.HT_Price_Reco}" width="200px"/>                                          
+                <c:LC01_RECO_PriceReco qliId="{!v.qliId}" qli="{!v.qli}" qliCurrency="{!v.qli.Billing_Currency_Symbol__c}"/>
+            </div>
+                    </aura:set>
+             </aura:if>
+        </div>
+            
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-right--medium">
+                                  
+                {!v.header4}
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <ui:inputTextArea value="{!v.qli.Deal_and_Context_Comments__c}" rows="5" change="{!c.savechanges}" class="slds-textarea bgLightYellow"/>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-left--medium">
+                  <!--<c:LC00_RECO_Header headerNumber="5." headerName="{!v.label5}" helpText="{!$Label.c.HT_Quoted_Price}" width="200px"/>!-->
+                	{!v.header5}
+                    {!v.position5}         
+            </div>
+        </div>
+        
+         <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-right--medium">
+                
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-p-bottom--small slds-p-left--medium">
+                 <!--<c:LC00_RECO_Header headerNumber="6." headerName="{!v.label6}" helpText="{!$Label.c.HT_Quoted_Price}" width="200px"/> !-->                               
+                {!v.header6}
+                {!v.position6}
+            </div>
+        </div>
+    
+    </div>
+    
+</aura:component>

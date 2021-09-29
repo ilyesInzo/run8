@@ -1,0 +1,296 @@
+<aura:component implements="force:appHostable" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem"> 
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:attribute name="servicetube" type="PM_Selected_Service_Tubes_Config__c" description="service tube config" default="{ 'sobjectType': 'PM_Selected_Service_Tubes_Config__c'}" />
+    <aura:attribute name="configPageName" type="String"/>    
+    <aura:attribute name="configId" type="String" />
+    
+    
+<!--     <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    
+    
+    <div class="slds pm">
+        <c:LC01_ServiceTubeConfig_Header pageName="Services Offer for Plastic &amp; Purefoil Tubes" qli="{!v.qli}" configId="{!v.configId}" serviceId="{!v.servicetube.Id}" isService="true" configPageName="{!v.configPageName}"/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <div class="albea-header">
+                    <h2>Artwork (Plastic Tubes)</h2> 
+                </div>
+                <div class="albea-header">
+                    <h3>Minimum Development Costs</h3>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="1. BAG" value="{!v.servicetube.BAG_Detail__c}"  />
+						
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="3 .Plates" value="{!v.servicetube.Plates_Detail__c}"  /> 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="2. BAT Printing Proof" value="{!v.servicetube.BAT_Printing_proof_Detail__c}"  />
+                    </div>
+                </div>
+                <div class="albea-header slds-m-top--small">
+                    <h3>Options</h3>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="4. Plate HS dye" value="{!v.servicetube.Plate_HS_dye_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="8. BAT Flat printing proof" value="{!v.servicetube.BAT_Flat_printing_proof_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="5. BAT Color Matching Sleeve" value="{!v.servicetube.BAT_Color_Matching_Sleeve_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="9. Toner formulation w/o BAT" value="{!v.servicetube.Toner_formulation_w_o_BAT_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="6. BAT Color Matching Cap" value="{!v.servicetube.BAT_Color_Matching_Cap_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="# B.A.T HS dye" value="{!v.servicetube.B_A_T_HS_dye_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="7. BAT Color Matching Pumps" value="{!v.servicetube.BAT_Color_Matching_Pumps_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                            <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  label="11. BAG modification" value="{!v.servicetube.BAG_modification_Detail__c}"  />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--center"
+                         style="background-color: gray;color: white;font-weight: bold;padding-bottom: 2px;padding-top: 2px;">
+                        Total price for Artwork
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--right">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Total_price_for_Artwork__c}" />
+                    </div>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <div class="albea-header">
+                    <h2>Samples &amp; Preproduction</h2>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-3">
+                </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3">
+                        <div class="albea-header">
+                            <h3>Samples</h3>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3">
+                        <div class="albea-header">
+                            <h3>Preproduction</h3>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3">
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <!--
+                    Diameter
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Diameter</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <ui:inputNumber value="" class="input-gray" disabled="true" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Diameter__c}"/>
+                    </div>
+                    <!--
+                    Head
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Head</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Head__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <ui:inputNumber value="" class="input-gray" disabled="true" />
+                    </div>
+                    <!--
+                    Cap
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Cap</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Cap__c}"/>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Cap__c}" />
+                    </div>
+                    <!--
+                    Cap decoration
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Cap decoration</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Cap_decoration__c}"/>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Cap_decoration__c}" />
+                    </div>
+                    <!--
+                    Cap color
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Cap color</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Cap_color__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Cap_color__c}" />
+                    </div>
+                    <!--
+                    Sleeve length
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Sleeve length</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Sleeve_length__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <ui:inputNumber value="" class="input-gray" disabled="true" />
+                    </div>
+                    <!--
+                    Sleeve type
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Sleeve type</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Sleeve_type__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Sleeve_type__c}" />
+                    </div>
+                    <!--
+                    Sleeve Material Mix
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Sleeve Material Mix</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Sleeve_Material_Mix__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Sleeve_Material_Mix__c}" />
+                    </div>
+                    <!--
+                    Shape
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Shape</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Shape__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Shape__c}" />
+                    </div>
+                    <!--
+                    Sleeve color
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Sleeve color</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Sleeve_color__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Sleeve_color__c}"/>
+                    </div>
+                    <!--
+                    Head color
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Head color</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <ui:inputText value="" class="input-gray" disabled="true" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Head_color__c}" />
+                    </div>
+                    <!--
+                    # of Flexo colors
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p># of Flexo colors</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_of_Flexo_colors__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_of_Flexo_colors__c}" />
+                    </div>
+                    <!--
+                    # of Offset colors
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p># of Offset colors</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_of_Offset_colors__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_of_Offset_colors__c}" />
+                    </div>
+                    <!--
+                    # of SS colors
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p># of SS colors</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_of_SS_colors__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_of_SS_colors__c}" />
+                    </div>
+                    <!--
+                    Hot stamp
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Hot stamp</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Hot_stamp__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Hot_stamp__c}" />
+                    </div>
+                    <!--
+                    Peel Seal
+                    -->
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    <p>Peel Seal</p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Samples_Peel_Seal__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    	<c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Preproduction_Peel_Seal__c}" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Total_price_for_Samples__c}" class="input-gray" />
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--xx-small">
+                        <c:LC01_ServiceCurrencyComponent currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"  value="{!v.servicetube.Total_price_for_Preproduction__c}" class="input-gray"  />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,58 @@
+<aura:component extends="c:LC00_Section" controller="LC01_SelectedProductConfigCtrl">
+    
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="open2" type="Boolean" default="false"/>
+    <aura:attribute name="collapsible" type="Boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+      
+    <aura:attribute name="displayDetails" type="Boolean" default="false" /> 
+    
+    <aura:handler event="c:LC00_DependentFieldsEvent" action="{!c.hideDetailsJS}" />
+    
+   
+    <c:LC01_ProductConfig_PriceTable qli="{!v.qli}" 
+                                     selectedConfig="{!v.selectedconfig}" 
+                                     selectedConfigType="PM_Selected_Dipsensing_Config__c" 
+                                     detailPageComponentName="LC01_Detail_EU_DispensingFoam"/>
+                                     
+                                     
+     <div class="slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small ">
+        
+        
+        
+      
+         <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size--1-of-3">
+             	<label class="slds-form-element__label" >Price </label>  
+            	<div class="slds-form-element__control">
+            		<ui:inputText aura:id="Incoterm__c" value="{!v.selectedconfig.Incoterm__c}" disabled="true"  />
+            	</div>
+         </div>
+    </div>   
+     <aura:if isTrue="{!v.qli.Id != null}">
+        
+
+        <div class="{!v.open2 ? 'slds-section slds-is-open' : 'slds-section'}" style="margin-top: 30px;margin-bottom:50px" >
+            <h3 class="slds-section__title" onclick="{!c.displayDetailsJS }" >
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <aura:if isTrue="{!v.collapsible}">
+                        <lightning:icon iconName="{!v.displayDetails == true?'utility:chevronright':'utility:chevronup'}" size="xx-small"/>
+                    </aura:if>
+                    
+                    Details
+                </button>
+            </h3>
+            <aura:if isTrue="{!v.displayDetails == true}">
+                <div style ="margin-top:30px;" >
+                   <c:LC01_Detail_EU_DispensingFoam qliId="{!v.qli.Id}" />
+                </div>
+            </aura:if>
+
+            
+           
+        </div>
+        
+           
+    </aura:if>                              
+    
+</aura:component>

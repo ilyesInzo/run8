@@ -1,0 +1,58 @@
+<aura:component extends="c:LC00_Section">
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="35. Pack Type" 
+									fieldName="Pack_Type__c" 
+									savedfieldName="Pack_Type__c"
+									value="{!v.selectedconfig.Pack_Type__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Laminate', Table_Name__c : 'Pack Type', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+		
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">            			
+			<c:LC00_DependantFields label="37. Polysheet" 
+									fieldName="Name" 
+									savedfieldName="Polysheet__c"
+									value="{!v.selectedconfig.Polysheet__c}" 
+									objectName="ProductConfigYesNo__c" 
+									parameters="{}" 
+									dependentfields="" 
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+			
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="36. Pallet" 
+									fieldName="Pallet__c" 
+									savedfieldName="Pallet__c"
+									value="{!v.selectedconfig.Pallet__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Laminate', Table_Name__c : 'Pallet', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Pack_Type__c']" 
+									saveddependentfields="['Pack_Type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div> 
+        
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">          			
+			<c:LC00_DependantFields label="38. Make and Ship" 
+									fieldName="Name" 
+									savedfieldName="Make_and_Ship__c"
+									value="{!v.selectedconfig.Make_and_Ship__c}" 
+									objectName="ProductConfigYesNo__c" 
+									parameters="{}" 
+									dependentfields="" 
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+    </div>
+</aura:component>

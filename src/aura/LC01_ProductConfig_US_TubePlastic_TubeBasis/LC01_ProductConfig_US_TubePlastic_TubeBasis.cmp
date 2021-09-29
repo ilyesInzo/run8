@@ -1,0 +1,86 @@
+<aura:component extends="c:LC00_Section">     
+
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">                                    
+        	<c:LC00_DependantFields label="1. Shape" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Shape__c" 
+									value="{!v.selectedconfig.Shape__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Shape', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									savedfieldName="Shape__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">			
+			<c:LC00_DependantFields label="4. Sleeve Length" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Sleeve_Length_inches__c" 
+									value="{!v.selectedconfig.Sleeve_Length_inches__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Fill Capacity', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c','Fill_Capacity_Oz__c']" 
+									savedfieldName="Sleeve_Length_inches__c"
+									saveddependentfields="['Diameter_inches__c','Fill_Capacity_Oz__c']"
+									isDisabled="true"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+            <c:LC00_MessageInfo messagestart="Length: "  messageend="mm" color="red" tablename="Sleeve length conversion inches-mm" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Sleeve_Length_inches__c" fieldreturnval="Sleeve_Length_mm__c" location="US" tubesegment="Plastic" />
+								
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+        <c:LC00_DependantFields label="2. Tube Diameter" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Diameter_inches__c" 
+									value="{!v.selectedconfig.Diameter_inches__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Diameter', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Shape__c']" 
+									savedfieldName="Diameter_inches__c"
+									saveddependentfields="['Shape__c']"
+							    	selectedConfig="{!v.selectedconfig}"
+									/> 
+										
+            <c:LC00_MessageInfo messagestart="Ø in mm: "  messageend="mm" color="red" tablename="Diameter" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Diameter_inches__c" fieldreturnval="Diameter_mm__c" location="US" tubesegment="Plastic" />
+								
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">5. Specific (inches)</label>
+            <ui:inputText disabled="false" value="{!v.selectedconfig.Specific_Length_inches__c}" placeholder="Example 1 2/3"/>
+			
+            <c:LC00_MessageInfo messagestart="Max: "  messageend="" color="red" tablename="Diameter" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Diameter_inches__c" fieldreturnval="Max_length__c" location="US" tubesegment="Plastic" />
+								
+        </div> 
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	
+        	<c:LC00_DependantFields label="3. Fill Capacity (Oz)" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Fill_Capacity_Oz__c" 
+									value="{!v.selectedconfig.Fill_Capacity_oz__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Fill Capacity', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c']" 
+									savedfieldName="Fill_Capacity_Oz__c"
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									                 
+							
+            <c:LC00_MessageInfo messagestart="capa: "  messageend="ml" color="red" tablename="Fill Capacity" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Fill_Capacity_Oz__c" fieldreturnval="Fill_capacity_ml__c" location="US" tubesegment="Plastic" />
+								
+        </div>
+        
+        
+    </div>
+	
+	
+</aura:component>

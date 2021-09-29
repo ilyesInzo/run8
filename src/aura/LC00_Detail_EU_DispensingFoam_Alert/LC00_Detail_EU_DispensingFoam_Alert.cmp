@@ -1,0 +1,16 @@
+<aura:component extends="c:LC00_Modal">
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+	<div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">Warning</h2>
+        <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.dismissModal}">
+            <lightning:icon iconName="utility:close" size="medium" alternativeText="Close"/>
+            <span class="slds-assistive-text">Close</span>
+        </button>
+    </div>
+    <div class="slds-modal__content slds-p-around--medium">
+        <p>Please beware that following information are confidential and should not be communicated to customer</p>
+    </div>
+	<div class="slds-modal__footer">
+        <button class="slds-button slds-button--neutral" onclick="{!c.dismissModal}">OK</button>
+    </div>
+</aura:component>

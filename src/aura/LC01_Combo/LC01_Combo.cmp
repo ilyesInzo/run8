@@ -1,0 +1,67 @@
+<aura:component implements="force:appHostable" extends="c:LC00_Modal" controller="LC01_SelectedProductConfigCtrl">
+	<ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+	
+    <aura:attribute name="numVersion" type="Integer[]" default="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50" />
+    <aura:attribute name="numPlate" type="Integer[]" default="1,2,3,4,5,6,7,8,9,10" />
+    <aura:attribute name="savedConfig" type="Object" description="Saved config"/>
+    
+    <aura:registerEvent name="LE01_Combo" type="c:LE01_Combo" />
+    <aura:registerEvent name="SelectedTubeEvent" type="c:LE00_SelectedTube"/>     
+    <aura:handler event="c:LE01_Combo" action="{!c.handleEvent}"/>
+    
+    <div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">Combo</h2>
+        <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.dismissModal}">
+            <lightning:icon iconName="utility:close" size="medium" alternativeText="Close"/>
+            <span class="slds-assistive-text">Close</span>
+        </button>
+    </div>
+    <div class="pm">
+        <div class="slds-modal__content slds-p-around--medium">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-bottom--medium">
+                    <ul>
+                        <li>Please note that a combo requires three conditions:</li>
+                        <li>
+                            <ul class="slds-list--dotted slds-is-nested">
+                                <li>The tube must have exactly the same specifications</li>
+                                <li>Only a change of colors and / or text is possible</li>
+                                <li>The minimum per artwork is 10 000 tubes</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr/>
+
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <p>Enter the number of versions: </p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <ui:inputSelect value="{!v.savedConfig.Combo_Num_Versions__c}" aura:id="Combo_Num_Versions__c"/>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <p>Enter the plate changes: </p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <ui:inputSelect value="{!v.savedConfig.Combo_Num_Plate_Changes__c}" aura:id="Combo_Num_Plate_Changes__c"/>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <p>Enter the number of tubes per artwork: </p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <ui:inputNumber value="{!v.savedConfig.Combo_Num_Tubes_Artwork__c}"  aura:id="Combo_Num_Tubes_Artwork__c"/>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <ui:button class="slds-float--right" label=">> OK" press="{!c.savechanges}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-modal__footer">
+                <p class="slds-float--left">If your quotation is not concerned by a combo, just click on this button</p>
+                <button class="slds-button slds-button--neutral" onclick="{!c.cancelchanges}">CANCEL</button>
+    </div>
+</aura:component>

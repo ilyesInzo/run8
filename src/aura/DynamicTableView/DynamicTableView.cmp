@@ -1,0 +1,270 @@
+<aura:component controller="DynamicTableViewController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:appHostable" access="global" >
+    <ltng:require styles="{!$Resource.ToastMultipleLines}" />
+    <aura:attribute name="sObjectName" type="String"/>
+    <aura:attribute name="fieldSetName" type="String"/>
+    <aura:attribute name="fieldSetValues" type="List"/>
+    <aura:attribute name="tableRecords" type="List"/>
+    <aura:attribute name="tableRecordsInit" type="List"/>
+    <aura:attribute name="filters" type="String"/>
+    <aura:attribute name="showSpinner" type="Boolean" default ="false"/>
+    <aura:attribute name="searchKey" type="String" />
+    <aura:attribute name="showSaveCancelBtn" type="boolean" default="false"/>
+    <aura:attribute name="updatedRecordList" type="Map" default="{}"/>
+    <aura:attribute name="selectedRecordList" type="Map" default="{}"/>
+    <aura:attribute name="saveListFields" type="List" default="[]" />
+    <aura:attribute name="nbUpdatedRows" type="String" default="0" />
+    <aura:attribute name="nbSelectedRows" type="String" default="0" />
+    <aura:attribute name="displaySelectedColumns" type="boolean" default="false"/>
+    <aura:attribute name="displayNBUpdatedRows" type="boolean" default="false"/>
+    <aura:attribute name="totalRecordsCount" type="Integer" default="0"/>
+    <!-- Select All Option -->
+    <aura:attribute name="needToSelectAll" type="boolean" default="false"/>
+    <aura:attribute name="sameValToAll" type="boolean" default="true"/>
+    <aura:attribute name="allCheckboxes" type="Map" default="{}"/>
+    <aura:attribute name="displayPopupSuccess" type="boolean" default="false"/>
+    <aura:attribute name="displayPopupFailed" type="boolean" default="false"/>
+    
+    <!-- end selection -->
+    
+    <!-- Manage Pagination -->
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+    <aura:attribute name="currentPageString" type="String" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="pageList" type="List"/>
+    <aura:attribute name="allData" type="List"/>
+    <!-- END Manage Pagination -->
+    
+    <aura:attribute name="listTitle" type="String" default="ALL Rows"/>
+    
+    <!-- For NZ2 Only -->
+    <aura:attribute name="needRejectApproveBtn" type="boolean" default="false"/>
+    <aura:attribute name="showAppRejectBtn" type="boolean" default="false"/>
+    <!-- End For NZ2 -->
+    
+    <!-- Display Message when no returned User -->
+    <aura:attribute name="messageToShow" type="String" default="No Record To Display"/>
+    
+    <!-- End Display -->
+    
+    <aura:handler name="change" value="{!v.searchKey}" action="{!c.doFilter}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    <aura:handler event="c:GetUpdatedRecord" action="{!c.handleApplicationEvent}"/>
+    <aura:handler event="c:GetSelectedRecord" action="{!c.handleSelectionEvent}"/>
+    
+    
+    <!-- Test new designed search bar {!$Label.c.labelName} -->
+    
+    <!-- end test -->
+    
+    
+    
+    <div class="slds-page-header" style="padding-left:25%;padding-right:25%;padding-top:30px;padding-bottom:30px;">
+        <!-- Test Add ICON -->
+        <div class="slds-form-element">
+            <!--<label class="slds-form-element__label" for="text-input-id-1">Search ALL</label>-->
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" iconName="utility:search" size="x-small" alternativeText="Search address"/>
+                <!-- <input id="text-input-id-1" class="slds-input" type="text" value="" /> -->
+                <lightning:input   name="x" value="{!v.searchKey}" label="" placeholder=""/>
+            </div>
+        </div>
+        <!-- End Test -->
+        <!--<div  class="SearchBar">
+        <lightning:input  name="x" value="{!v.searchKey}" label="Search" placeholder=""/>
+    </div> -->
+    </div>
+    <div class="slds-page-header">
+        <aura:if isTrue="{!v.displaySelectedColumns}">
+            <p>Selected Rows Number: {!v.nbSelectedRows} </p>
+        </aura:if>
+        <aura:if isTrue="{!v.displayNBUpdatedRows}">
+            <p>Updated Rows Number: {!v.nbUpdatedRows} </p>
+        </aura:if>
+        <!--<ui:outputText  value=""/>-->
+    </div>
+    <!-- Pagination Part -->
+    <lightning:card title="{!v.listTitle}">
+        
+        <lightning:layout multipleRows="true" horizontalAlign="center">
+            <lightning:layoutItem padding="around-small" size="12">
+                
+                
+                <div class="spinnerHolder">
+                    <lightning:spinner aura:id="spinner" alternativeText="Loading" variant="brand" size="medium" />
+                </div>     
+                <!-- End Pag -->
+                <aura:if isTrue="{!v.totalRecordsCount == 0}">
+                    <div class="slds-page-header">
+                        
+                        <!--  <p style="color:red;"> {!v.messageToShow} </p>  -->
+                        <!--  <center><lightning:spinner alternativeText="Loading" variant="brand" size="medium" /></center>  -->
+                        
+                    </div>
+                </aura:if>
+                <div class="slds" style="overflow:scroll; width:100%;height:550px;">
+                    <table class="slds-table slds-table--bordered" >
+                        <thead>
+                            
+                            <tr class="slds-text-title_caps">
+                                <aura:if isTrue="{!v.displaySelectedColumns}">
+                                    <th style="width:3.25rem;" class="slds-text-align_right">
+                                        <div class="slds-form-element">
+                                            <div class="slds-form-element__control">
+                                                <label class="slds-checkbox">
+                                                    <ui:inputCheckbox disabled="{!v.totalRecordsCount == 0}"
+                                                                      aura:id="selectAllId"
+                                                                      change="{!c.selectAllCheckbox}"/>
+                                                    <span class="slds-checkbox_faux"></span>
+                                                    <span class="slds-form-element__label"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </aura:if>
+                                <aura:iteration items="{!v.fieldSetValues}" var="field">
+                                    <!-- <th> {!field.label}</th> -->
+                                    <aura:if isTrue ="{!or(field.display == null, field.display != 'false')}" >
+                                        <th> {!field.label}</th>
+                                    </aura:if>
+                                </aura:iteration>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <aura:if isTrue="{!v.totalRecordsCount != 0}">
+                                
+                                <aura:iteration items="{!v.tableRecords}" var="row" indexVar="index">
+                                    <tr class="slds-truncate">
+                                        <aura:if isTrue="{!v.displaySelectedColumns}">
+                                            <th scope="row" class="slds-text-align_right" style="width:3.25rem;">
+                                                
+                                                <!-- <c:DisplayTableRow row="{!row}" uniqueId="{!index}"/> -->
+                                                <aura:if isTrue="{!v.needToSelectAll}" >
+                                                    <c:DisplayTableRow  row="{!row}"  val="{!v.sameValToAll}" fromSelectALL="{!v.needToSelectAll}" listCheckBoxes="{!v.allCheckboxes}" index="{!index}" currentPageNum="{!v.currentPageString}"/>
+                                                    
+                                                    <aura:set attribute="else">
+                                                        <c:DisplayTableRow  row="{!row}" listCheckBoxes="{!v.allCheckboxes}" index="{!index}" currentPageNum="{!v.currentPageString}"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </th>
+                                        </aura:if>
+                                        
+                                        <!--<c:DynamicTableLine record="{!row}" listFields="{!v.fieldSetValues}" showSaveCancelBtn="{!v.showSaveCancelBtn}"/> -->
+                                        <aura:iteration items="{!v.fieldSetValues}" var="field">
+                                            <aura:if isTrue ="{!or(field.display == null, field.display != 'false')}" >
+                                                <td>
+                                                    <c:LightningCell record="{!row}" field="{!field}" showSaveCancelBtn="{!v.showSaveCancelBtn}"/>
+                                                </td>
+                                            </aura:if>
+                                            
+                                        </aura:iteration>
+                                    </tr>
+                                </aura:iteration>
+                                
+                            </aura:if>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <center>
+                    <!-- use aura:if for show/hide buttons -->
+                    <aura:if isTrue="{!v.showSaveCancelBtn}">
+                        <!--button for save and cancel Record after Inline Edit-->
+                        <lightning:button label="Cancel" onclick="{!c.Cancel}" iconName="utility:refresh" iconPosition="right"/>&nbsp;
+                        <lightning:button label="Save" onclick="{!c.Save}" iconName="utility:save" iconPosition="right"/>
+                    </aura:if>
+                    <!-- This Part is used for NZ2 , to update request Status in sales Team or sales Alloc -->
+                    
+                    <aura:if isTrue="{!and(v.needRejectApproveBtn,v.showAppRejectBtn)}">
+                        <lightning:button label="Reject" iconName="action:reject" iconPosition="right" onclick="{!c.Reject}"/>
+                        <lightning:button label="Approve" iconName="action:approval" iconPosition="right" onclick="{!c.Approve}"/>
+                    </aura:if>
+                    
+                    <!-- End Part -->
+                </center>
+                <!-- Pagination Part 2 -->
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem padding="around-small" flexibility="auto">
+                
+                <lightning:button label="First" iconName="utility:left" iconPosition="left"
+                                  onclick="{!c.onFirst}" disabled="{! v.currentPageNumber == 1}"/>
+                
+                <lightning:button iconName="utility:chevronleft" iconPosition="left"
+                                  onclick="{!c.onPrev}" disabled="{! v.currentPageNumber == 1}"/>
+                
+                <span class="slds-p-horizontal_x-small">
+                    <a onclick="{!c.processMe}" name="1"
+                       style="{! (v.currentPageNumber == 1) ? 'font-weight: bold;color:rgb(81, 79, 77)' : ''}">1</a>
+                </span>
+                <span class="slds-p-horizontal_xxx-small">
+                    <a>...</a>
+                </span>
+                
+                <aura:iteration items="{!v.pageList}" var="item" >
+                    
+                    <span class="slds-p-horizontal_x-small ">
+                        
+                        <a onclick="{!c.processMe}" name="{!item}"
+                           style="{! (v.currentPageNumber == item) ? 'font-weight: bold;color:rgb(81, 79, 77)' : ''}">{!item}</a>
+                        
+                    </span>
+                    
+                </aura:iteration>
+                
+                <span class="slds-p-horizontal_xxx-small">
+                    <a>...</a>
+                </span>
+                <span class="slds-p-horizontal_x-small">
+                    <a onclick="{!c.processMe}" name="{!v.totalPages}"
+                       style="{! (v.currentPageNumber == v.totalPages) ? 'font-weight: bold;color:rgb(81, 79, 77)' : ''}">{!v.totalPages}</a>
+                </span>
+                <lightning:button iconName="utility:chevronright" iconPosition="right"
+                                  disabled="{! v.currentPageNumber == v.totalPages}" onclick="{!c.onNext}"/>
+                <lightning:button label="Last" iconName="utility:right" iconPosition="right"
+                                  disabled="{! v.currentPageNumber == v.totalPages}" onclick="{!c.onLast}"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+    <aura:if isTrue="{!v.displayPopupSuccess == true}">
+        <div class="popup slds-modal__container"> 
+            <div class="slds-modal__content" style="margin-top: -450px;position: absolute; margin-left: 25%; width: 60%;"> 
+                <div style="width: 100%;height: 40px; background-color: Green;text-align: center;padding-top: 1px;">
+                    <p class="slds-text-title--caps title" >
+                        Success
+                    </p> 
+                </div>
+                <p class="slds-text-heading--small" style="margin: 17px;text-align:center;font-size: 13px;">
+                    Saved successfully!
+                </p> 
+                
+                
+                
+            </div> 
+        </div>
+        
+    </aura:if>
+    
+    <aura:if isTrue="{!v.displayPopupFailed == true}">
+        <div class="popup slds-modal__container"> 
+            <div class="slds-modal__content" style="margin-top: -450px;position: absolute; margin-left: 25%; width: 60%;"> 
+                <div style="width: 100%;height: 40px; background-color: Red;text-align: center;padding-top: 1px;">
+                    <p class="slds-text-title--caps title" >
+                        Failed
+                    </p> 
+                </div>
+                <p class="slds-text-heading--small" style="margin: 17px;text-align:center;font-size: 13px;">
+                    Failed To Save
+                </p> 
+                
+                
+                
+            </div> 
+        </div>
+        
+    </aura:if>
+    
+    
+    <!-- End Pag Part -->
+</aura:component>

@@ -1,0 +1,78 @@
+<aura:component extends="c:LC00_Section" controller="LC01_SelectedProductConfigCtrl">
+
+    <aura:attribute name="selectedtubeconfig" type="PM_Selected_Tubes_Config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}" />
+            
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           
+            <c:LC00_DependantFields label="1. Tube Diameter" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Diameter_inches__c" 
+									value="{!v.selectedconfig.Diameter_inches__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Diameter', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="" 
+									savedfieldName="Diameter_inches__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+										
+            <c:LC00_MessageInfo messagestart="Ø in mm: "  messageend="mm" color="red" tablename="Diameter Conversion" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Diameter_inches__c" fieldreturnval="Diameter_mm__c" location="US" tubesegment="Laminate" />			
+            					
+        </div> 
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+       		 <c:LC00_DependantFields label="3. Sleeve Length" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Sleeve_Length_inches_8_16__c" 
+									value="{!v.selectedconfig.Sleeve_Length_inches__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Fill Capacity', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c','Fill_Capacity_Oz__c']" 
+									savedfieldName="Sleeve_Length_inches__c"
+									saveddependentfields="['Diameter_inches__c','Fill_Capacity_Oz__c']"
+									isDisabled="true"
+									 selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+            <c:LC00_MessageInfo messagestart="Length: "  messageend="mm" color="red" tablename="Fill Capacity" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Sleeve_Length_inches_8_16__c" dependentfieldvalue="Sleeve_Length_inches__c" fieldreturnval="Sleeve_Length_mm__c" location="US" tubesegment="Laminate" />
+        
+        </div>
+           
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+        
+        
+       	   <c:LC00_DependantFields label="2. Fill Capacity (Oz)" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Fill_Capacity_Oz__c" 
+									value="{!v.selectedconfig.Fill_Capacity_oz__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Fill Capacity', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c']" 
+									savedfieldName="Fill_Capacity_Oz__c"
+									saveddependentfields="['Diameter_inches__c']"
+								   selectedConfig="{!v.selectedconfig}"
+									/> 									                 
+							
+            <c:LC00_MessageInfo messagestart="capa: "  messageend="ml" color="red" tablename="Fill Capacity" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Fill_Capacity_Oz__c" fieldreturnval="Fill_capacity_ml__c" location="US" tubesegment="Laminate" />
+            					
+        </div>
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+       		 <label class="slds-form-element__label">4. Specific (inches)</label>
+            <ui:inputText disabled="false" value="{!v.selectedconfig.Specific_Length_inches__c}" placeholder="Example 1 2/3"/>
+			 
+            <c:LC00_MessageInfo messagestart="Max: "  messageend="inches" color="red" tablename="Sleeve length conversion diameter-length" sObjectName="PM_Tubes_Config__c" 
+            					fieldvalue="Diameter_inches__c" fieldreturnval="Sleeve_Length_inches__c" location="US" tubesegment="Laminate" />
+            					
+        </div>
+
+        
+        
+    </div>
+</aura:component>

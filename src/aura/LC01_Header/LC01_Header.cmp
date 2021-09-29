@@ -1,0 +1,89 @@
+<aura:component controller="LCC01_Scorings_Controller">
+    <aura:attribute name="qli" type="QuoteLineItem" required="true" default="{ 'sobjectType': 'QuoteLineItem'}" />
+    <aura:attribute name="pageName" type="String" />
+    <aura:attribute name="isService" type="Boolean" default="false"/>
+    <aura:attribute name="pdfContainer" type="Aura.Component[]"/>
+    <aura:attribute name="scorevalidation" type="Boolean" default="false"/>
+     
+   <aura:registerEvent name="PriceRecoEvent" type="c:LE00_PriceReco"/>
+
+    <lightning:spinner aura:id="mySpinner2" class="slds-hide" variant="brand" size="large"/>
+
+        <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+        <div class="slds-grid slds-p-around--x-small">
+            <div class="slds-col slds-has-flexi-truncate">
+                <div class="slds-media slds-no-space slds-grow">
+                    <div class="slds-media__figure" style="width: 115px;">
+                        <img src="/resource/price_matrix_logo" /> 
+                        {!v.qli.Location__c}
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-text-heading--large" title="{!v.pageName}">{!v.pageName}</h1>
+                        <p class="slds-text-title--caps slds-line-height--reset">
+                            <c:LC01_Breadcrumbs qli="{!v.qli}" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                <lightning:buttonGroup class="slds-float--right">
+
+                    <aura:if isTrue="{!v.pageName == 'Home Page'}">
+                        <lightning:button variant="neutral" label="Close" iconName="utility:close" iconPosition="left" onclick="{! c.backToQuoteLineItemDetailsPage }" />
+                    </aura:if>
+                 <!-- <aura:if isTrue="{!v.pageName == 'RECO'}">
+                        <lightning:button variant="neutral" label="Offer template" iconName="utility:file" iconPosition="left" onclick="{! c.openQuotePDFTemplatePDF }" />
+                    </aura:if>-->
+                    <aura:if isTrue="{!v.pageName == 'RECO'}">
+                        <lightning:button variant="neutral" label="Home page" iconName="utility:home" iconPosition="left" onclick="{!c.gotoHomePage}" />
+                    </aura:if>
+
+                    <!-- BEGIN Scoring page buttons -->
+                    <aura:if isTrue="{!v.pageName == 'Customer Scoring'}">
+                        <lightning:button variant="neutral" label="Deal Scoring" iconName="utility:chevronright" iconPosition="right" onclick="{! c.gotoDealScoringPage }" />
+                    </aura:if>
+                    <aura:if isTrue="{!v.pageName == 'Deal Scoring'}">
+                        <lightning:button variant="neutral" label="Customer Scoring" iconName="utility:chevronleft" iconPosition="left" onclick="{! c.gotoCustomerScoringPage }" />
+                        <lightning:button variant="neutral" label="Service Scoring" iconName="utility:chevronright" iconPosition="right" onclick="{! c.gotoServiceScoringPage }" />
+                    </aura:if>
+                    <aura:if isTrue="{!v.pageName == 'Service Scoring'}">
+                        <lightning:button variant="neutral" label="Deal Scoring" iconName="utility:chevronleft" iconPosition="left" onclick="{! c.gotoDealScoringPage }" />
+                    </aura:if>
+                    <!-- END Scoring page buttons -->
+                    
+                    <!-- Product Configuration -->
+                    <aura:if isTrue="{!or(v.pageName == 'Product Configuration: Plastic Tube', v.pageName == 'Product Configuration: Foam')}">
+                        <lightning:button variant="neutral" label="Services" iconName="utility:layers" iconPosition="left" onclick="{!c.gotoServiceTubeConfig}" />
+                    </aura:if>
+                    <aura:if isTrue="false">
+                        <lightning:button variant="neutral" label="Services" iconName="utility:layers" iconPosition="left" onclick="{!c.gotoServiceTubeConfig}" />
+                        <!-- lightning:button variant="neutral" label="Details" iconName="utility:summarydetail" iconPosition="left" onclick="{!c.gotoServiceDispensingDetails}" /-->
+                    </aura:if>
+                    <aura:if isTrue="{!v.pageName == 'Services Offer for Plastic &amp; Purefoil Tubes'}">
+                        <aura:if isTrue="{!v.isService}">
+                            
+                            <aura:set attribute="else">
+                                <lightning:button variant="neutral" label="Details" iconName="utility:summarydetail" iconPosition="left" onclick="{!c.gotoServiceTubeDetails}" />
+                                <lightning:button variant="neutral" label="Go to configurator" iconName="utility:left" iconPosition="left" onclick="{!c.backToProductConfig}" />
+                            </aura:set>
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.pageName == 'Product Configuration: Foam'}">
+                        <lightning:button variant="neutral" label="Details" iconName="utility:summarydetail" iconPosition="left" onclick="{!c.gotoServiceDispensingDetails}" />
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.pageName != 'RECO' &amp;&amp; v.pageName != 'Home Page' &amp;&amp; v.pageName != 'Deal Scoring' &amp;&amp; v.pageName != 'Customer Scoring' &amp;&amp; v.pageName != 'Services Offer for Plastic &amp; Purefoil Tubes'}">
+                        <lightning:button variant="neutral" label="RECO" iconName="utility:matrix" iconPosition="left" onclick="{!c.gotoRecoPage}" />
+                    </aura:if>
+ 
+                    <aura:if isTrue="{!v.pageName == 'Home page'}">
+                        <lightning:button variant="neutral" label="Back to Quote" iconName="utility:clear" iconPosition="left" />
+                    </aura:if>
+                </lightning:buttonGroup>
+            </div>
+        </div>
+    
+    {!v.pdfContainer}
+    
+</aura:component>

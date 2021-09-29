@@ -1,0 +1,27 @@
+<aura:component controller="LC01_Review_DiscountComponentController">
+    <aura:attribute name="NetPrice" type="Double" default=""/>
+    <aura:attribute Name="ListPrice" type="Double"/>
+    <aura:attribute name="Discount" type="Double"/>
+    <aura:attribute name="ReviewPriceDetail" type="PM_Review_NetPrice_per_MOQ__c"/>
+    <aura:attribute name="TotalReviewPrice" type="integer" />
+    
+    <table> 
+        <tr>
+            <td >
+                <ui:button  aura:id="QP1output"  press="{!c.Hide}" class="Div ">
+                            <ui:outputNumber aura:id="QP1output2"   value="{!v.ReviewPriceDetail.Reviewed_price__c}" format="0.00" />                            
+                </ui:button>
+            
+           
+                <ui:inputNumber aura:id="QP1" class="Hide slds-text-align_center" value="{!v.ReviewPriceDetail.Reviewed_price__c}" change="{!c.calcDiscount}" blur="{!c.unHide}"/>
+                
+            </td>
+            <td width="250px">
+                <ui:inputNumber class="slds-text-align_center" disabled="true" value="{!v.ReviewPriceDetail.Discount__c}" format="0.00"/>
+                
+            </td>
+        </tr>
+    </table>
+    
+ 
+</aura:component>

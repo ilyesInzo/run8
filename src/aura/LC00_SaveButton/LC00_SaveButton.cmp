@@ -1,0 +1,17 @@
+<aura:component controller="LC01_SelectedProductConfigCtrl">
+	
+	<aura:attribute name="selectedconfig" type="Object" description="Saved config"/>
+    <aura:registerEvent name="SelectedTubeEvent" type="c:LE00_SelectedTube"/>  
+    <aura:registerEvent name="clickSave" type="c:LC00_DependentFieldsEvent"/>  
+    
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large" style="position:fixed;"/>
+    
+    <div class="slds-p-horizontal--small slds-align--absolute-center" style="margin-top:15px;">
+    	<lightning:button variant="brand" label="Save Configuration" onclick="{!c.savechanges}" iconPosition="left" aura:id="saveBtn" iconName="utility:save" />
+    	
+    </div>
+    
+    	<br/><br/> 
+</aura:component>

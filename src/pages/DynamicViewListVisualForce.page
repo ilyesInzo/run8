@@ -1,0 +1,107 @@
+<!--
+ - Created by Thanina on 05/07/2019.
+ -->
+
+<apex:page sidebar="false" showHeader="true" title="Sales Teams Updates">
+    <apex:includeLightning />
+    <!--Lightning Container-->
+    <div style="width:100%;height:100%;" id="LightningContainer" />
+    <!-- <div style="width:100%;height:50%;" id="LightningContainer2"/> -->
+
+    <script type="text/javascript">
+        //get account Id from URL
+        var objName = "{!$CurrentPage.parameters.ObjectName}";
+        var fieldSetViewName = "{!$CurrentPage.parameters.ListName}";
+        var moreFilters = '';
+        moreFilters = "{!$CurrentPage.parameters.Filters}";
+
+        var isDirector = "{!$User.Director__c}";
+        var isManager = "{!$User.Manager__c}";
+        var isKAM = "{!$User.KAM__c}";
+        var userId = "{!$User.Id}";
+        //{!$User.Additional__c}
+        if (objName == '' || objName == undefined) objName = 'Sales_Team__c';
+
+        if (fieldSetViewName == '' || fieldSetViewName == undefined) {
+            if (isDirector == 'true') {
+                fieldSetViewName = 'ListDirector01';
+                moreFilters = " and  (Request_MAJ_SA_Status__c = null or Request_MAJ_SA_Status__c = 'None' or Request_MAJ_SA_Status__c = '' or ( Request_MAJ_SA_Status__c = 'Pending' and Submitted_by__c = '" + userId + "'))";
+
+                // moreFilters = " or ( Request_MAJ_SA_Status__c = 'Pending' and Submitted_by__c = '"+ userId +"' )";
+            }
+            else {
+                if (isManager == 'true') {
+                    fieldSetViewName = 'ListManager01';
+                    moreFilters = " and (Manager__c = '" + userId + "'  or 	KAM__c = '" + userId + "' or Additional__c = '" + userId + "') and  (Request_MAJ_SA_Status__c = null or Request_MAJ_SA_Status__c = 'None' or Request_MAJ_SA_Status__c = '' or ( Request_MAJ_SA_Status__c = 'Pending' and Submitted_by__c = '" + userId + "'))";
+                    // " and (Manager__c = '"+ userId +"' or 	KAM__c = '"+ userId +"' or Additional__c = '"+ userId +"')"
+                }
+                else {
+                    if (isKAM == 'true') fieldSetViewName = 'ListKam01';
+
+                }
+            }
+        }
+
+        //alert('{!$Profile.Name}'+ ' {!$User.Id}');
+
+
+        //Create Lightning Component
+        /* $Lightning.use("c:DisplayListView", function() {
+             $Lightning.createComponent("c:DynamicListView",
+                                        {
+                                            "ObjectName" : objName,
+                                            "key" : key,
+                                            "TaskOwner" : taskOwner
+                                        }, //Pass Parameter
+                                           "LightningContainer", function(component) {
+                                            console.log('Component created');
+                                        });
+         });*/
+        // alert("filters: "+ moreFilters);
+
+        //This part to request for sales Team Updates -------
+        // fieldSetViewName = "ListManagerApproved1";
+        //moreFilters = " and  (Submitted_by__c = '"+ userId +"');
+        $Lightning.use("c:DisplayListView", function () {
+            $Lightning.createComponent("c:DynamicTableView",
+                {
+                    "sObjectName": objName,
+                    "fieldSetName": fieldSetViewName,
+                    "filters": moreFilters,
+                    "listTitle": "Sales Teams List",
+                    "displaySelectedColumns": false,
+                    "needRejectApproveBtn": false
+
+                }, //Pass Parameter
+                "LightningContainer", function (component) {
+                    console.log('Component created');
+                });
+        });
+
+    //Display Approved Requests:
+  /*
+    var approvedRequests = "ListManagerApproved1";
+    var filtersApprove = " and  (Submitted_by__c = '"+ userId +"')";
+
+    $Lightning.use("c:DisplayListView", function() {
+        $Lightning.createComponent("c:DynamicTableView",
+                                   {
+                                       "sObjectName" : objName,
+                                       "fieldSetName" : approvedRequests,
+                                       "filters" : filtersApprove,
+                                       "listTitle" : "Approved Requests",
+                                       "displaySelectedColumns" : false,
+                                       "needRejectApproveBtn" : false
+
+                                   }, //Pass Parameter
+                                      "LightningContainer2", function(component) {
+                                       console.log('Component created');
+                                   });
+    });
+     */
+    //Display Rejected Requests:
+
+
+
+    </script>
+</apex:page>

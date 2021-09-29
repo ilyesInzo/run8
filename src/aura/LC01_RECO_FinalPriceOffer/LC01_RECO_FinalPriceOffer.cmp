@@ -1,0 +1,249 @@
+<aura:component controller="LC01_RECO_FinalPriceOfferController">
+    <aura:attribute name="qli" type="QuoteLineItem" required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="tableSelectedColumn" type="Object[]" />
+    
+    <aura:attribute name="FinalReviewPrices" type="PM_Review_NetPrice_per_MOQ__c[]" />
+    <aura:attribute name="configOK" type="Boolean" />
+    <aura:attribute name="productLine" type="String" />
+    <aura:attribute name="location" type="String" />
+   
+    <aura:attribute name="isActive" type="Boolean" default = "true"/>
+    <aura:attribute name="closedQuote" type="Boolean" default = "false"/>
+   <aura:registerEvent name="SelectedTubeConfigEvent" type="c:LE00_NotifySelectedTubeConfig"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />   
+   
+    <!--  <aura:handler name="init" value="{!this}" action="{!c.getPriceReco}" />-->
+  <!-- <aura:handler event="c:LE00_FinalPrices" action="{!c.calcDelta}" /> -->
+   <aura:attribute name="displayPopup" type="Boolean" default = "false"/>
+   
+    <aura:if isTrue="{!v.qli.Market_Of_Application__c.length > 0 &amp;&amp; v.configOK &amp;&amp; v.qli.Deal_Scoring__c != 0.0}">
+        <div >
+            
+        <div width="80px">
+           
+
+            <aura:if isTrue="{!v.closedQuote == true}">
+                <div class="tooltip">
+                    <div class="slds-popover slds-popover--tooltip tooltiptext"  role="tooltip" id="help" style="top:-4px;left:35px;z-index: 1;margin-top: 55px;margin-left: 52px;" aria-live="polite" >
+                        <div class="slds-popover__body" style="width: 355px;padding-left: 8px;">
+                            Quotes cannot be updated when they are in this status.</div>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.displayPopup == true}">
+                <div class="popup slds-modal__container"> 
+                     <div class="slds-modal__content" style="position: absolute; margin-top: 175px;margin-left: 37px; width: 280px;"> 
+                            <div style="width: 100%;height: 40px; background-color: Green;text-align: center;padding-top: 1px;">
+                                <p class="slds-text-title--caps title" >
+                                              Success
+                                </p> 
+                            </div>
+                            <p class="slds-text-heading--small" style="margin: 17px;text-align:center;font-size: 13px;">
+                                Result saved successfully!
+                            </p> 
+
+                             
+                                    
+                    </div> 
+                </div>
+            </aura:if>
+            
+            
+            <div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              <!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  <span class="slds-assistive-text">Loading</span>
+                  <div class="slds-spinner__dot-a"></div>
+                  <div class="slds-spinner__dot-b"></div>
+                </div>
+              </div>
+            </div>
+           
+  
+            <table id="tableID"  width="80px">
+
+                <tbody>
+                    <tr class="result-row row1">
+                        <td width="23%" >{!$Label.c.LBL_MOQinKunits}</td>
+                        <!-- <td><ui:inputNumber class="field" value="{!v.FinalPrice.MOQ_Units__c}"/></td> -->
+                        <td><ui:inputNumber aura:id="MOQ1"  value="{!v.FinalReviewPrices[0].MOQ_Units__c}" change="{!c.calcDelta}"  keypress="{!c.pressEnter2}" disabled="{!v.closedQuote == true}" /></td> 
+                     <!--   <td> <input type="Text" class="field" value="{!v.FinalReviewPrices[0].MOQ_Units__c}" onChange="{!c.calcDelta}"  tabindex="1"  /></td> -->
+                        <td><ui:inputNumber aura:id="MOQ2"  value="{!v.FinalReviewPrices[1].MOQ_Units__c}" change="{!c.calcDelta}"  keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        <td><ui:inputNumber aura:id="MOQ3"  value="{!v.FinalReviewPrices[2].MOQ_Units__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        <td><ui:inputNumber aura:id="MOQ4"  value="{!v.FinalReviewPrices[3].MOQ_Units__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        <td><ui:inputNumber aura:id="MOQ5"  value="{!v.FinalReviewPrices[4].MOQ_Units__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        <td><ui:inputNumber aura:id="MOQ6"  value="{!v.FinalReviewPrices[5].MOQ_Units__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        <td><ui:inputNumber aura:id="MOQ7"  value="{!v.FinalReviewPrices[6].MOQ_Units__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!v.closedQuote == true}"/></td>
+                        
+                    </tr>
+                    
+                    <tr  > 
+                        
+                        <td class="Price">{!$Label.c.LBL_QuotedPrice}</td>                       
+                        <td > 
+                          <ui:inputNumber aura:id="QP1" class="{!v.productLine == 'Tubes' || v.location=='US'  ? v.FinalReviewPrices[0].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[0].Price_Color_For_Interface__c: v.FinalReviewPrices[0].Price_Color__c : ''}" value="{!v.FinalReviewPrices[0].Quoted_Price__c}"  change="{!c.calcDelta}"  keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[0].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />
+                         
+                        </td> 
+                        <td>
+                            <ui:inputNumber aura:id="QP2" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[1].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[1].Price_Color_For_Interface__c: v.FinalReviewPrices[1].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[1].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[1].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />
+                        </td>
+                        <td>
+                            <ui:inputNumber aura:id="QP3" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[2].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[2].Price_Color_For_Interface__c: v.FinalReviewPrices[2].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[2].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[2].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />
+                            
+                        </td>
+                        <td>
+                             <ui:inputNumber aura:id="QP4" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[3].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[3].Price_Color_For_Interface__c: v.FinalReviewPrices[3].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[3].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[3].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />
+                        </td>
+                        <td>
+                             <ui:inputNumber aura:id="QP5" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[4].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[4].Price_Color_For_Interface__c: v.FinalReviewPrices[4].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[4].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[4].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />     
+                        </td>
+                        <td>
+                             <ui:inputNumber aura:id="QP6" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[5].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[5].Price_Color_For_Interface__c: v.FinalReviewPrices[5].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[5].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[5].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />
+                        </td>
+                        <td>
+                            <ui:inputNumber aura:id="QP7" class="{!v.productLine == 'Tubes' || v.location=='US' ? v.FinalReviewPrices[6].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[6].Price_Color_For_Interface__c: v.FinalReviewPrices[6].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[6].Quoted_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[6].MOQ_Units__c >0 || and(v.productLine=='Dispensing',v.location =='EU') || v.isActive == false || v.closedQuote == true}" />                     
+                        </td>
+                        
+                    </tr>
+                    <!--  DEBUT BREXIT DISPLAY ONLY FOR EU-->
+                        
+                        <tr  class="{!v.location == 'EU' ? '' : 'Hide'}"> 
+                            <td class="Price">EXW Price / 000</td>                       
+                            <td > 
+                              <ui:inputNumber aura:id="QP1EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[0].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[0].Price_Color_For_Interface__c: v.FinalReviewPrices[0].Price_Color__c : ''}" value="{!v.FinalReviewPrices[0].EXW_Price__c}"  change="{!c.calcDelta}"  keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[0].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />
+                             
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP2EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[1].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[1].Price_Color_For_Interface__c: v.FinalReviewPrices[1].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[1].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[1].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP3EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[2].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[2].Price_Color_For_Interface__c: v.FinalReviewPrices[2].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[2].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[2].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />
+                                
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP4EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[3].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[3].Price_Color_For_Interface__c: v.FinalReviewPrices[3].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[3].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[3].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP5EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[4].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[4].Price_Color_For_Interface__c: v.FinalReviewPrices[4].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[4].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[4].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />     
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP6EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[5].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[5].Price_Color_For_Interface__c: v.FinalReviewPrices[5].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[5].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[5].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP7EXW" class="{!v.productLine == 'Dispensing' ? v.FinalReviewPrices[6].Price_Color_For_Interface__c!= null?v.FinalReviewPrices[6].Price_Color_For_Interface__c: v.FinalReviewPrices[6].Price_Color__c : ''}"  value="{!v.FinalReviewPrices[6].EXW_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[6].MOQ_Units__c >0 || v.productLine=='Tubes' || v.isActive == false || v.closedQuote == true}" />                     
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr  class="{!v.location == 'EU' ? '' : 'Hide'}"> 
+                            
+                            <td class="Price">Transport Price / 000</td>                       
+                            <td > 
+                              <ui:inputNumber  aura:id="QP1Transport" class="" value="{!v.FinalReviewPrices[0].Transport_Price__c}"  change="{!c.calcDelta}"  keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[0].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />
+                             
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP2Transport" class=""  value="{!v.FinalReviewPrices[1].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[1].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP3Transport" class=""  value="{!v.FinalReviewPrices[2].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[2].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />
+                                
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP4Transport" class=""  value="{!v.FinalReviewPrices[3].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[3].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP5Transport" class=""  value="{!v.FinalReviewPrices[4].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[4].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />     
+                            </td>
+                            <td>
+                                 <ui:inputNumber aura:id="QP6Transport" class=""  value="{!v.FinalReviewPrices[5].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[5].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}"/>
+                            </td>
+                            <td>
+                                <ui:inputNumber aura:id="QP7Transport" class=""  value="{!v.FinalReviewPrices[6].Transport_Price__c}" change="{!c.calcDelta}" keypress="{!c.pressEnter}" disabled="{!!v.FinalReviewPrices[6].MOQ_Units__c >0 || v.isActive == false || v.closedQuote == true}" />                     
+                            </td>
+                            
+                        </tr>
+                    <!--  FIN BREXIT -->
+                    <tr class="result-row row3">
+                        <td>{!$Label.c.LBL_MostProbableMOQ}</td>
+                        <!-- <td><ui:inputNumber class="field" value="{!v.FinalPrice.Quoted_Price__c}"/></td> -->
+                        <td><ui:inputRadio aura:id="CB1" labelClass="label" name="select" label="{!v.FinalReviewPrices[0].Id}" value="{!v.FinalReviewPrices[0].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}"  /></td>
+                        <td><ui:inputRadio aura:id="CB2" labelClass="label" name="select" label="{!v.FinalReviewPrices[1].Id}" value="{!v.FinalReviewPrices[1].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}" /></td>
+                        <td><ui:inputRadio aura:id="CB3" labelClass="label" name="select" label="{!v.FinalReviewPrices[2].Id}" value="{!v.FinalReviewPrices[2].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}" /></td>
+                        <td><ui:inputRadio aura:id="CB4" labelClass="label" name="select" label="{!v.FinalReviewPrices[3].Id}" value="{!v.FinalReviewPrices[3].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}" /></td>
+                        <td><ui:inputRadio aura:id="CB5" labelClass="label" name="select" label="{!v.FinalReviewPrices[4].Id}" value="{!v.FinalReviewPrices[4].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}" /></td>
+                        <td><ui:inputRadio aura:id="CB6" labelClass="label" name="select" label="{!v.FinalReviewPrices[5].Id}" value="{!v.FinalReviewPrices[5].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}"  /></td>
+                        <td><ui:inputRadio aura:id="CB7" labelClass="label" name="select" label="{!v.FinalReviewPrices[6].Id}" value="{!v.FinalReviewPrices[6].Selected__c}" change="{!c.onChange}" disabled="{!v.closedQuote == true}"  /></td>
+                        
+                    </tr>
+                    <tr class="result-row row4">
+                        <td>{!$Label.c.LBL_DeltaListPrice}</td>
+                        <!-- <td><ui:inputNumber disabled="true" class="field" value="{!v.FinalPrice.Delta_vs_List_Price__c}"/></td> -->
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[0].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[1].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[2].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[3].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[4].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[5].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        <td><center><ui:outputText value="{!v.FinalReviewPrices[6].Delta_vs_List_Price__c+'%'}"/></center></td>
+                        
+                    </tr>                                
+                </tbody>
+            </table>            
+        </div>
+               
+        
+        </div>
+        
+        <!-- COMMENTED BY MARYEM QADA, en attente de la confirmation du sondage lancé par le métier
+            <aura:if  isTrue="{!!and(v.productLine == 'Tubes', v.location=='EU')}" > -->        
+            
+                <!-- <lightning:button label="Adjust Net Price Details" iconName="utility:edit_form" 
+                                  variant="brand" iconPosition="left" onclick="{!c.openReview}"/> -->
+            
+      <!--   </aura:if> -->  
+        
+            <div class="slds-text-align--right slds-p-top--small">
+                 
+                 <lightning:button label="Save" iconName="utility:save" 
+                                  variant="brand" iconPosition="left" onclick="{!c.saveResultJS}"
+                                  disabled="{!v.closedQuote == true}" /> 
+                
+                 <lightning:button label="Refresh" iconName="utility:refresh" 
+                                  variant="brand" iconPosition="left" onclick="{!c.calcDelta}"
+                                  disabled="{!v.closedQuote == true}" />
+            </div>
+      
+    <aura:set attribute="else">
+       <aura:if isTrue="{! !v.configOK &amp;&amp; v.qli.Market_Of_Application__c.length > 0}">
+            <div class="slds-box slds-theme_shade slds-theme_alert-texture slds-align--absolute-center">
+                <p style="color:red;font-size:1.2em;text-align: center;">
+                Please set a valid
+                <strong>product configuration</strong> in section 2 (Product Configuration) to be able to set prices!</p>
+            </div>
+        </aura:if>    
+        <aura:if isTrue="{! !v.qli.Market_Of_Application__c.length > 0}">
+            <div class="slds-box slds-theme_shade slds-theme_alert-texture slds-align--absolute-center">
+                <p style="color:red;font-size:1.2em;text-align: center;">
+                Please fill the
+                <strong>market of application</strong> in section 2 (Product Configuration) to be able to set prices!</p>
+            </div>
+        </aura:if>  
+        <!-- Valider par le métier dans le cas de Copy Quote -->
+        <aura:if isTrue="{!v.qli.Deal_Scoring__c == 0}">
+            <div class="slds-box slds-theme_shade slds-theme_alert-texture slds-align--absolute-center">
+                <p style="color:red;font-size:1.2em;text-align: center;">
+                Please set a valid
+                <strong>Deal Scoring</strong> in section 1 (Customer, Deal and Service Scoring) to be able to set prices!</p>
+            </div>
+        </aura:if> 
+        <!-- Valider par le métier dans le cas de Copy Quote -->
+          
+    </aura:set>        
+            
+    </aura:if>   
+      
+      
+</aura:component>

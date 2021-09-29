@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" description="Collapse section in accordion" >
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="isOpen" type="Boolean" default="false"/>
+    <!-- TODO: Add feature to collapse next section -->
+    <!-- aura:attribute name="number" type="number" default="1"/>
+    <aura:attribute name="nbSection" type="number" default="1"/-->
+</aura:event>

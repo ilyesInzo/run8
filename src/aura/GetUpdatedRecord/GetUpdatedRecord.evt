@@ -1,0 +1,7 @@
+<!--
+ - Created by Thanina on 18/07/2019.
+ -->
+
+<aura:event type="APPLICATION" description="GetUpdatedRecord">
+    <aura:attribute name="updatedRecord" type="sObject"/>
+</aura:event>

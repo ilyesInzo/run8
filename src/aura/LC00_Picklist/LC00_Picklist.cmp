@@ -1,0 +1,40 @@
+<aura:component >
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="helpText" type="String"/>
+    <aura:attribute name="options" type="String[]"/>
+    <aura:attribute name="width" type="String"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name="bottomText" type="String"/>
+    <div class="slds-form-element__control">
+        <div class="slds-form-element__label">
+            <label class="slds-align-middle">{!v.label}</label>
+        </div>
+        <aura:if isTrue="{!!empty(v.helptext)}">
+            <div class="slds-form-element__icon">
+                <div class="tooltip">
+                    <lightning:icon iconName="utility:info" size="xx-small"/>
+                    <div id="help" class="slds-popover slds-popover--tooltip slds-nubbin--bottom-left tooltiptext" 
+                         role="tooltip" 
+                         aria-live="polite" 
+                         style="{!'width:' + v.width}">
+                        <div class="slds-popover__body slds-text-longform">
+                            <span>
+                                {!v.helpText}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+        <ui:inputSelect aura:id="{!v.id}" value="{!v.value}" disabled="{!v.disabled}">
+            <aura:iteration items="{!v.options}" var="opt">
+                <ui:inputSelectOption text="{!opt}" label="{!if(opt == '', '--None--', opt)}"/>
+            </aura:iteration>
+        </ui:inputSelect>
+        <aura:if isTrue="{!!empty(v.bottomText)}">
+            <span class="bottom-text">{!bottomText}</span>
+        </aura:if>
+    </div>
+</aura:component>

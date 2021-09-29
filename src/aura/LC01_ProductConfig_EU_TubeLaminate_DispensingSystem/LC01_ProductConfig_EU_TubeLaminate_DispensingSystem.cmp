@@ -1,0 +1,39 @@
+<aura:component extends="c:LC00_Section"> 
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="6. Family" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Dispensing_System_Family__c" 
+                                    value="{!v.selectedconfig.Dispensing_System_Family__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Dispensing System Family', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c']"
+                                    savedfieldName="Dispensing_System_Family__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     /> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">8. Collar type</label>
+            <ui:inputText value="{!v.selectedconfig.Collar_Type__c}" disabled="true"/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="7. Dispensing name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Dispensing_System_Name__c" 
+                                    value="{!v.selectedconfig.Dispensing_System_Name__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Dispensing System Name', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c']"
+                                    savedfieldName="Dispensing_System_Name__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     />
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<label class="slds-form-element__label">9. Actuator type</label>
+            <ui:inputText value="{!v.selectedconfig.Actuator_Type__c}"  disabled="true"/>
+        </div>
+    </div>
+</aura:component>

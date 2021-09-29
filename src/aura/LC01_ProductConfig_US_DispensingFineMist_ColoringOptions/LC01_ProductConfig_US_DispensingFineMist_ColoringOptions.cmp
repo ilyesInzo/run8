@@ -1,0 +1,85 @@
+<aura:component extends="c:LC00_Section">
+  	<aura:attribute name="capfinishcond1" type="boolean"/>
+	<aura:attribute name="capfinishcond2" type="boolean"/>
+	
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+      
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">  
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="13. Actuator Finish" 
+                                    objectName="PM_Dispensing_Config__c" 
+                                    fieldName="Color__c" 
+                                    savedfieldName="Actuator_Finishing__c"
+                                    value="{!v.selectedconfig.Actuator_Finishing__c}"
+                                    parameters="{Location__c : 'US', Table_Name__c : 'Actuator coloring', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    saveddependentfields="['Product_Name__c','Actuator__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />   
+        </div>           
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="15. Insert Coloring" 
+                                    objectName="PM_Dispensing_Config__c" 
+                                    fieldName="Color__c" 
+                                    savedfieldName="Insert_Coloring__c"
+                                    value="{!v.selectedconfig.Insert_Coloring__c}"
+                                    parameters="{Location__c : 'US', Table_Name__c : 'Insert coloring', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    saveddependentfields="['Product_Name__c','Actuator__c','Insert_Type__c']"
+                                    concat="['_','_']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />   
+        </div>   
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="14. Collar or Cup Finish" 
+                                    objectName="PM_Dispensing_Config__c" 
+                                    fieldName="Color__c" 
+                                    savedfieldName="Collar_or_Cup_Finish__c"
+                                    value="{!v.selectedconfig.Collar_or_Cup_Finish__c}"
+                                    parameters="{Location__c : 'US', Table_Name__c : 'Collar / Ferrule / Cup Anodization', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    saveddependentfields="['Product_Name__c','Actuator__c','Collar__c']"
+                                    concat="['_','_']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />   
+        </div>   
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+
+                	<c:LC00_DependantFields label="16. Cap Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Cap_Finishing__c"
+									value="{!v.selectedconfig.Cap_Finishing__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Cap Finishing', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Cap_Type__c','Neck_Finish__c']"
+									concat="['_']"
+									displayCond="{!v.capfinishcond1}"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+					<c:LC00_DependantFields label="17. Cap Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Cap_Finishing__c"
+									value="{!v.selectedconfig.Cap_Finishing__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Cap Finishing', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Collar__c']"
+									concat="['_']"
+									displayCond="{!v.capfinishcond2}"
+											selectedConfig="{!v.selectedconfig}"
+					/>  
+        </div>
+        
+        
+        <span style="color:red" >{!if(or(or(v.selectedconfig.Actuator_Finishing__c == 'Anodization (Silver / Gold)', v.selectedconfig.Actuator_Finishing__c == 'Anodization (Colored / Black / Grey)'),
+            or(v.selectedconfig.Collar_or_Cup_Finish__c == 'Anodization (Silver / Gold)', v.selectedconfig.Collar_or_Cup_Finish__c == 'Anodization (Colored / Black / Grey)')),
+            'Important : 500$ set-up fee for anodization for MOQ 10k','')}</span>  
+        
+        
+    </div>
+</aura:component>

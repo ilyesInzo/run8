@@ -1,0 +1,44 @@
+<aura:component extends="c:LC00_Section">     
+    <div class="slds-grid slds-wrap slds-grid--pull-padded"> 
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="38. Pack Type" 
+									fieldName="Pack_Type__c" 
+									savedfieldName="Pack_Type__c"
+									value="{!v.selectedconfig.Pack_Type__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Pack Type', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+		
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="40. Polybag" 
+									fieldName="Polybag_Type__c" 
+									savedfieldName="Polybag__c"
+									value="{!v.selectedconfig.Polybag__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Polybag', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+			
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="39. Pallet" 
+									fieldName="Pallet__c" 
+									savedfieldName="Pallet__c"
+									value="{!v.selectedconfig.Pallet__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Pallet', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="" 
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+    </div>
+</aura:component>

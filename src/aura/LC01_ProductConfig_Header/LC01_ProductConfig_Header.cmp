@@ -1,0 +1,27 @@
+<aura:component extends="c:LC00_Header" controller="LC01_SelectedProductConfigCtrl">
+    <aura:attribute name="service" type="String" />
+    <aura:attribute name="showCombo" type="Boolean"/>
+    <aura:attribute name="showLean" type="Boolean"/>
+    <aura:attribute name="savedConfig" type="Object" description="Saved config"/>
+    <aura:attribute name="configId" type="String" />
+	<aura:attribute name="selectedconfig" type="Object" description="Saved config"/>
+  	<aura:attribute name="disableforEUTubes" type="Boolean" default="true" />
+     
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+    
+    <aura:if isTrue="{!v.showLean}">
+        <lightning:button variant="neutral" label="Lean" iconName="utility:clock" iconPosition="left" 
+                            onclick="{!c.openLean}" />
+    </aura:if>
+    
+    <aura:if isTrue="{! and(!empty(v.service),v.disableforEUTubes)}">
+        <lightning:button variant="neutral" label="Services" iconName="utility:layers" iconPosition="left" 
+                            onclick="{!c.gotoServiceTubeConfig}" />
+    </aura:if>
+   <!--  <aura:if isTrue="{!v.showCombo}">
+        <lightning:button variant="neutral" label="Combos" iconName="utility:snippet" iconPosition="left" 
+                            onclick="{!c.openCombo}" />
+    </aura:if> -->
+	<lightning:button variant="neutral" label="RECO" iconName="utility:matrix" iconPosition="left" 
+	                   onclick="{!c.gotoRecoPage}" />
+</aura:component>

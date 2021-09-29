@@ -1,0 +1,92 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            
+              <c:LC00_DependantFields label="13. Actuator Material" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Actuator_finishing__c" 
+						savedfieldName="Actuator_Material__c"
+						value="{!v.selectedconfig.Actuator_Material__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Actuator finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c']"
+						concat="['_','_Actuator']"
+						isDisabled="true"
+									  selectedConfig="{!v.selectedconfig}"
+						/> 
+						 
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">      
+          <c:LC00_DependantFields label="16. Collar Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Collar_Finishing__c"
+						value="{!v.selectedconfig.Collar_Finishing__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Collar Finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Collar_Material__c', 'Pump_material__c']"
+						concat="['_','_','_']"
+								  selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+              <c:LC00_DependantFields label="14. Actuator Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Actuator_Finishing__c"
+						value="{!v.selectedconfig.Actuator_Finishing__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Actuator color', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Actuator_Material__c', 'Pump_material__c']"
+						concat="['_','_','_']"
+									  selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <c:LC00_DependantFields label="17. Insert Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Insert_Finishing__c"
+						value="{!v.selectedconfig.Insert_Finishing__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Insert coloring', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Actuator__c']"
+						concat="['_']"
+											selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+              <c:LC00_DependantFields label="15. Collar Material" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Actuator_finishing__c" 
+						savedfieldName="Collar_Material__c"
+						value="{!v.selectedconfig.Collar_Material__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Actuator finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c']"
+						concat="['_','_Collar']"
+						isDisabled="true"
+									  selectedConfig="{!v.selectedconfig}"
+						/> 		
+        </div>
+        
+
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                  <c:LC00_DependantFields label="18. Cap Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Product_Name__c" 
+						savedfieldName="Cap_Finishing__c"
+						value="{!v.selectedconfig.Cap_Finishing__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Cap Finishing Concat', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Pack_Name__c']"
+										  selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+		
+    </div>
+</aura:component>

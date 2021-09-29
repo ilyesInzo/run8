@@ -1,0 +1,28 @@
+<aura:component controller="Quotes_by_Status_Controller"  implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <ltng:require scripts="{!$Resource.ChartJs}"
+                  afterScriptsLoaded="{!c.doInit}"/>
+    
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="nodata" type="Boolean" default="false"/>
+    <aura:attribute name="isAllowed" type="Boolean" default="true"/>
+    
+    <lightning:card class="slds-text-heading_small" title="Quotes by Status">
+        
+        <aura:if isTrue="{!v.nodata}">
+            <center>No Data to display</center>
+            
+        </aura:if>
+
+        <aura:if isTrue="{!!v.isAllowed}">
+            <center>You are not allowed to see this component.</center>
+            
+        </aura:if>
+
+        <aura:if isTrue="{!and(!v.nodata, v.isAllowed)}">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-m-left_xx-small slds-m-right_xx-small">
+                <canvas aura:id="chart" height="300" width="100%"></canvas>
+            </div>
+        </aura:if>
+        
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,45 @@
+<aura:component implements="force:appHostable" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem">    
+    
+    <!--<aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="showProductImg" type="boolean" default="false" />
+    <aura:attribute name="selectedDispensingConfig" type="PM_Selected_Dipsensing_config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Dipsensing_config__c'}" />
+    
+    <aura:attribute name="collapseStatus" type="Map" default="{Product_Definition: true, Diptube_Configuration: true, Coloring_Options: true}" />
+    
+    <!--<aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler name="SectionCollapseEvent" event="c:LE00_SectionAccordionCollapse" action="{!c.handleCollapseEvent}"/>
+    
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <div class="slds pm">
+        <!-- <c:LC01_Header pageName="Product Configuration: Fine Mist"  qli="{!v.qli}" /> -->
+        <c:LC01_ProductConfig_Header pageName="Product Configuration: Fine Mist"  qli="{!v.qli}" service="c:LC01_ServiceDispensing_US_FineMistPump" configPageName="c:LC01_ProductConfig_US_DispensingFineMist" selectedconfig="{!v.selectedDispensingConfig}"/>
+        <c:LC01_Wizard step="1"/>
+        
+         <br/><br/>   
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+             <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3">
+               <!--  <c:LC01_ProductConfig_imagePreview qli="{!v.qli}" showProductImg="{!v.showProductImg}"  /> -->
+                <div aura:id="specPreconfig"> 
+                        <c:LC01_ProductConfig_SpecPreconfigContainer selectedConfig="{!v.selectedDispensingConfig}" 
+                            location="US" productSubSegment="FineMist" quoteStatus="{!v.qli.copy_quote_status__c}"/> 
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--2-of-3">
+                <c:LC01_ProductConfig_US_DispensingFineMist_ProductDefinition name="Product Definition" open="{!v.collapseStatus.Product_Definition}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                <c:LC01_ProductConfig_US_DispensingFineMist_ColoringOptions name="Coloring Options" open="{!v.collapseStatus.Coloring_Options}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                <c:LC01_ProductConfig_US_DispensingFineMist_BottleDecoration name="Bottle Decoration" open="{!v.collapseStatus.Diptube_Configuration}" selectedconfig="{!v.selectedDispensingConfig}"/>                
+                <c:LC01_ProductConfig_US_DispensingFineMist_DiptubeConfiguration name="Diptube Configuration" open="{!v.collapseStatus.Diptube_Configuration}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                
+    			<c:LC00_SaveButton selectedconfig="{!v.selectedDispensingConfig}" />
+            </div>
+           
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 ">
+                <c:LC01_ProductConfig_US_DispensingFineMist_Header name="List Price" open="true" qli="{!v.qli}" selectedconfig="{!v.selectedDispensingConfig}"/>     
+            </div>
+        </div>  
+    </div>
+</aura:component>

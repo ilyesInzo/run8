@@ -1,0 +1,190 @@
+<aura:component extends="c:LC00_Section">
+    <aura:attribute name="specificLength" type="Integer" description="Value of Specific Length (mm)" />
+
+    <!-- <aura:handler name="change" value="{!v.savedConfig}" action="{!c.handleSavedConfigChanged}"/> -->
+
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="1. Shape"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Shape__c"
+                                    value="{!v.selectedconfig.Shape__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Shape', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Shape__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!-- <c:LC00_DependentButtons btnLabel="1. Shape" name="Shape__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Shape"
+                                    savedConfig="{!v.savedConfig}"/> -->
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="6. Sleeve Material"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Sleeve_Material__c"
+                                    value="{!v.selectedconfig.Sleeve_Material__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Sleeve Material', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Sleeve_Material__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+
+
+            <aura:If isTrue="{!and(or(v.selectedconfig.Sleeve_Material__c == 'Mono PE Thin wall (350µ)',v.selectedconfig.Sleeve_Material__c == 'Coex PE Thin wall (350µ)'), and( and(and(v.selectedconfig.Diameter_mm__c != '50', v.selectedconfig.Diameter_mm__c != '35'), v.selectedconfig.Diameter_mm__c != '40'),and(and(v.selectedconfig.Diameter_mm__c != 50, v.selectedconfig.Diameter_mm__c != 35), v.selectedconfig.Diameter_mm__c != 40) ) )}">
+                <p>
+                    <span style="color:red" >Not possible with this specification!</span>
+                </p>
+            </aura:If>
+
+
+            <aura:If isTrue="{!or(or(v.selectedconfig.Sleeve_Material__c == 'Mono Bio-based PE',v.selectedconfig.Sleeve_Material__c == 'Coex Bio-based PE'), v.selectedconfig.Sleeve_Material__c == 'Coex PCR The Ultimate')}">
+                <p>
+                    <span style="color:red" >/!\ WARNING /!\ </span> <span>Bio-based specifications are unavailable until further notice – please do not submit any new quotes to customers. The options remain selectable in PriceMatrix for <b><span style="text-decoration:underline">comparison purposes ONLY</span></b>.</span>
+                </p>
+            </aura:If>
+            <aura:If isTrue="{!or(or(v.selectedconfig.Sleeve_Material__c == 'ISCC CRP'), v.selectedconfig.Sleeve_Material__c == 'Coex ISCC CRP')}">
+                <p>    
+                    <span style="font-weight:bold;color:red">/!\ WARNING /!\</span> <span> ISSC CRP specifications are unavailable until further notice – please do not submit any new quotes to customers. The options remain selectable in PriceMatrix for </span> <span style="font-weight:bold;text-decoration:underline"> comparison purposes ONLY.</span><span style="font-weight:bold"> Availability of ISSC CRP resin</span> <span> and </span><span style="font-weight:bold">homologation of the specification </span><span style="text-decoration:underline">must</span><span> be checked with Supply and NPD before submitting the offer</span>
+                </p>
+            </aura:If>
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="2. Diameter (mm)"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Diameter_mm__c"
+                                    value="{!v.selectedconfig.Diameter_mm__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Diameter', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields="['Shape__c']"
+                                    savedfieldName="Diameter_mm__c"
+                                    saveddependentfields="['Shape__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!--             <small>selected Diameter : {!v.selectedconfig.Diameter_mm__c}</small>     -->
+            <!-- <c:LC00_DependentButtons btnLabel="2. Diameter (mm)" name="Diameter_mm__c" location="EU"
+                                        segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Diameter"
+                                        dependsOn="['Shape__c']" savedConfig="{!v.savedConfig}"/> -->
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="7. Sleeve Material Mix"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Sleeve_Material_Mix__c"
+                                    value="{!v.selectedconfig.Sleeve_Material_Mix__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Sleeve Material Mix', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Sleeve_Material_Mix__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!-- Modif for ticket 7417 ['Sleeve_Material__c']  -->
+            <!-- <c:LC00_DependentPicklist picklistLabel="7. Sleeve Material Mix" name="SLEEVE_MATERIAL_MIX__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Sleeve Material Mix"
+                                    dependsOn="['Sleeve_type__c']" savedConfig="{!v.savedConfig}"
+                                    saveField="Sleeve_Material_Mix__c"/> -->
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="3. Fill Capacity (mL)"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Fill_Capacity_ml__c"
+                                    value="{!v.selectedconfig.Fill_Capacity_ml__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Capacity &amp; length', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields="['Shape__c','Diameter_mm__c']"
+                                    savedfieldName="Fill_Capacity_ml__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!--             <small>selected Capacity : {!v.selectedconfig.Fill_Capacity_ml__c}</small>         -->
+            <!-- <c:LC00_DependentButtons btnLabel="3. Fill Capacity (mL)" name="Fill_Capacity_ml__c" location="EU"
+                                segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Capacity &amp; length"
+                                dependsOn="['Shape__c','Diameter_mm__c']"
+                                savedConfig="{!v.savedConfig}" saveField="Fill_Capacity_ml__c"/> -->
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="8. Sleeve Finish"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Sleeve_Finish__c"
+                                    value="{!v.selectedconfig.Sleeve_Finish_name__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Sleeve Finish', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Sleeve_Finish_name__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!-- <c:LC00_DependentButtons btnLabel="8. Sleeve Finish" name="Sleeve_Finish__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Sleeve Finish"
+                                    savedConfig="{!v.savedConfig}" saveField="Sleeve_Finish_name__c"/> -->
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="4. Sleeve Length (mm)"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Sleeve_Length_mm__c"
+                                    value="{!v.selectedconfig.Sleeve_length_mm__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Capacity &amp; length', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields="['Shape__c','Diameter_mm__c','Fill_Capacity_ml__c']"
+                                    savedfieldName="Sleeve_length_mm__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c','Fill_Capacity_ml__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+
+            />
+             <p>
+                 <i>
+                    
+                    <span style="color: red;"><b><u>Important</u></b> : Please do not forget to choose Sleeve Length, even if it is just one option,if you didn't it may prevent other fields to be taken on consediration .</span>
+                </i>
+            </p>
+                
+            <!-- <c:LC00_DependentPicklist picklistLabel="4. Sleeve Length (mm)" name="Sleeve_Length_mm__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Capacity &amp; length"
+                                    dependsOn="['Shape__c','Diameter_mm__c','Fill_Capacity_ml__c']"
+                                    savedConfig="{!v.savedConfig}"
+                                    saveField="Sleeve_length_mm__c" isDisabled="true"/> -->
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="9. Sleeve Aspect"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Aspect__c"
+                                    value="{!v.selectedconfig.Sleeve_Aspect__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Sleeve_Aspect__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!-- <c:LC00_DependentButtons btnLabel="9. Sleeve Aspect" name="Aspect__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Head / Sleeve / Cap"
+                                    savedConfig="{!v.savedConfig}" saveField="Sleeve_Aspect__c"/> -->
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">5. Specific Length (mm)</label>
+            <ui:inputNumber value="{!v.selectedconfig.Specific_length_mm__c}" />
+            <p>
+                <i>
+                    If specific length, please fill in the required length - an upcharge will be applied<br/>
+                    <span style="color: red;"><b><u>Important</u></b> : Fill capacity is indicative, and may vary depending on formula.</span>
+                </i>
+            </p>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="10. Sleeve Color"
+                                    objectName="PM_Tubes_Config__c"
+                                    fieldName="Color__c"
+                                    value="{!v.selectedconfig.Sleeve_Color__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}"
+                                    dependentfields=""
+                                    savedfieldName="Sleeve_Color__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+            />
+            <!-- <c:LC00_DependentButtons btnLabel="10. Sleeve Color" name="Color__c" location="EU"
+                                    segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Head / Sleeve / Cap"
+                                    saveField="Sleeve_Color__c" savedConfig="{!v.savedConfig}" />  -->
+        </div>
+
+    </div>
+</aura:component>

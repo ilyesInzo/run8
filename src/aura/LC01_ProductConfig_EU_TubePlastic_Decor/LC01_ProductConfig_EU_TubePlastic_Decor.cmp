@@ -1,0 +1,171 @@
+<aura:component extends="c:LC00_Section" controller="LC01_SelectedProductConfigCtrl">
+
+    <aura:attribute name="printingtechnomsg" type="String" default=""/>
+    <aura:attribute name="NB_Offset_Colors__c" type="Integer" default="0"/>
+    <aura:attribute name="NB_Flexo_Colors__c" type="Integer" default="0"/>
+    <aura:attribute name="NB_SS_Colors__c" type="Integer" default="0"/>
+    
+    <aura:attribute name="printinfomsg" type="String" default="Don't forget to fill in the number of colors!"/>
+   
+		
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+	
+	
+    <aura:handler name="change" value="{!v.selectedconfig.NB_Offset_Colors__c}" action="{!c.refreshmessage}"/>
+    <aura:handler name="change" value="{!v.selectedconfig.NB_Flexo_Colors__c}" action="{!c.refreshmessage}"/>
+    <aura:handler name="change" value="{!v.selectedconfig.NB_SS_Colors__c}" action="{!c.refreshmessage}"/>
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="32. Printing Techno" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Printing_type__c" 
+                                    value="{!v.selectedconfig.Printing_technologies__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Printing Technology Matrice de faisabilité', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Printing_technologies__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+			<span style="color:red" >{!v.printingtechnomsg}</span>  
+			
+       <!--      <c:LC00_DependentPicklist picklistLabel="32. Printing Techno" 
+            name="Printing_type__c" 
+            location="EU" 
+            sObjectName="PM_Tubes_Config__c" 
+            tableName="Printing Technology Matrice de faisabilité" 
+            segment="Plastic" 
+            savedConfig="{!v.selectedconfig}" 
+            saveField="Printing_technologies__c"
+                                      selectedValue="{!v.printingTechno}" />
+            <span class="red-info">{!v.infoMessage2}</span> -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+		
+			<ui:inputSelect aura:id="NB_SS_Colors__c" value="{!v.selectedconfig.NB_SS_Colors__c}" label="35. # SS Colors"  disabled="{!v.NB_SS_Colors__c == 0}" />
+        	<aura:renderIf isTrue="{!v.NB_SS_Colors__c > 0}"> 
+				    <p>                   
+				         <span style="color:green" >Max {!v.NB_SS_Colors__c} colors</span>
+				    </p> 
+			</aura:renderIf> 
+		
+		
+		
+            <!-- 
+			<div class="slds-form-element__label">
+	            <label class="slds-align-middle">35. # SS Colors</label>
+	        </div>
+			
+			
+            <ui:inputSelect aura:id="silkscreen" value="{!v.selectedconfig.NB_SS_Colors__c}" disabled="{!empty(v.SSColorsOptions)}">
+	            <aura:iteration items="{!v.SSColorsOptions}" var="opt">
+	                <ui:inputSelectOption text="{!opt}" label="{!opt}"/>
+	            </aura:iteration>
+	        </ui:inputSelect>
+            <c:LC00_Picklist label="35. # SS Colors" 
+                                options="{!v.SSColorsOptions}" 
+                                disabled="{!empty(v.SSColorsOptions)}" 
+                                value="{!v.SSColors}" />
+            <aura:if isTrue="{!!empty(v.SSColorsOptions)}">
+                <span class="green-info">Max {!v.SSColorsOptions.length} colors</span>
+            </aura:if> 
+			-->
+        </div>
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+
+			
+				<ui:inputSelect aura:id="NB_Offset_Colors__c" value="{!v.selectedconfig.NB_Offset_Colors__c}" label="33. # Offset Colors" disabled="{!v.NB_Offset_Colors__c == 0}" />
+        	    <aura:renderIf isTrue="{!v.NB_Offset_Colors__c > 0}"> 
+				    <p>                   
+				         <span style="color:green" >Max {!v.NB_Offset_Colors__c} colors</span>
+				    </p> 
+			  	</aura:renderIf> 
+			<!-- 
+			            <div class="slds-form-element__label">
+                <label class="slds-align-middle">33. # Offset Colors</label>
+            </div>
+			
+            <ui:inputSelect aura:id="offset" value="{!v.selectedconfig.NB_Offset_Colors__c}" disabled="{!empty(v.offsetColorsOptions)}">
+                <aura:iteration items="{!v.offsetColorsOptions}" var="opt">
+                    <ui:inputSelectOption text="{!opt}" label="{!opt}"/>
+                </aura:iteration>
+            </ui:inputSelect>
+            <c:LC00_Picklist label="33. # Offset Colors" 
+                                options="{!v.offsetColorsOptions}" 
+                                disabled="{!empty(v.offsetColorsOptions)}" 
+                                value="{!v.selectedconfig.NB_Offset_Colors__c}" />
+            <aura:if isTrue="{!!empty(v.offsetColorsOptions)}">
+                <span class="green-info">Max {!v.offsetColorsOptions.length} colors</span>
+            </aura:if> 
+			-->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="36. Hot Stamping" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Hot_Stamping__c" 
+                                    value="{!v.selectedconfig.Deco_Hot_Stamping__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Hot Stamping', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Deco_Hot_Stamping__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+            <!-- <c:LC00_DependentPicklist picklistLabel="36. Hot Stamping" 
+                             name="Hot_Stamping__c" location="EU" sObjectName="PM_Tubes_Config__c" 
+                             tableName="Hot Stamping" savedConfig="{!v.savedConfig}" saveField="Deco_Hot_Stamping__c"
+                             segment="Plastic"/> -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+		     
+			<ui:inputSelect aura:id="NB_Flexo_Colors__c" value="{!v.selectedconfig.NB_Flexo_Colors__c}" label="34. # Flexo Colors"  disabled="{!v.NB_Flexo_Colors__c == 0}" />
+        	<aura:renderIf isTrue="{!v.NB_Flexo_Colors__c > 0}"> 
+				    <p>                   
+				         <span style="color:green" >Max {!v.NB_Flexo_Colors__c} colors</span>
+				    </p> 
+			</aura:renderIf> 
+			
+             <!-- 
+			 <div class="slds-form-element__label">
+                <label class="slds-align-middle">34. # Flexo Colors</label>
+            </div>
+            <ui:inputSelect aura:id="flexo" value="{!v.selectedconfig.NB_Flexo_Colors__c}" disabled="{!empty(v.flexoColorsOptions)}">
+                <aura:iteration items="{!v.flexoColorsOptions}" var="opt">
+                    <ui:inputSelectOption text="{!opt}" label="{!opt}"/>
+                </aura:iteration>
+            </ui:inputSelect>
+           <c:LC00_Picklist label="34. # Flexo Colors" 
+                                options="{!v.flexoColorsOptions}" 
+                                disabled="{!empty(v.flexoColorsOptions)}" 
+                                value="{!v.selectedconfig.NB_Flexo_Colors__c}" />
+            <aura:if isTrue="{!!empty(v.flexoColorsOptions)}">
+                <span class="green-info">Max {!v.flexoColorsOptions.length} colors</span>
+            </aura:if>
+			 -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="37. Others" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Printing_Effects__c" 
+                                    value="{!v.selectedconfig.Printing_Effects__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Printing Effects', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Printing_type__c']"
+                                    savedfieldName="Printing_Effects__c"
+                                    saveddependentfields="['Printing_technologies__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+           <!--  <c:LC00_DependentPicklist picklistLabel="37. Others" 
+            name="Printing_Effects__c" location="EU" segment="Plastic" sObjectName="PM_Tubes_Config__c"
+             tableName="Printing Effects" dependsOn="[]" savedConfig="{!v.savedConfig}" /> -->
+        </div>
+    </div>
+        
+    <div style="color:red">{!if(and(and(!empty(v.selectedconfig.Printing_technologies__c), v.selectedconfig.Printing_technologies__c != 'Unprinted'), and(v.selectedconfig.NB_Flexo_Colors__c == 0, v.selectedconfig.NB_Offset_Colors__c == 0)),v.printinfomsg,'')}</div>
+    
+</aura:component>

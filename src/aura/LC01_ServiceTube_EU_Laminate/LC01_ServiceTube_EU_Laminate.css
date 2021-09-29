@@ -1,0 +1,20 @@
+.THIS .blueClass{
+	background:#337ab7;
+	color:white;
+}
+
+.THIS .lightblueClass{
+	background:#E6E6E6;
+	color:#004A8A;	
+}
+
+.THIS .toAll{	 
+	font-size: medium;
+    font-weight: bold;
+}
+
+.THIS td{
+	padding: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}

@@ -1,0 +1,23 @@
+.THIS {
+}
+.THIS .input-gray{
+    background-color: gray!important;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    width: 100%;
+    border: 1px solid rgb(216, 221, 230);
+    border-radius: .25rem;
+    text-align: center;
+}
+
+/*
+.THIS .input-pink{
+    background-color: #ffc7ce!important;
+    color: #9c0049;
+}*/
+
+.THIS input{
+	text-align: center;
+}

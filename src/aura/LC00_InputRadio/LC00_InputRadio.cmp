@@ -1,0 +1,33 @@
+<aura:component >
+	<aura:attribute name="label" type="String" />
+    <aura:attribute name="options" type="String[]" default="['']"/>
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:attribute name="group" type="String" default=""/>
+	<aura:attribute name="helptext" type="String" default=""/>
+    <aura:attribute name="mapoptions" type="MAP"/>
+	<aura:attribute name="disabled" type="Boolean" default="false"/>
+	<aura:attribute name="resetvalue" type="String" default=""/>
+	
+    <aura:handler name="change" value="{!v.mapoptions}" action="{!c.doInit}" /> 
+    
+    
+	
+	<label class="slds-form-element__label"><b>{!v.label}</b></label>
+	<aura:if isTrue="{!v.helptext != ''}">
+		<c:LC00_HelpText helpText="{!v.helptext}" width="200px" class=""/>
+	</aura:if>	
+
+    <div class="slds-p-horizontal--small">
+		<aura:iteration items="{!v.options}" var="opt">			 
+        	<div class="uiInput uiInputRadio uiInput--default uiInput--radio">
+			    <label class="uiLabel-left form-element__label uiLabel">
+			        <ui:inputRadio name="{!v.group}" text="{!opt}" click="{!c.handlechange}" value="{!if(v.value == opt, true, false)}" disabled="{!v.disabled}"/>
+			        <span>{!opt}</span>
+			    </label>
+			</div>
+		</aura:iteration>
+ 	</div>
+
+
+
+</aura:component>

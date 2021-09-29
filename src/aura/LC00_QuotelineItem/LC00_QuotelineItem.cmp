@@ -1,0 +1,11 @@
+<aura:component extensible="true" abstract="true" controller="LC01_HomeCtrl">
+
+    <aura:attribute name="qliId" type="String"/>
+    <aura:attribute name="qli" type="QuoteLineItem" default="{ 'sobjectType': 'QuoteLineItem'}"  />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:registerEvent name="LE00_QuoteLineReady" type="c:LE00_QuoteLineReady"/>
+    
+     {!v.body}
+        
+</aura:component>

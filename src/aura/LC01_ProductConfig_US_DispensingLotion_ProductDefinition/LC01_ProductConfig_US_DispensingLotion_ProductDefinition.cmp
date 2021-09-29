@@ -1,0 +1,188 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="1. Engine Name" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Engine_Name__c" 
+									savedfieldName="Engine_Name__c"
+									value="{!v.selectedconfig.Engine_Name__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Engine', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div> 
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            	<c:LC00_DependantFields label="8. Actuator"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Actuator__c" 
+									savedfieldName="Actuator__c"
+									value="{!v.selectedconfig.Actuator__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Actuator type', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c', 'Product_Type__c', 'Pump_material__c']"
+									concat="['_', '_', '_', '_', '_']"
+										selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           <c:LC00_DependantFields label="2. Product Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Type__c" 
+									savedfieldName="Product_Type__c"
+									value="{!v.selectedconfig.Product_Type__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Group', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Name__c']"
+									saveddependentfields="['Engine_Name__c']"
+								   selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+		<!-- updated by Nina Roxana Evol -->
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            	<c:LC00_DependantFields label="9. Lockability"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Lockability__c" 
+									savedfieldName="Lockability__c"
+									value="{!v.selectedconfig.Lockability__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Lockability', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c', 'Actuator__c', 'Pump_material__c']"
+									concat="['_', '_', '_', '_','_']"
+										selectedConfig="{!v.selectedconfig}"
+									/>
+        </div> 
+        <!-- End Modif Nina -->
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        	<c:LC00_DependantFields label="3. Complete Pack Name" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Name__c" 
+									savedfieldName="Pack_Name__c"
+									value="{!v.selectedconfig.Pack_Name__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Product Name', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Type__c', 'Engine_Name__c']"
+									concat="['_']"
+													selectedConfig="{!v.selectedconfig}"
+									/>     
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="10. Collar"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Collar__c"  
+									savedfieldName="Collar__c" 
+									value="{!v.selectedconfig.Collar__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Collar', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}"  
+									dependentfields="['Concatenate__c']" 
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Lockability__c', 'Neck_Finish__c', 'Actuator__c', 'Product_Type__c', 'Pump_material__c']"
+									concat="['_', '_', '_', '_', '_', '_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="4. Pump Segmentation" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Pump_Segmentation__c" 
+									savedfieldName="Pump_Segmentation__c"
+									value="{!v.selectedconfig.Pump_Segmentation__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Product Configuration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Product_Type__c']"
+									concat="['_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="11. Dosage"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Dosage__c" 
+									savedfieldName="Dosage__c"
+									value="{!v.selectedconfig.Dosage__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Dosage information', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Lockability__c', 'Neck_Finish__c', 'Actuator__c', 'Collar__c']"
+									concat="['_', '_', '_', '_', '_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+		<!-- Added By Thanina Roxana Shild -->
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="5. Material"
+									objectName="PM_Dispensing_Config__c"
+									fieldName="Pump_material__c"
+									savedfieldName="Pump_material__c"
+									value="{!v.selectedconfig.Pump_material__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Pump material', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}"
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pump_Segmentation__c']"
+									concat="['_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+		</div>
+		<!-- End Added Nina -->
+
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="12. Purge Ring"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Purge_Ring__c" 
+									savedfieldName="Purge_Ring__c"
+									value="{!v.selectedconfig.Purge_Ring__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Purge Ring', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Actuator__c', 'Neck_Finish__c', 'Collar__c','Product_Type__c']"
+									concat="['_', '_', '_', '_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="6. Attachment"
+									objectName="PM_Dispensing_Config__c"
+									fieldName="Attachement__c"
+									savedfieldName="Attachment__c"
+									value="{!v.selectedconfig.Attachment__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Attachement (fixation)', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}"
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Product_Type__c']"
+									concat="['_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+		</div>
+
+        
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="13. Cap"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Cap__c" 
+									savedfieldName="Cap__c"
+									value="{!v.selectedconfig.Cap__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Cap', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Lockability__c', 'Neck_Finish__c', 'Actuator__c', 'Collar__c', 'Pack_Name__c', 'Pump_material__c']"
+									concat="['_', '_', '_', '_', '_', '_', '_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>    
+        </div>
+		<!-- updated by Nina Roxana Evol -->
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="7. Neck Finish"
+									objectName="PM_Dispensing_Config__c"
+									fieldName="Neck_Finish__c"
+									savedfieldName="Neck_Finish__c"
+									value="{!v.selectedconfig.Neck_Finish__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Neck Finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}"
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Engine_Name__c', 'Pump_Segmentation__c', 'Attachment__c', 'Product_Type__c', 'Pack_Name__c', 'Pump_material__c']"
+									concat="['_', '_', '_', '_','_']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+		</div>
+		<!-- End Evol Nina-->
+		
+    </div>
+</aura:component>

@@ -1,0 +1,47 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="18. Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Bottle_Finishing_Type__c" 
+									savedfieldName="Bottle_Finishing__c"
+									value="{!v.selectedconfig.Bottle_Finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Finishing', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Material__c']"
+									concat="['_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+		
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="20. Decoration" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Bottle_Finishing__c" 
+									savedfieldName="Bottle_Decoration__c"
+									value="{!v.selectedconfig.Bottle_Decoration__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Decoration', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Material__c','Bottle_Size__c','Bottle_Finishing__c']"
+									concat="['_', '_', '_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+		
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="19. Plastic Coloring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Plastic_Coloring__c"
+									value="{!v.selectedconfig.Plastic_Coloring__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'External Bottle Color', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Material__c','Bottle_Finishing__c']"
+									concat="['_', '_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+		
+    </div>
+</aura:component>

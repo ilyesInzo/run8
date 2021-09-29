@@ -1,0 +1,41 @@
+<aura:component implements="force:appHostable" controller="LC01_ProductConfigCtrl">
+    
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="showProductImg" type="boolean" default="false" />
+    <aura:attribute name="imageSource" type="String" default="/resource/tube_img2" />
+    <aura:attribute name="errorMessage" type="String" default="" />
+<!--     <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    
+    <aura:handler event="c:LE00_SelectedTube" action="{!c.refreshProductImg}" /> 
+    
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <div class="image-preview">
+        
+        <div style="background-color: ghostwhite;">
+            <aura:if isTrue="{!v.showProductImg &amp;&amp; v.qli.Product_Final_Look__c != '' }" >
+                <div  aura:id="product-img" class="slds-p-horizontal--small slds-align--absolute-center">
+                    <img src="{!v.imageSource}" class="slds-media slds-media--center" style="width: 250px;min-height: 464px;" />
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-spinner_container" aura:id="product-loading" style="position:relative;  min-height: 464px;">
+                        <div class="slds-spinner--brand  slds-spinner slds-spinner--medium" role="alert">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div> 
+                </aura:set>
+            </aura:if> 
+            
+        </div>
+        <div class="slds-p-horizontal--small slds-align--absolute-center">
+            <!--<div class="form-element__help" style="color:red;">{!v.errorMessage}</div>-->
+        </div>
+        <div class="slds-p-horizontal--small slds-align--absolute-center">
+            <lightning:button variant="neutral" label="Refresh now"  aura:id="refreshBtn"
+                              iconName="utility:refresh" iconPosition="left" 
+                              onclick="{!c.refreshProductImg}" />
+        </div>
+    </div>
+</aura:component>

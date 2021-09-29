@@ -1,0 +1,46 @@
+<aura:component implements="force:appHostable" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <!-- 
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="showProductImg" type="boolean" default="false" />
+    <aura:attribute name="selectedDispensingConfig" type="PM_Selected_Dipsensing_config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Dipsensing_config__c'}" />
+    
+    <aura:attribute name="collapseStatus" type="Map" 
+                    default="{Product_Definition: true, Pump_Decoration: true, Bottle_Definition: true}" />
+    
+    <!--<aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler name="SectionCollapseEvent" event="c:LE00_SectionAccordionCollapse" action="{!c.handleCollapseEvent}"/>
+    
+    <div class="slds pm">
+        <!-- <c:LC01_Header pageName="Product Configuration: Foam"  qli="{!v.qli}" /> -->
+        <c:LC01_ProductConfig_Header pageName="Product Configuration: Foam"  qli="{!v.qli}" service="c:LC01_ServiceDispensing_US_FoamPump" configPageName="c:LC01_ProductConfig_US_DispensingFoam" selectedconfig="{!v.selectedDispensingConfig}"/>
+        <c:LC01_Wizard step="1"/>
+        
+         <br/><br/>
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3">
+                 <div aura:id="specPreconfig"> 
+                            <c:LC01_ProductConfig_SpecPreconfigContainer selectedConfig="{!v.selectedDispensingConfig}"  location="US" productSubSegment="Foam" quoteStatus="{!v.qli.copy_quote_status__c}" /> 
+                </div> 
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <c:LC01_ProductConfig_US_DispensingFoam_ProductDefinition name="Product Definition" open="{!v.collapseStatus.Product_Definition}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                <c:LC01_ProductConfig_US_DispensingFoam_PumpDecoration name="Pump Decoration" open="{!v.collapseStatus.Pump_Decoration}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                <c:LC01_ProductConfig_US_DispensingFoam_Bottle name="Bottle Definition" open="{!v.collapseStatus.Bottle_Definition}" selectedconfig="{!v.selectedDispensingConfig}"/>
+                
+            	<c:LC00_SaveButton selectedconfig="{!v.selectedDispensingConfig}" />
+            </div>
+            <!-- div class="slds-p-horizontal- -small slds-size- -1-of-1 slds-medium-size- -1-of-3">
+                <c:LC01_ProductConfig_imagePreview qli="{!v.qli}" showProductImg="{!v.showProductImg}" imageSource="/resource/foam_img" />
+            </div -->
+           
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 ">
+                <c:LC01_ProductConfig_US_DispensingFoam_Header name="List Price" open="true" qli="{!v.qli}" collapsible="true"  selectedconfig="{!v.selectedDispensingConfig}"/>     
+            </div>
+        </div>  
+    </div>
+</aura:component>

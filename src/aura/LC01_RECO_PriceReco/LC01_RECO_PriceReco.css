@@ -1,0 +1,94 @@
+.THIS .first-row{
+    line-height:30px !important;
+}
+.THIS .first-row th, .THIS .second-row th{
+	font-style: italic;
+}
+.THIS .other-moq-header{
+    width: 50px;
+}
+.THIS .first-row td{
+    color: white;
+    border: 1px solid #BFBFBF;
+    background-color: #1F106A;
+}
+.THIS .second-row td{
+    border: 1px solid #BFBFBF;
+    height:20px;    
+}
+.THIS .result-row th{
+    color: white;   
+    width: 121px;
+}
+.THIS .result-row td{
+    border: 1px solid #BFBFBF;
+}
+.THIS .result-row.row1 th{
+    border-bottom: 1px solid #00B050;
+    background-color: #00B050;    
+}
+.THIS .result-row.row1 td{
+    color: #00B050;
+    height:20px;
+}
+.THIS .result-row.row2 th{
+    border-bottom: 1px solid #92D050;
+    background-color: #92D050;    
+}
+.THIS .result-row.row2 td{
+    color: #92D050;
+    height:20px;
+}
+.THIS .result-row.row3 th{
+    border-bottom: 1px solid #FFC000;
+    background-color: #FFC000;    
+}
+.THIS .result-row.row3 td{
+    color: #FFC000;
+    height:20px;
+}
+.THIS .result-row.row4 th{
+    border-bottom: 1px solid #FF0000;
+    background-color: #FF0000;    
+}
+.THIS .result-row.row4 td{
+    color: #FF0000;
+    height:20px;
+}
+.THIS .result-row.row5 th{
+    border-bottom: 1px solid #000;
+    background-color: #000;    
+}
+.THIS .result-row.row5 td{
+    color: #000;
+    height:20px;
+}
+.THIS td, .THIS .result-row th{
+    text-align: center;
+}
+.THIS td.divider{
+    padding-left:5px;
+    background: none;
+    border: none;
+    background-color: transparent!important;
+}
+.THIS .other-moq{
+	background-color: #FFFFCC!important;
+    padding: 0 .2rem 0 .2rem;
+    height:30px !important;
+} 
+.THIS .other-moq input{
+    width: 50px;
+    color:black;
+    border:none!important;
+    background-color:#FFFFCC;
+}
+.THIS .other-moq input:focus{
+	outline:none;
+}
+.THIS .price-reco-disable {
+    background-color:#d9d9d9;
+}
+.THIS .price-reco-disable td {
+    color:gray !important; 
+}

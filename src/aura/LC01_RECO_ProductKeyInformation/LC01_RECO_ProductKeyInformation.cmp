@@ -1,0 +1,451 @@
+<aura:component controller="LC01_SelectedProductConfigCtrl" implements="force:appHostable">
+    <aura:attribute name="qliId" type="String" default="" required="true"/>
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+  
+  <aura:attribute name="seltubes" type="PM_Selected_Tubes_Config__c"  default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}"  />
+  <aura:attribute name="seldispensing" type="PM_Selected_Dipsensing_config__c" default="{ 'sobjectType': 'PM_Selected_Dipsensing_config__c'}"  />
+  
+<!--     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />  -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.doInit}" />
+  
+    <div class="slds-m-top--large">
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Laminate Tubes' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Diameter (mm)</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Diameter_mm__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Head name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Head_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Sleeve Material</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Sleeve_Material__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Printing Techno</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Printing_technologies__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Plastic Tubes' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Diameter (mm)</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Diameter_mm__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Head name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Head_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Eurocode</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Eurocode__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Printing Techno</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Printing_technologies__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <!-- 
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Plastic Tubes' , v.qli.Location__c == 'EU' , !v.qli.Purefoil_Segment__c)}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Diameter (mm)</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Diameter_mm__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Head name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Head_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Eurocode</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Eurocode__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Printing Techno</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Printing_technologies__c}" disabled="true"/>
+              </div>
+          </div>            
+    </aura:renderIf> 
+     -->
+     
+     
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Foam pumps' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Hierarchy</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Hierarchy__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Engine Type</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Engine_Type__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Cap__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Neck</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Neck__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Fine mist pumps' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Attachment</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Attachment__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Type</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Cap_Type__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Dosage</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Dosage__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Lotion pumps' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Engine Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Engine_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Pump Segmentation</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Pump_Segmentation__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Collar</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Collar__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Dosage</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Dosage__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Sampler pumps' , v.qli.Location__c == 'EU')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Engine &amp; Neck</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Engine_Neck__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Pump Segmentation</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Pump_Segmentation__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Collar Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Collar_Configuration__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Dosage</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Dosage__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    
+    
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Laminate Tubes' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Tube Diameter</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Diameter_inches__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Head name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Head_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Style</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Eurocode__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Printing Techno</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Printing_type__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Plastic Tubes' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Tube Diameter</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Diameter_inches__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Sleeve Type</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Sleeve_type__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Cap_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Style</label>
+              <div class="slds-form-element__control">
+                
+                  <ui:inputText value="{!v.seltubes.Cap_Eurocode__c}" disabled="true"/>
+				  <!-- <ui:inputText value="-" disabled="true"/> -->
+				  
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Printing Techno</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seltubes.Printing_type__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+     
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Foam pumps' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Hierarchy</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Hierarchy__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Cap__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Neck Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Neck__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Bottle</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Bottle_Size__c + '_' + v.seldispensing.Material__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Fine mist pumps' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Attachment</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Attachment__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Neck Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Neck_Finish__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Collar Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Collar__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Lotion pumps' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Engine Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Engine_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Pack Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!if(v.seldispensing.Product_Type__c == 'Complete Pack',v.seldispensing.Pack_Name__c,'-')}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Pump Segmentation</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Pump_Segmentation__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Actuator Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Actuator__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Collar Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Collar__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+    
+    <aura:renderIf isTrue="{!and(v.qli.Product_Sub_segment__c == 'Sampler pumps' , v.qli.Location__c == 'US')}">
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Product Name</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Product_Name__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Engine &amp; Neck</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Engine_Neck__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Pump Segmentation</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Pump_Segmentation__c}" disabled="true"/>
+              </div>  
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Collar Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Collar_Configuration__c}" disabled="true"/>
+              </div>
+          </div>
+          <div class="slds-form-element">
+              <label class="slds-form-element__label" for="product_segment">Cap Configuration</label>
+              <div class="slds-form-element__control">
+                  <ui:inputText value="{!v.seldispensing.Cap__c}" disabled="true"/>
+              </div>
+          </div>          
+    </aura:renderIf> 
+        
+    </div>
+</aura:component>

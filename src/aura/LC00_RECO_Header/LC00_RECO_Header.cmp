@@ -1,0 +1,14 @@
+<aura:component >
+    <aura:attribute type="string" name="headerName" />
+     <aura:attribute type="string" name="headerNumber" />
+    <aura:attribute type="string" name="helpText" />
+     <aura:attribute type="string" name="width" />
+	<div class="albea-header">
+                <h2>{!v.headerNumber} {!v.headerName}</h2> 
+        		<aura:if isTrue="{!v.helpText}">
+                    <div class="slds-float--right">
+                        <c:LC00_HelpText helpText="{!v.helpText}" width="{!v.width}"/>
+                    </div>
+            	</aura:if>
+                </div>
+</aura:component>

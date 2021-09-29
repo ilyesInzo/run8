@@ -1,0 +1,41 @@
+<!--
+ - Created by Thanina on 05/07/2019.
+ -->
+
+<apex:page sidebar="false" showHeader="true" title="Approve/Reject Requests Page">
+    <apex:includeLightning />
+    <!--Lightning Container-->
+    <div style="width:100%;height:100%;" id="LightningContainer" />
+
+    <script type="text/javascript">
+        //get account Id from URL
+        var objName = "{!$CurrentPage.parameters.ObjectName}";
+        var fieldSetViewName = "{!$CurrentPage.parameters.ListName}";
+        var moreFilters = "{!$CurrentPage.parameters.Filters}";
+        var listTitle = "{!$CurrentPage.parameters.listTitle}"
+
+        // var isDirector= "{!$User.Director__c}";
+        // var isManager= "{!$User.Manager__c}";
+        //var isKAM= "{!$User.KAM__c}";
+        //var userId= "{!$User.Id}";
+
+
+        //alert("filters: "+ moreFilters);
+        $Lightning.use("c:DisplayListView", function () {
+            $Lightning.createComponent("c:DynamicTableView",
+                {
+                    "sObjectName": objName,
+                    "fieldSetName": fieldSetViewName,
+                    "filters": moreFilters,
+                    "listTitle": listTitle,
+                    "displaySelectedColumns": true,
+                    "needRejectApproveBtn": true
+
+                }, //Pass Parameter
+                "LightningContainer", function (component) {
+                    console.log('Component created');
+                });
+        });
+
+    </script>
+</apex:page>

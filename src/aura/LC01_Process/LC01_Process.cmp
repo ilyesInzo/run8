@@ -1,0 +1,20 @@
+<aura:component >
+	<aura:attribute name="steps" type="String[]"/>
+    <div class="slds-grid slds-p-around--medium">
+        <div class="slds-tabs--path" role="application">
+            <ul class="slds-tabs--path__nav" role="tablist">
+                <aura:iteration items="{!v.steps}" var="step" indexVar="stepNum">
+                    <li class="{!'slds-tabs--path__item ' + if(stepNum == 0,'slds-is-current', 'slds-is-incomplete')}" role="presentation" title="{!step}">
+                        <a class="slds-tabs--path__link tooltip" id="tabs-path-1" aria-controls="content-path-1" 
+                           aria-selected="false" tabindex="-1" role="tab" href="" aria-live="assertive" target="_top">
+                            <span class="slds-tabs--path__stage">
+                                <lightning:icon iconName="utility:check" size="x-small"/>
+                            </span>
+                            <span class="slds-tabs--path__title">{!step}</span>
+                        </a>
+                    </li>
+                </aura:iteration>
+            </ul>
+        </div>
+    </div>
+</aura:component>

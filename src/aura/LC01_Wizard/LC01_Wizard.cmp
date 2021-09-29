@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable" controller="LC01_WizardCtrl">
+    <aura:attribute name="step" type="Integer" default="0" />
+    <aura:attribute name="qliId" type="String" default="" required="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.qliId}" action="{!c.init}" /> 
+    <div class="step" data-step="{!v.step}"> 
+        <p for="step-1"><span class="text-position">{!$Label.c.LBL_Scoring}</span></p>
+        <p for="step-2"><span class="text-position">{!$Label.c.LBL_ProductConfig}</span></p>
+        <p for="step-3"><span class="text-position">{!$Label.c.LBL_PriceReco}</span></p>
+        <p for="step-4"><span class="text-position">{!$Label.c.LBL_NetPriceFinalization}</span></p>
+    </div>
+</aura:component>

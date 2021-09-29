@@ -1,0 +1,8 @@
+/*@media (max-width: 600px) { }*/
+.THIS .fixed {
+    position: fixed;
+    top: 136px;
+    right: 5%;
+    width: auto;
+    max-width: 317px;
+}

@@ -1,0 +1,16 @@
+<aura:component controller="LC01_ProductConfig_SpecPreconfigCtrl">
+	<aura:attribute name="selectedConfig" type="sObject" />
+	<aura:attribute name="preconfig" type="PM_SpecPreconfig__c" />
+    <aura:attribute name="selectedPreconfig" type="PM_SpecPreconfig__c" />
+    <aura:attribute name="quoteStatus" type="String" />
+
+    <aura:registerEvent name="clickPreconfig" type="c:LC01_SpecPreconfigEvent"/>
+
+    <div class="{!or(or(v.quoteStatus == 'Draft' , v.quoteStatus == 'Presented') ,v.quoteStatus == 'Simulation' )? v.preconfig.Id == v.selectedPreconfig.Id? 'slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 button selectedButton button2': 'slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 button button2':'slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 button disabledButton' }" 
+    	 onclick ="{!if(v.quoteStatus == 'Draft' || v.quoteStatus == 'Presented' || v.quoteStatus == 'Simulation', c.updateConfig, '')}">
+
+       <div style="margin-top: 13%;">{!v.preconfig.Name__c}</div>
+    	 
+    </div>
+	  
+</aura:component>

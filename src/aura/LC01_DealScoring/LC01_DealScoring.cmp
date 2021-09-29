@@ -1,0 +1,100 @@
+<aura:component implements="force:appHostable">
+    
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="toolingCapex" type="String" default="No"/>
+    
+    <ltng:require scripts="/resource/jQuery_310,/resource/ALJSv2/jquery.aljs-all.min.js" 
+                  styles="{!$Resource.PriceMatrixCSS}" afterScriptsLoaded="{!c.init}"/>
+    
+    <div class="slds pm">
+        <c:LC01_Header pageName="Deal Scoring" qli="{!v.qli}" />
+        <c:LC01_Wizard />
+        <hr class="slds-m-top--medium slds-m-bottom--medium" />
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--align-center">
+            <div class="slds-text-align--right slds-m-right--x-small slds-m-left--x-small">
+                <label class="slds-text-body--regular" for="customerRating">{!$Label.c.LBL_DEALSCORE}</label>
+            </div>
+            <div class="" style="width:220px">
+                <c:LC01_Score score="4.2"/>
+            </div>
+        </div>
+        
+        <div class="slds-section">
+            <h3 class="slds-section__title">
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_DealScoring}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="BRAND POSITIONING" helpText="{!$Label.c.HT_Brand_Positioning}" options="['Mass Market','Selective Market']" width="800px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small"></div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="CONTRACT DURATION" helpText="{!$Label.c.HT_Contract_Duration}" options="['No contract','1 year', '2 years', '3 years and +']" width="500px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="ALBÉA DEPENDENCY TO SUPPLIER(S)" helpText="{!$Label.c.HT_Albea_DependencyToSuppliers}" options="['No contract','1 year', '2 years', '3 years and +']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="EXCLUSIVITY (SINGLE VS MULTIPLE SUPPLIERS)" helpText="{!$Label.c.HT_Exclusivity}" options="['No','Yes']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="TYPE OF BUSINESS" helpText="{!$Label.c.HT_TypeOf_Business}" options="['Line extension','Retention', 'Penetration', 'Conversion']" width="400px"/>
+            </div>            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="MULTIPLE RELEASED ORDER / BLANKET ORDER" helpText="{!$Label.c.HT_Multiple_Order}" options="['Yes','No']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="# OF MONTHS OF STOCK AT ALBEA EXPENSE" helpText="{!$Label.c.HT_NumMonthsOf_Stock}" options="['3 or more','Up to 2 months','Up to 1 month','Make &amp; Ship / At client expense']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="INDEXATION OF RAW MATERIALS COSTS" helpText="{!$Label.c.HT_Indexation_RawMaterials}" options="['No','Annual negotiation','Automatic contractual indexation']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="TOOLING /CAPEX INVESTMENTS REQUIRED" helpText="{!$Label.c.HT_Tooling}" 
+                                 options="['Yes','No']" value="{!v.toolingCapex}" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="PENALTIES FOR THE CUSTOMER IN THE CONTRACT" helpText="{!$Label.c.HT_Penalties_Customer}" options="['No','Yes']" width="350px"/>
+            </div>
+            <aura:if isTrue="{!v.toolingCapex eq 'Yes'}">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                    <div class="slds-form-element__label">
+                        <label class="slds-align-middle">Enter the tooling / CAPEX investment required ></label>
+                    </div>
+                    <ui:inputNumber />
+                </div>
+            </aura:if>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="SKONTO (FOR CASH PAYMENT)" helpText="{!$Label.c.HT_Skonto}" options="['Yes (3%)','Yes (2%)','Yes (1%)','No']" width="400px"/>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_Picklist label="PENALTIES IN THE CONTRACT FOR ALBÉA" helpText="{!$Label.c.HT_Penalties_Contract}" options="['No','Yes']" width="400px"/>
+            </div>
+        </div>
+        <div class="slds-section">
+            <h3 class="slds-section__title slds-text-align--center">
+                <button class="slds-button slds-section__title-action">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.LBL_AdditionalComments}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <textarea id="textarea-input-01" class="slds-textarea" value="No comments" placeholder="" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</aura:component>

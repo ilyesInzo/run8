@@ -1,0 +1,38 @@
+.THIS .button {
+
+	margin-top: 12px;
+    width: 45%;
+    height: 75px;
+    margin-left: 12px;
+    background-color: rgba(27, 82, 151, 1);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 11px;
+    cursor:pointer;
+}
+
+.THIS .button2:hover {
+	background-color:#ffc000;
+    color:black;
+}
+
+
+
+.THIS .selectedButton{
+   
+    background-color: #ffc000;
+    color:black;
+   
+}
+
+.THIS.undoButton {
+    margin-top: 18px;
+    margin-left: 81px;
+    width: 185px;
+}
+
+.THIS .disabledButton{
+    background-color:lightgrey;
+    color:white;
+}

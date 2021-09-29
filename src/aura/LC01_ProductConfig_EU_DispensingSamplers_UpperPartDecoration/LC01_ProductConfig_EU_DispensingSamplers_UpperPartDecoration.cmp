@@ -1,0 +1,115 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="10. Actuator Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Actuator_Finishing__c" 
+									savedfieldName="Actuator_Finishing__c"
+									value="{!v.selectedconfig.Actuator_Finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Actuator finishing', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Pump_Segmentation__c']"
+									concat="['_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="14. Cap configuration" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Cap__c" 
+									savedfieldName="Cap__c"
+									value="{!v.selectedconfig.Cap__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Cap', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Collar_Configuration__c']"
+									concat="['_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="11. Actuator Detailed Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Actuator_Detailed_finishing__c"
+									value="{!v.selectedconfig.Actuator_Detailed_finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Actuator coloring', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Pump_Segmentation__c','Actuator_Finishing__c']"
+									concat="['_', '_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="15. Cap finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Collar_Finishing__c" 
+									savedfieldName="Cap_Finishing__c"
+									value="{!v.selectedconfig.Cap_Finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Cap finishing', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Cap__c']"
+									concat="['_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="12. Collar Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Collar_Finishing__c" 
+									savedfieldName="Collar_Finishing__c"
+									value="{!v.selectedconfig.Collar_Finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Collar finishing', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Pump_Segmentation__c']"
+									concat="['_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="16. Cap Detailed Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Cap_Detailed_finishing__c"
+									value="{!v.selectedconfig.Cap_Detailed_finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Cap Color', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Cap__c','Cap_Finishing__c']"
+									concat="['_', '_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="13. Collar Detailed Finishing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Collar_Detailed_finishing__c"
+									value="{!v.selectedconfig.Collar_Detailed_finishing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Collar coloring', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Pump_Segmentation__c','Collar_Finishing__c']"
+									concat="['_', '_', '_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="17. Insert Coloring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Insert_Coloring__c"
+									value="{!v.selectedconfig.Insert_Coloring__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Insert Coloring', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Name__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+		
+    </div>
+</aura:component>

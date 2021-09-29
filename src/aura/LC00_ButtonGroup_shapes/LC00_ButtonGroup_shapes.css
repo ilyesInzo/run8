@@ -1,0 +1,11 @@
+.THIS {
+}
+.THIS .label-button{
+    float: right;padding-left: 10px;
+}
+.THIS .normal > img{
+    filter: invert(0%);
+}
+.THIS .invert > img{
+    filter: invert(100%);
+}

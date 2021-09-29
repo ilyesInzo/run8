@@ -1,0 +1,19 @@
+.THIS .info{
+    color:green;
+    font-style: italic;
+    font-weight: bold;
+}
+.THIS .gray-label{
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    width: 100%;
+    border: 1px solid rgb(216, 221, 230);
+	border-radius: .25rem .25rem 0rem 0rem;
+}
+
+.THIS input{
+	text-align: center;
+}

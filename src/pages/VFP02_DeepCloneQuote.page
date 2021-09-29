@@ -1,0 +1,3 @@
+<apex:page standardController="Quote" extensions="VFC02_deepclonequotectrl" action="{!deepclonequote}">
+        <apex:pageMessages />
+</apex:page>

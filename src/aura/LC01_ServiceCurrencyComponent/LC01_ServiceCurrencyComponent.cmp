@@ -1,0 +1,18 @@
+<aura:component >
+
+	<aura:attribute name="label" type="String"/>
+	<aura:attribute name="value" type="String"/>
+	<aura:attribute name="currencysymbol" type="String"/>
+	<aura:attribute name="currencyposition" type="String"/>
+	<aura:attribute name="class" type="String"/>
+	<aura:attribute name="displayvalue" type="String"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:handler name="change" value="{!v.value}" action="{!c.init}" />
+    
+    
+	<ui:inputText label="{!v.label}" value="{!v.displayvalue}" disabled="true" class="{!v.class}"/>
+	
+</aura:component>

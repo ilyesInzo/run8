@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="LC02_gamificationController" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="imageUrl" type="String"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contactName" type="String"/>
+  
+    <aura:attribute name="contactRank" type="String"/>
+    <aura:attribute name="contactTotalPoints" type="Integer"/>
+    <aura:attribute name="contactNbrBadge" type="Integer"/>
+    
+
+    <lightning:card>
+        <aura:set attribute="title">
+            <aura:if isTrue="{!not(empty(v.contactName))}">
+            	<lightning:icon iconName="utility:connected_apps" size="small"/>
+            		Hello {!v.contactName}
+            </aura:if>
+        </aura:set>
+        
+		<aura:if isTrue="{!not(empty(v.contactRank))}">     
+			<figure class=".slds-avatar--circle .slds-avatar--small">
+                <center>You have {!v.contactNbrBadge} badge(s), your Rank is :</center>
+                <br/>
+  				<center>
+                    <div class=".slds-avatar--large open-rank-page" onclick="{!c.openRankPage}" >
+            			<img src="{!$Resource.RanksImages + '/RanksImages/'+ v.contactRank + '.png'}"/>
+  					</div>
+                </center>
+    		</figure>
+            
+        </aura:if>
+		
+    </lightning:card>
+
+</aura:component>

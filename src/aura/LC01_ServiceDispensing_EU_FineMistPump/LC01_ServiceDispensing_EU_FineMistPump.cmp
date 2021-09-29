@@ -1,0 +1,156 @@
+<aura:component implements="force:appHostable" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <aura:attribute name="configPageName" type="String"/>
+    <div class="slds pm">
+        <!-- <c:LC01_Header pageName="Services Offer for Dispensing Pumps" qli="{!v.qli}" /> -->
+        <c:LC01_ServiceDispensing_Header pageName="Services Offer for Dispensing Pumps"
+                                         configurator="{!v.configPageName}" qli="{!v.qli}"/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1">
+                <div class="albea-header">
+                    <h2>All sub segments EU</h2>
+                </div>
+                <div class="slds-size--1-of-1"></div>
+                <table class="service-dispensing-tbl" style="margin-bottom: 60px">
+
+                    <tr>
+                        <th colspan="8">Custom Color Matching Chips</th>
+                    </tr>
+                    <tr>
+                        <td class="first-col"  rowspan="2">For custom color matches from chips sent to a
+                            color house, not run on parts
+                        </td>
+                        <td colspan="2"  rowspan="2"> Inserts, Actuators, Caps</td>
+                        <td colspan="2">Color matching on chips, first 2 submissions</td>
+                        <td colspan="3" style="background-color:lightgrey"> Free</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" >Color matching on chips, first 2 submissions</td>
+                        <td colspan="3" style="background-color:lightgrey"> 500€ / submission</td>
+                    </tr>
+
+
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">Custom Color Matching Samples </th>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="1" rowspan="3" class="first-col" > For sample parts produced with color, not just providing basic color match/chips</td>
+                        <td colspan="1" rowspan="1" class="toAll lightblueClass"  >In House molded products: </td>
+                        <td colspan="3"> per color/order  (not component) </td>
+                        <td colspan="2" style="background-color:lightgrey"> 500€</td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="1" class="toAll lightblueClass" >Custom color Dip Tube samples:</td>
+                        <td colspan="3">per color/order </td>
+                        <td colspan="2" style="background-color:lightgray">850 €</td>
+                    </tr>
+
+                    <tr >
+                        <td colspan="1" rowspan="1" class=" toAll lightblueClass"  >Purchased components:</td>
+                        <td colspan="3"> per component</td>
+                        <td colspan="2" style="background-color:lightgray">20% margin (cost divided by 0,8)</td>
+                    </tr>
+
+                    <tr class="blank">
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">Samples Charges (Existing Products &amp; stock colors) </th>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="4" class="first-col" > Samples produced that are not related to an existing order</td>
+                        <td colspan="1" rowspan="3" class="toAll lightblueClass"  >In House molded products: </td>
+                        <td colspan="3"> First 100 pieces </td>
+                        <td colspan="2" style="background-color:lightgray">Free</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"> From 101 to 3999 pieces</td>
+                        <td colspan="2" style="background-color:lightgray">1€ / piece</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3">Above 4000 pieces</td>
+                        <td colspan="2" style="background-color:lightgray">Contact representative</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="1" class="toAll lightblueClass" >Purchased samples :  </td>
+                        <td colspan="3"> per component </td>
+                        <td colspan="2" style="background-color:lightgray">20% margin (cost divided by 0,8)</td>
+                    </tr>
+
+
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8" style="color:black;background: transparent;border-width:0px">Exception:   Products with very high prices (i.e. > 1€ per pump)  will be charged at standard cost x 1.5.
+                        </th>
+                    </tr>
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">Samples Charges (Existing Products in custom colors) </th>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="4" class="first-col" > Samples produced that are not related to an existing order</td>
+                        <td colspan="1" rowspan="3" class="toAll lightblueClass"  >In House molded products: </td>
+                        <td colspan="3"> First 100 pieces </td>
+                        <td colspan="2" style="background-color:lightgray">500€/color per order</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"> From 101 to 3999 pieces</td>
+                        <td colspan="2" style="background-color:lightgray">1€ / piece + 500€/color per order</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3">Above 4000 pieces</td>
+                        <td colspan="2" style="background-color:lightgray">Contact representative</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="1" class="toAll lightblueClass" >Purchased samples :  </td>
+                        <td colspan="3"> per component </td>
+                        <td colspan="2" style="background-color:lightgray">20% margin (cost divided by 0,8)</td>
+                    </tr>
+
+
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">Compatibility Lab Testing</th>
+                    </tr>
+                    <tr>
+                        <td colspan="1"  class="first-col" > Testing of customer bulk</td>
+                        <td colspan="2" width="40%" class="toAll lightblueClass"  > </td>
+                        <td colspan="3" style="background-color:lightgray">Free</td>
+
+                    </tr>
+
+
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+</aura:component>

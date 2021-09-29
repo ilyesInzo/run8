@@ -1,0 +1,14 @@
+<aura:component >
+    <aura:attribute name="buttons" type="String[]" required="true"/>
+    <aura:attribute name="btns" type="Object[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- lightning:buttonGroup -->
+    <div class="slds-button-group" style="display: block!important;" role="group">
+        <aura:iteration items="{!v.btns}" var="btn">
+            <ui:button label="{!btn.label}" class="{!btn.class}" press="{!c.handleClick}" labelClass="label-button">
+                <img src="{!btn.src}" />
+            </ui:button>
+        </aura:iteration>
+    </div>
+    <!-- /lightning:buttonGroup -->
+</aura:component>

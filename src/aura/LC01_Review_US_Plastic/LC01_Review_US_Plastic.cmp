@@ -1,0 +1,471 @@
+<aura:component controller="LC01_Review_EU_PlasticController" implements="force:appHostable"  extends="c:LC00_QuotelineItem">
+	
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+
+    <aura:attribute name="MOQKUnit" type="Integer" default="{!v.FinalReviewPrice.MOQ_Units__c}" />
+    
+    <aura:attribute name="PM_PriceDetails_Map" type="Map" />
+    <aura:attribute name="PM_ReviewPriceDetails_Map" type="Map" />
+    <aura:attribute name="ColorInfos_Map" type="Map" />
+    <aura:attribute name="TotalListPrice" type="Integer" />
+    <aura:attribute name="TotalReviewPrice" type="Integer" />
+    <aura:attribute name="TotalDiscount" type="Integer" />
+    
+    <aura:attribute name="initListPrice" type="Integer" />
+   <aura:attribute name="initNetPrice" type="Integer" default="{!v.FinalReviewPrice.Quoted_Price__c}"/>
+    <aura:attribute name="initDiscount" type="Integer"/>
+    
+    <aura:attribute name="FinalReviewPrice" type="PM_Review_NetPrice_per_MOQ__c" />
+    <aura:attribute name="TotalColor" type="String" />
+    
+   
+    <!-- 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    
+    <aura:handler name="change" value="{!v.TotalDiscount}" action="{!c.updateTotal}"/>
+    
+    <div class="slds pm">
+        <c:LC01_Header pageName="Detailed Net Prices : Plastic" qli="{!v.qli}" />
+        <div class="slds-text-align--center slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--small">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">MOQ Kunits</label>
+                <div class="slds-form-element__control">
+                    <ui:inputNumber disabled="true" class="slds-text-align--center field" value="{!v.MOQKUnit}"/>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">TG / List Price</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.TotalListPrice+'$'}" class="slds-text-align--center" />
+                </div>
+            </div>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'DarkGreen'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-darkgreen">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'LightGreen'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-lightgreen">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Yellow'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-yellow">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Red'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-red">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Black'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-black">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Grey'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-grey">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Initial Discount</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.initDiscount+'%'}" class="slds-text-align--center" />
+                </div>
+            </div>
+        </div>
+       
+        <table style="table-layout:fixed;">
+            <!--
+            <tr>
+                <td class="no-border"></td>
+                <td class="heading">List Price $</td>
+                <td class="heading">Review Price $</td>
+                <td class="no-border" rowspan="2">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="heading">Enter your MOQ Kunits ></td>
+                <td class="Field">
+                    <ui:inputNumber class="field" value="{!v.MOQKUnit}" change="{!c.init}"/>
+                </td>
+                <td class="display text-center">{!v.MOQKUnit}</td>
+            </tr>-->
+            <tr class="line">
+                <td colspan="3"></td>
+                <td><!--<lightning:button iconName="utility:sync" 
+                          variant="neutral" iconPosition="left" onclick="{!c.SetAllDiscounts}"/>--></td>
+            </tr>
+            <tr class="line">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Tube and Head</td>
+                <td class="heading">Discount %</td>
+            </tr>
+            
+            <tr class="detail">                
+                	<td class="text-center">Basis Price</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.BasisPrice.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.BasisPrice.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.BasisPrice}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>                
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Length upcharge</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.Lengthupcharge.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.Lengthupcharge.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.Lengthupcharge}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Body Material Upcharge</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.BodyMaterialUpcharge.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.BodyMaterialUpcharge.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.BodyMaterialUpcharge}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="line">
+                <td colspan="4"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Sleeve</td>
+                <td class="heading">Discount %</td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Sleeve Type</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.SleeveType.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.SleeveType.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.SleeveType}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Sleeve Coloration</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.SleeveColoration.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.SleeveColoration.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.SleeveColoration}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Sleeve Printing</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.SleevePrinting.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.SleevePrinting.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.SleevePrinting}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="line">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Cap</td>
+                <td class="heading">Discount %</td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Cap Basis Price</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.CapBasisPrice.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.CapBasisPrice.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.CapBasisPrice}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Cap Feature</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.CapColoration.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.CapColoration.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.CapColoration}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+             <tr class="detail">                
+                	<td class="text-center">Peel Seal</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.PeelSeal.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.PeelSeal.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.PeelSeal}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+           
+            <tr class="detail">                
+                	<td class="text-center">Consigned Cap</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.ConsignedCap.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.ConsignedCap.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.ConsignedCap}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Manual Capping</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.ManualCapping.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.ManualCapping.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.ManualCapping}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="line">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Printing</td>
+                <td class="heading">Discount %</td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Printint Techno</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.PrintintTechno.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.PrintintTechno.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.PrintintTechno}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Printing Effect</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.PrintingEffect.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.PrintingEffect.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.PrintingEffect}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Labeling</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.Labeling.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.Labeling.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.Labeling}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Hot Stamping</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.HotStamping.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.HotStamping.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.HotStamping}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Matte coating</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.Mattecoating.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.Mattecoating.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.Mattecoating}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">UV Inhibitor</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.UVInhibitor.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.UVInhibitor.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.UVInhibitor}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Double Pigment</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.DoublePigment.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.DoublePigment.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.DoublePigment}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="line">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Packing</td>
+                <td class="heading">Discount %</td>
+            </tr> 
+            <tr class="detail">                
+                	<td class="text-center">Pallet</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.Pallet.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.Pallet.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.Pallet}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Polybag</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.Polybag.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.Polybag.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.Polybag}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            
+            <tr class="line">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="sub_head">
+                <td colspan="3">Others</td>
+                <td class="heading">Discount %</td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Combo Upcharge</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.ComboUpcharge.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.ComboUpcharge.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.ComboUpcharge}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Quality Upcharge</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.QualityUpcharge.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.QualityUpcharge.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.QualityUpcharge}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">Resin Adjustment</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.ResinAdjustment.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.ResinAdjustment.List_Price__c}" ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.ResinAdjustment}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            <tr class="detail">                
+                	<td class="text-center">End of Year Rebate</td>
+                	<td class="text-center"><ui:outputNumber value="{!v.PM_PriceDetails_Map.EndofYearRebate.List_Price__c}" format="0"/></td>
+                    <td class="input text-center" colspan="2">
+                     <c:LC01_Review_DiscountComponent ListPrice="{!v.PM_PriceDetails_Map.EndofYearRebate.List_Price__c}"  ReviewPriceDetail="{!v.PM_ReviewPriceDetails_Map.EndofYearRebate}" TotalReviewPrice="{!v.TotalDiscount}"/>                
+                    </td>
+            </tr>
+            
+            <tr class="line">
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <td class="heading">TOTAL</td>
+                <td class="total-display">
+                    <b><ui:inputText class="total-display" disabled="true" value="{!v.TotalListPrice+'$'}" /></b>                     
+                </td>
+                <td class="total-display">
+                    <!--<b><ui:outputText disabled="true" value="{!v.TotalReviewPrice+'$'}" /></b>-->
+                    <aura:if isTrue="{!v.TotalColor == 'DarkGreen'}">
+                        <div class="slds-form-element__control background-darkgreen">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.TotalColor == 'LightGreen'}">
+                        <div class="slds-form-element__control background-lightgreen">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.TotalColor == 'Yellow'}">
+                        <div class="slds-form-element__control background-yellow">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.TotalColor == 'Red'}">
+                        <div class="slds-form-element__control background-red">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                    </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.TotalColor == 'Black'}">
+                        <div class="slds-form-element__control background-black">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.TotalColor == 'Grey'}">
+                        <div class="slds-form-element__control background-grey">
+                            <b><ui:outputText value="{!v.TotalReviewPrice+'$'}" /></b>
+                        </div>
+                    </aura:if>                
+                </td>
+                <td class="total-display">
+                <b><ui:inputText class="total-display" disabled="true" value="{!v.TotalDiscount+'%'}" /></b>
+                    
+                 
+                </td>
+            </tr>
+            <tr class="line">
+                <td colspan="4"></td>
+            </tr>
+        </table>
+        <div class="slds-text-align--center">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--small">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--3-of-4">
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                    <br/>
+                    <lightning:button class="slds-float--right" variant="brand" label="Use / Update final price" iconName="utility:check" iconPosition="right" onclick="{! c.updatePriceDetails }"/>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--small">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">MOQ Kunits</label>
+                <div class="slds-form-element__control">
+                    <ui:inputNumber disabled="true" class="slds-text-align--center field" value="{!v.MOQKUnit}"/>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">TG / List Price</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.TotalListPrice+'$'}" class="slds-text-align--center" />
+                </div>
+            </div>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'DarkGreen'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-darkgreen">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'LightGreen'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-lightgreen">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Yellow'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-yellow">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Red'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-red">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Black'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-black">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <aura:if isTrue="{!v.FinalReviewPrice.Price_Color__c == 'Grey'}">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Net Price</label>
+                <div class="slds-form-element__control background-grey">
+                    &nbsp;&nbsp;<ui:outputText value="{!v.initNetPrice+'$'}" class="slds-text-align--left " />
+                </div>
+            </div>
+            </aura:if>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4">
+                <label class="slds-form-element__label" for="customerKeyInfo">Initial Discount</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.initDiscount+'%'}" class="slds-text-align--center" />
+                </div>
+            </div>
+        </div>
+            <br/><br/>
+        </div>
+    </div>
+
+
+    <c:LC00_Detail_EU_DispensingFoam_Alert />
+    
+    
+</aura:component>

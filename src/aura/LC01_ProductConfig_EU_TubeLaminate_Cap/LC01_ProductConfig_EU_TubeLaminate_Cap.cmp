@@ -1,0 +1,139 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="20. Cap Name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Name__c" 
+                                    value="{!v.selectedconfig.Cap_Name__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Name', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    savedfieldName="Cap_Name__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+         </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">27. Metalisation</label>
+            <ui:inputText value="{!v.selectedconfig.Metallization__c}"  disabled="true"/> 
+         </div>
+        
+        						
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="21. Cap Aspect" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Aspect__c" 
+                                    value="{!v.selectedconfig.Cap_Aspect__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Cap_Aspect__c" 
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />              
+		 </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">28. Metalisation Type</label>
+            <ui:inputText value="{!v.selectedconfig.Metallization_Type__c}"  disabled="true"/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="22. Cap Color" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Color__c" 
+                                    value="{!v.selectedconfig.Cap_Color__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Cap_Color__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">29. Silk Screen</label>
+            <ui:inputText value="{!v.selectedconfig.Silk_screen__c}" disabled="true" /> 
+            
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="23. Cap Finish" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Finish__c" 
+                                    value="{!v.selectedconfig.Cap_Finish__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Finish', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    savedfieldName="Cap_Finish__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c', 'Cap_Name__c']"
+                                     selectedConfig="{!v.selectedconfig}"
+              />
+            
+            
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">30. Hot Stamp Top</label>
+            <ui:inputText value="{!v.selectedconfig.Hot_Stamp_Top__c}" disabled="true" /> 
+            
+         </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="24. Cap Orifice" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Orifice__c" 
+                                    value="{!v.selectedconfig.Cap_Orifice__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Orifice', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    savedfieldName="Cap_Orifice__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">31. HS Contouring</label>
+            <ui:inputText value="{!v.selectedconfig.HS_Contouring__c}" disabled="true" /> 
+         <!--    <c:LC00_DependentPicklist picklistLabel="31. HS Contouring" 
+                             name="HS__c" location="EU" sObjectName="PM_Tubes_Config__c" tableName="HS" dependsOn=""/> -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           <c:LC00_DependantFields label="25. Cap Eurocode" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Eurocode__c" 
+                                    value="{!v.selectedconfig.Cap_Eurocode__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Eurocode', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    savedfieldName="Cap_Eurocode__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c', 'Cap_Orifice__c']"
+                                    autoselect="true"
+                                   selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">32. Shrink Band</label>
+            <ui:inputText value="{!v.selectedconfig.Shrink_band__c}" disabled="true" /> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            
+            <c:LC00_DependantFields label="26. Peel Seal" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Peel_Seal__c" 
+                                    value="{!v.selectedconfig.Peel_Seal__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Peel seal', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Concatenate__c']"
+                                    savedfieldName="Peel_Seal__c"
+                                    saveddependentfields="['Dispensing_System_Name__c', 'Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+         </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">33. Manual Capping</label>
+            <ui:inputText value="{!v.selectedconfig.Manual_Capping__c}" disabled="true" /> 
+            
+         </div>
+    </div>
+</aura:component>

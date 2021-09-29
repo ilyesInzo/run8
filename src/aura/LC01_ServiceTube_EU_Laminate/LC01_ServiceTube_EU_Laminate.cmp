@@ -1,0 +1,131 @@
+<aura:component implements="force:appHostable" extends="c:LC00_QuotelineItem">
+	<ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:attribute name="configPageName" type="String"/>
+	
+	<div class="slds pm">
+        <c:LC01_ServiceDispensing_Header pageName="Services Offer for Laminate Tubes"  configurator="{!v.configPageName}" qli="{!v.qli}" />
+    	
+    	 <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1">
+                <div class="albea-header">
+                    <h2>Artwork development price list - Laminate tubes (Europe)</h2>
+                </div>
+                <div class="slds-size--1-of-1"></div>
+                <table class="service-dispensing-tbl">
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>                    
+                    <tr class="toAll">
+                    	<td colspan="2" style="border: white !important;"></td>
+                        <td colspan="3" class="lightblueClass" >Artwork type</td>
+                        <td colspan="1" class="lightblueClass">Unit</td>
+                        <td colspan="2" class="lightblueClass">Price €</td>
+                    
+                    </tr>
+                    <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    
+                    <!-- 
+                	BAG /BROMIDE
+                	-->                    
+                    <tr>
+                    	<td colspan="2" rowspan="2" class="toAll blueClass" > BAG /BROMIDE</td>
+                        <td colspan="3" >Bromide</td>                        
+                        <td colspan="1"> - </td>
+                        <td colspan="2" >220 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Bromide modification</td>                        
+                        <td colspan="1"> - </td>
+                        <td colspan="2" >90 €</td>
+                    </tr>
+                    
+                    <tr class="blank">
+                        <td colspan="7"></td>
+                    </tr>
+                    
+                    <!-- 
+                	COLOR MANAGEMENT
+                	-->                    
+                    <tr>
+                    	<td colspan="1" rowspan="8" class="toAll blueClass" > COLOR MANAGEMENT</td>
+                        <td colspan="1" rowspan="3" class="toAll lightblueClass"  >Digital option</td>                        
+                        <td colspan="3"> Web proofing </td>
+                        <td colspan="1" >Package</td>
+                        <td colspan="2" >450 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"> Paper proofing</td>
+                        <td colspan="1" >Package</td>
+                        <td colspan="2" >250 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Color draw down</td>
+                        <td colspan="1" >Per color (3 colors max)</td>
+                        <td colspan="2" >40 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="3" class="toAll lightblueClass" >Flexo/silkscreen option</td>                        
+                        <td colspan="3"> Print trial without the presence of the customer </td>
+                        <td colspan="1" >4hrs package</td>
+                        <td colspan="2" >2500 €</td>
+                    </tr>
+               		<tr>
+                        <td colspan="3"> Print trial with the presence of the customer </td>
+                        <td colspan="1" >4hrs package</td>
+                        <td colspan="2" >3500 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"> 1 additional hour </td>
+                        <td colspan="1" >Per hour</td>
+                        <td colspan="2" >700 €</td>
+                    </tr>
+                    <tr >
+                        <td colspan="1" rowspan="2" class=" toAll lightblueClass"  >Trials</td>                        
+                        <td colspan="3"> Head color matching</td>
+                        <td colspan="1" >-</td>
+                        <td colspan="2" >180 €</td>
+                    </tr>
+                    <tr >
+                        <td colspan="3" > Cap color matching </td>
+                        <td colspan="1" >-</td>
+                        <td colspan="2" >180€ screw/ 350€ FT</td>
+                    </tr>
+                     <tr class="blank">
+                        <td colspan="3"></td>
+                    </tr>
+                    
+                    <!-- 
+                	BAG /BROMIDE
+                	-->                    
+                    <tr>
+                    	<td colspan="2" rowspan="4" class="toAll blueClass" > PLATES</td>
+                        <td colspan="3" >Flexo plate</td>                        
+                        <td colspan="1">Per color</td>
+                        <td colspan="2" >150 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Silkscreen plate</td>                        
+                        <td colspan="1">Per color</td>
+                        <td colspan="2" >400 €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Cold foil plate</td>                        
+                        <td colspan="1">Per color</td>
+                        <td colspan="2" >700 €</td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">Hot stamping die</td>                        
+                        <td colspan="1">Per die</td>
+                        <td colspan="2" >2500 €</td>
+                    </tr> 
+                    <tr class="blank">
+                        <td colspan="7"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    	
+    </div>
+</aura:component>

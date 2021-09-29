@@ -1,0 +1,68 @@
+.THIS {
+}
+.THIS.showLine {
+	display:block;
+}
+.THIS.removeLine {
+	display:none;
+}
+
+.THIS.showPurefoilcheckbox {
+	display:block;
+    width:50%;
+    background-color:red;
+}
+
+.THIS.showPurefoil {
+	display:inline-block;
+}
+.THIS.hidePurefoil {
+	display:none;
+}
+
+.THIS.forceStyle.desktop .stage {
+ z-index:999;   
+}
+
+.THIS .brexitPopup{
+	width: 45%;
+   
+    background-color: white;
+    z-index: 27;
+    position: relative;
+    text-align: center;
+    border: 3px solid rgb(0, 112, 210);
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3%;
+	
+}
+
+.THIS .blueButton{
+	margin-top: 25px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(0, 112, 210);
+    border-color: rgb(0, 112, 210);
+    width: 90px;
+}
+
+.THIS .mySpinner{
+	position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 3px;
+}
+
+.THIS .brexitTitle{
+	font-weight: bold;
+	font-size: 16px;
+	float:left;
+}
+
+.THIS .UKFlag{
+	width: 40px;
+	float:left;    
+	margin-right: 8px;
+}

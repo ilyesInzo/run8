@@ -1,0 +1,2 @@
+<apex:page standardController="QuoteLineItem"  recordSetVar="quoteLineItems" tabStyle="QuoteLineItem" extensions="VFC03_PM_GotoPriceMatrixEXt" action="{!redirectToPriceMatrix}" >
+</apex:page>

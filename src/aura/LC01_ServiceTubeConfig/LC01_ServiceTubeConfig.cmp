@@ -1,0 +1,217 @@
+<aura:component implements="force:appHostable" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:attribute name="configId" type="String" />
+    <aura:attribute name="servicetube" type="PM_Selected_Service_Tubes_Config__c" description="service tube config" default="{ 'sobjectType': 'PM_Selected_Service_Tubes_Config__c'}" />
+    <aura:attribute name="configPageName" type="String"/>   
+
+    <aura:attribute name="totalpriceartwork" type="Double"/>
+    <aura:attribute name="totalpricesamples" type="Double"/>
+    <aura:attribute name="totalpricepreproduction" type="Double"/>
+    <aura:attribute name="amoutperitem" type="String"/>
+    <aura:attribute name="numoffiles" type="String"/>
+    <aura:attribute name="totalamount" type="String"/>
+    <aura:attribute name="typeoftubemsg" type="String"/>
+    <aura:attribute name="typeoffilemsg" type="String"/>  
+        
+<!--     <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.servicetube}" action="{!c.savechanges}"/> 
+
+    <div class="slds pm">
+        <c:LC01_ServiceTubeConfig_Header pageName="Services Offer for Plastic &amp; Purefoil Tubes" qli="{!v.qli}" configId="{!v.configId}" serviceId="{!v.servicetube.Id}" configPageName="{!v.configPageName}"/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <div class="albea-header">
+                    <h2>Artwork (Plastic Tubes)</h2>
+                </div>
+                <p class="info">
+                    NB > Artwork in service scoring : {!v.qli.Decoration_development__c}
+                </p>
+                <div class="albea-header">
+                    <h3>Minimum Development Costs</h3>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">                    	
+                    	<c:LC00_Picklist label="1. BAG" options="['', 'Yes', 'No']" value="{!v.servicetube.BAG__c}"/>    
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="3. Plates" options="['', 'Yes', 'No']" value="{!v.servicetube.Plates__c}"/> 
+                        
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="2. BAT Printing proof" options="['', 'Yes', 'No']" value="{!v.servicetube.BAT_Printing_proof__c}"/>  
+                    </div>
+                </div>
+                <div class="albea-header">
+                    <h3>Options</h3>
+                </div>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC00_Service_Picklist label="4. Plate HS dye" value="{!v.servicetube.Plate_HS_dye__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="Plate_HS_dye__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'Plate HS dye - lists', Service_type__c : 'Artwork'}"/>                             
+                        
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="9. BAT Flat printing proof" options="['', 'Yes', 'No']" value="{!v.servicetube.BAT_Flat_printing_proof__c}"/> 
+ 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC00_Picklist label="5. BAT Color Matching Sleeve" options="['','Yes','No']" value="{!v.servicetube.BAT_Color_Matching_Sleeve__c}"/>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="10. Toner formulation w/o BAT" options="['', 'Yes', 'No']" value="{!v.servicetube.Toner_formulation_w_o_BAT__c}"/> 
+ 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+						<c:LC00_Service_Picklist label="6. BAT Color Matching Cap" value="{!v.servicetube.BAT_Color_Matching_Cap__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="Type_of_the_part__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'B.A.T / Tube Color matching', Part_of_the_tube__c : 'Cap', Service_type__c : 'Artwork'}"/>  
+						
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="11. B.A.T HS dye" options="['', 'Yes', 'No']" value="{!v.servicetube.B_A_T_HS_dye__c}"/> 
+ 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="7. BAT Color Matching Pumps" options="['', 'Yes', 'No']" value="{!v.servicetube.BAT_Color_Matching_Pumps__c}"/> 
+ 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    	<c:LC00_Picklist label="12. BAG modification" options="['', 'Yes', 'No']" value="{!v.servicetube.BAG_modification__c}"/> 
+
+                    </div>
+                    <!-- Ticket 00007300 -->
+                     <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC00_Service_Picklist label="8. BAT for metallized cap" value="{!v.servicetube.BAT_for_metallized_cap__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="BAT_for_metallized_cap__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'BAT for metallized cap', Service_type__c : 'Artwork'}"/>  
+                       
+                        <aura:renderIf isTrue="{!v.totalpriceartwork == -1}">
+                            <p>                   
+                                 <span style="color:red;" >Please contact the pricing department for specific quotation </span>
+                            </p> 
+                        </aura:renderIf> 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                       
+          
+                    </div>
+                    <!-- End Modif --> 
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--center"
+                         style="background-color: gray;color: white;font-weight: bold;padding-bottom: 2px;padding-top: 2px;">
+                        Total price for Artwork
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--right">
+                     <!--    <ui:inputCurrency value="{!v.totalpriceartwork}" disabled="true"/> -->
+                        <aura:if isTrue="{!v.totalpriceartwork == -1}">
+                            <c:LC01_ServiceCurrencyComponent value="Specific" />
+                            <aura:set attribute="else">
+                                 <c:LC01_ServiceCurrencyComponent value="{!v.totalpriceartwork}" currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"/>
+                        
+                            </aura:set>
+                        </aura:if> 
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <div class="albea-header">
+                    <h2>Samples &amp; Preproduction</h2>
+                </div>
+                <p class="info">
+                    NB > Sampling in service scoring : {!v.qli.Sampling__c} / Preproduction : {!v.qli.Preproduction__c} 
+                </p>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2">
+                        <div class="albea-header">
+                            <h3>Samples</h3>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2">
+                        <div class="albea-header">
+                            <h3>Preproduction</h3>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC00_Picklist label="1. Quantity needed for samples" options="['','Max 10 tubes', 'Max 25 tubes','Max 50 tubes','Max 100 tubes','Max 200 tubes','Max 500 tubes']" value="{!v.servicetube.Quantity_needed_for_samples__c}"/>
+
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                        <c:LC00_Picklist label="1. Quantity needed for Preproduction" options="['','1000 tubes', '2000 tubes','3000 tubes','4000 tubes','5000 tubes']" value="{!v.servicetube.Quantity_needed_for_Preproduction__c}"/>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+						<c:LC00_Service_Picklist label="2. Other printing effects" value="{!v.servicetube.Other_printing_effects__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="Printing_Options__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'Printing Options', Service_type__c : 'Samples'}"/> 
+                        <aura:renderIf isTrue="{!v.servicetube.Other_printing_effects__c != ''}">
+						    <p>                   
+						         <span style="color:red;" >Please check feasability</span>
+						    </p> 
+					  	</aura:renderIf> 
+					
+					</div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--center">
+                        <label class="slds-form-element__label gray-label">Total price for samples</label>
+                       <!--  <ui:inputCurrency value="{!v.totalpricesamples}" disabled="true"/> -->
+						<c:LC01_ServiceCurrencyComponent value="{!v.totalpricesamples}" currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"/>
+                        
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small slds-text-align--center">
+                        <label class="slds-form-element__label gray-label">Total price for Preproduction</label>
+                        <!-- <ui:inputCurrency value="{!v.totalpricepreproduction}" disabled="true"/> -->
+						<c:LC01_ServiceCurrencyComponent value="{!v.totalpricepreproduction}" currencysymbol="{!v.qli.Billing_Currency_Symbol__c}" currencyposition="{!v.qli.Billing_Currency_Position__c}"/>
+                        
+                    </div>
+                </div>
+                <div class="albea-header">
+                    <h2>Regulatory Affairs Pricing</h2>
+                </div>
+                <p class="info">
+                    NB > Regulatory Affairs in service scoring : {!v.qli.Regulatory_Affairs__c}
+                </p>
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+						<c:LC00_Service_Picklist label="1. Type of tube" value="{!v.servicetube.Type_of_tube__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="Type_of_tube__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'Lists - Regulatory Affairs Pricing', Service_type__c : 'Preproduction'}"/> 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+						<c:LC00_Service_Picklist label="2. Type of file" value="{!v.servicetube.Type_of_file__c}" 
+                        objectName="PM_Service_Tubes_Config__c" fieldName="Type_of_file__c"
+                        parameters="{Location__c : 'EU', Table_Name__c : 'Lists - Regulatory Affairs Pricing', Service_type__c : 'Preproduction'}"/> 
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                        <label class="slds-form-element__label">3. Number of items</label>
+                        <ui:inputNumber value="{!v.servicetube.Number_of_items__c}"/>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small slds-text-align--center">
+                        <label class="slds-form-element__label gray-label" >Amount per item</label>
+                        <ui:inputTextArea value="{!v.amoutperitem}"  class="slds-text-align--center" disabled="true" resizable="false" rows="2"/>
+		                <p class="info">
+		                    <span style="color:blue;" >{!v.typeoftubemsg}</span>
+		                </p>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small slds-text-align--center">
+                        <label class="slds-form-element__label gray-label">Number of files</label>
+                        <ui:inputTextArea value="{!v.numoffiles}"  class="slds-text-align--center" disabled="true" resizable="false" rows="2"/>
+                        <p class="info">
+		                    <span style="color:blue;" >{!v.typeoffilemsg}</span>
+		                </p>                        
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small slds-text-align--center">
+                        <label class="slds-form-element__label gray-label">Total amount</label>
+                        <ui:inputTextArea value="{!v.totalamount}"  class="slds-text-align--center" disabled="true" resizable="false" rows="2"/>
+                        <aura:renderIf isTrue="{!v.servicetube.Number_of_items__c > 1}">
+						    <p class="info">                   
+						         <span style="color:blue;" >You have to contact Veronique for the quotation</span>
+						    </p> 
+					  	</aura:renderIf> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

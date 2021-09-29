@@ -1,0 +1,86 @@
+<aura:component controller="LC01_RECO_Ctrl" implements="force:appHostable">
+
+    <aura:attribute name="qliId" type="String"/>
+    <aura:attribute name="qli" type="QuoteLineItem" default="{ 'sobjectType': 'QuoteLineItem'}"/>
+
+    <aura:registerEvent name="PriceRecoEvent" type="c:LE00_PriceReco"/>
+    <!--     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />  -->
+    <aura:handler name="change" value="{!v.qli.Id}" action="{!c.doInit}"/>
+    <!-- <aura:handler name="change" value="{!v.qli.Quantity}" action="{!c.saveproductconfig}" />
+     -->
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+
+    <div class="slds-form_horizontal">
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="product_segment">Product Line</label>
+            <div class="slds-form-element__control">
+                <ui:inputText value="{!v.qli.Product_Line__c}" disabled="true"/>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="product_segment">{!$Label.c.LBL_ProductSegment}</label>
+            <div class="slds-form-element__control">
+                <ui:inputText
+                        value="{! (v.qli.Purefoil_Segment__c &amp;&amp; v.qli.Product_Sub_segment__c=='Plastic Tubes' )? 'Purefoil Tubes' : v.qli.Product_Sub_segment__c}"
+                        disabled="true"/>
+            </div>
+        </div>
+
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="product_segment">{!$Label.c.LBL_MarketApplication}</label>
+            <div class="slds-form-element__control">
+                <ui:inputSelect aura:id="Market_Of_Application__c" value="{!v.qli.Market_Of_Application__c}"
+                                change="{!c.saveproductconfig}"/>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="product_segment">{!$Label.c.LBL_AnnualQty}</label>
+            <!-- <c:LC00_InputKU value="{!v.qli.Quantity}" /> -->
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--left-right">
+                <ui:inputNumber value="{!v.qli.Quantity}" class="input-ku-left" change="{!c.saveproductconfig}"/>
+                <ui:inputText value="Ku" disabled="true" class="input-ku-right"/>
+
+                <aura:if
+                        isTrue="{!and(and(v.qli.Location__c == 'EU', v.qli.Product_Sub_segment__c == 'Laminate Tubes'), v.qli.Quantity lt 100.0)}">
+                    <p>
+                        <i>
+                            <span style="color: red;"><b><u>Important</u></b>:Impossible to offer Metamorphosis below 100ku</span>
+                        </i>
+                    </p>
+                </aura:if>
+
+
+            </div>
+
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="product_segment">{!$Label.c.LBL_PriceExpressedIn}</label>
+            <div class="slds-form--compound">
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2">
+                            <ui:inputText value="{!v.qli.Billing_Currency__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2" style="margin-top:0;">
+                            <aura:if isTrue="{!v.qli.Location__c == 'US'}">
+                                <ui:inputText value="{!'1$ = ' + v.qli.Billing_Currency_Rate__c}" disabled="true"/>
+                                <aura:set attribute="else">
+                                    <ui:inputText value="{!'1€ = ' + v.qli.Billing_Currency_Rate__c}" disabled="true"/>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-text-align--right">
+            <div class="open-productconfig-laminatetube-page" onclick="{!c.openProductConfigPage}">
+                <lightning:button variant="brand" label="{!$Label.c.BTN_GoToProductConfig}"
+                                  iconName="utility:settings" iconPosition="left"
+                />
+                <!-- disabled="{!v.qli.Total_Score__c !=null ? false:true}"  disabled="{!v.qli.market_of_application__c.length !=0 ? false:true}" -->
+            </div>
+        </div>
+    </div>
+</aura:component>

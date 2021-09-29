@@ -1,0 +1,45 @@
+<aura:component extends="c:LC00_Section" controller="LC01_SelectedProductConfigCtrl">
+    
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="open2" type="Boolean" default="false"/>
+    <aura:attribute name="collapsible" type="Boolean" default="true"/>
+    
+    
+    <aura:attribute name="displayDetails" type="Boolean" default="false" /> 
+    
+    <aura:handler event="c:LC00_DependentFieldsEvent" action="{!c.hideDetailsJS}" />
+    
+    
+    
+    <c:LC01_ProductConfig_PriceTable qli="{!v.qli}" 
+                                     selectedConfig="{!v.selectedconfig}" 
+                                     selectedConfigType="PM_Selected_Tubes_Config__c" 
+                                     detailPageComponentName="LC01_Detail_US_TubePlastic"/>
+    
+    
+    <aura:if isTrue="{!v.qli.Id != null}">
+        
+
+        <div class="{!v.open2 ? 'slds-section slds-is-open' : 'slds-section'}" style="margin-top: 30px;margin-bottom:50px" >
+            <h3 class="slds-section__title" onclick="{!c.displayDetailsJS }" >
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <aura:if isTrue="{!v.collapsible}">
+                        <lightning:icon iconName="{!v.displayDetails == true?'utility:chevronright':'utility:chevronup'}" size="xx-small"/>
+                    </aura:if>
+                    
+                    Details
+                </button>
+            </h3>
+            <aura:if isTrue="{!v.displayDetails == true}">
+                <div style ="margin-top:30px;" >
+                   <c:LC01_Detail_US_TubePlastic qliId="{!v.qli.Id}" />
+                </div>
+            </aura:if>
+
+            
+           
+        </div>
+        
+           
+    </aura:if>
+</aura:component>

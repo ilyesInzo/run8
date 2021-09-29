@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute name="selectedPreconfig" type="PM_SpecPreconfig__c"/>
+    <aura:attribute name="selectedConfig" type="sObject"/>
+</aura:event>

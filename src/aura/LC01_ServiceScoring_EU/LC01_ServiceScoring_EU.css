@@ -1,0 +1,11 @@
+.THIS .slds-radio {
+    display: inline-block;
+}
+
+.THIS .uiInput--select.select:not([multiple]), .THIS .uiInput--select .select:not([multiple]), .THIS .uiInput--select .uiPopupTrigger a {
+    /*height: 1.3rem;*/
+}
+
+.THIS .slds-form-element__label {
+    font-size: 11px;
+}

@@ -1,0 +1,5 @@
+<aura:component extends="c:LC00_Header">
+	<aura:attribute name="configurator" type="String" required="true"/>
+    <lightning:button variant="neutral" label="Go to Configurator" iconName="utility:left" iconPosition="left" 
+                            onclick="{!c.backToConfigurator}" />
+</aura:component>

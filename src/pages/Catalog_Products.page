@@ -1,0 +1,1325 @@
+<apex:page standardController="Account" extensions="Catalog_Controller" applyBodyTag="false" docType="html-5.0" showHeader="false"
+           standardStylesheets="false" applyHtmlTag="false">
+
+    <html>
+
+    <head>
+        <title>Product Catalog</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport"
+              content="width = device-width, height = device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="stylesheet"
+              href="{!URLFOR($Resource.ProductCatalogResources, '/ProductCatalog/Libs/revealJS/revealCSS.css')}"/>
+        <link rel="stylesheet"
+              href="{!URLFOR($Resource.ProductCatalogResources, '/ProductCatalog/Libs/salesforce1/styles.css')}"/>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900' rel='stylesheet'/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+
+        <!-- Inline CSS -->
+        <style>
+
+                
+                @media (min-width: 401px) {
+                .contentText {
+                font-size: 12px !important;
+                margin-top: 8px !important;
+                }
+                }
+
+                html, body { width: 100%; height: 100%; overflow:scroll }
+                body {
+                position:absolute;
+                color: #333;
+                background-color: #FFFFFF;
+                background-size: cover;
+                }
+                h1,h2 {line-height: 1.5em !important;}
+
+                .content { width: 370px; }
+                .contentTable {
+                width: 350px !important;
+                margin: 0 auto !important;
+                padding: 0px;
+                }
+
+                p{
+                    font-size:1rem;
+                    margin-top:0px;
+                    margin-left:10px;
+                    margin-right:10px;
+                }
+
+                .contentTitle {
+                color: #2F2F33;
+                font-size: 20px !important;
+                line-height: 1em !important;
+                font-family: Montserrat;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+                padding-bottom: 2px !important;
+                margin-bottom: 7px !important;
+                margin-top:20px;
+                text-align: center;
+                }
+                .contentText {
+                line-height: 135% !important;
+                margin-left:6px;
+                margin-right:6px;
+                font-family:'Montserrat';
+                font-weight: 300;
+                }
+
+                .HomeButton {
+                position: absolute;
+                max-height:90%;
+                width:auto;
+                right: 3%;
+                top: 50%;
+                transform: translateY(-50%);
+                }
+                .CartButton{
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    height:45px;
+                    z-index:2;
+                }
+                .FilterButton{
+                    position: absolute;
+                    left: 10px;
+                    bottom: 60px;
+                    height:50px;
+                }
+                .SegmentButton{
+                    position: absolute;
+                    left: 0px;
+                    top: 10px;
+                    height:30px;
+                    z-index: 2;
+                }
+                .leftArrow {
+                position: absolute;
+                max-height:90%;
+                width:auto;
+                left: 3%;
+                top: 50%;
+                transform: translateY(-50%);
+                }
+                .searchbar {
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    transform:translate(-50%,-50%);
+                    border-radius:10px;
+                    padding-left:10px;
+                    width:50%;
+                }
+
+                .filterSection{
+                    background-color:#E6E6E6;
+                    margin-top:25px;
+                    margin-left:25px;
+                    margin-right:25px;
+                    overflow:hidden;
+                }
+
+                .filterTitle{
+                    font-family:'Montserrat';
+                    font-weight:800;
+                    color:#000000;
+                    margin-top:10px;
+                }
+
+                .filterSubTitle{
+                    font-family:'Montserrat';
+                    font-weight:600;
+                    font-size:12px;
+                    color:#000000;
+                    margin-bottom:10px;
+                }
+
+                .filterboxes{
+                    width:30%;
+                    height:25px;
+                    background-color:white;                    
+                    float:left;border:1px solid;
+                    line-height:25px;
+                    font-family:'Montserrat';
+                    font-size:8.5px;
+                    font-weight:700;
+                    color:black;
+                    margin-left:2.5%;
+                    margin-bottom:10px;
+                }
+
+                .filterboxesmiddle{
+                    width:30%;
+                    height:25px;
+                    background-color:white;                    
+                    float:left;border:1px solid;
+                    line-height:25px;
+                    font-family:'Montserrat';
+                    font-size:8.5px;
+                    font-weight:700;
+                    color:black;
+                    margin-left:35%;
+                    margin-bottom:10px;
+                }
+
+                .filterboxesleft{
+                    width:30%;
+                    height:25px;
+                    background-color:white;                    
+                    float:left;border:1px solid;
+                    line-height:25px;
+                    font-family:'Montserrat';
+                    font-size:8.5px;
+                    font-weight:700;
+                    color:black;
+                    margin-left:18.75%;
+                    margin-bottom:10px;
+                }
+
+                hr {
+                    display: block;
+                    height: 1px;
+                    border: 0;
+                    border-top: 2px solid #ccc;
+                    margin: 1em 0;
+                    padding: 0;
+                }
+
+                .active {display: block !important;}
+                .inactive {display: none !important;}
+
+                .footer{
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                    height: 50px;
+                    background: #000000;
+                }
+
+            </style>
+
+        <!-- Grid style -->
+        <style type="text/css">
+                * { box-sizing: border-box; }
+
+                /* force scrollbar
+                //html { overflow-y: scroll; }
+                /*
+                /* ---- grid ---- */
+
+                .grid {
+                background: #DDD;
+                }
+
+                /* clear fix */
+                .grid:after {
+                content: '';
+                display: block;
+                clear: both;
+                }
+
+                /* ---- .grid-item ---- */
+
+                .grid-sizer,
+                .grid-item {
+                width: 33.333%;
+                }
+
+                .grid-item {
+                float: left;
+                }
+
+                .grid-item img {
+                display: block;
+                max-width: 100%;
+                }
+            </style>
+
+        <!-- Stylesheet for the dropdown menu -->
+        <style>
+
+            .menu {
+              overflow: hidden;
+              background-color: #000000;
+              position: relative;
+
+            }
+
+            .menu #filters {
+              display: none;
+              background-color: #E6E6E6;
+
+            }
+
+            .menu a {
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 17px;
+              display: block;
+              color: #000000;
+              border-top: 0.02px solid #000000;
+
+            }
+        </style>
+
+        <!-- Stylesheet for the expendable image -->
+        <style>
+            #myImg {
+              cursor: pointer;
+              transition: 0.3s;
+            }
+
+            #myImg:hover {opacity: 0.7;}
+
+            /* The Modal (background) */
+            .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              padding-top: 100px; /* Location of the box */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            }
+
+            /* Modal Content (image) */
+            .modal-content {
+              margin: auto;
+              display: block;
+              width: 80%;
+              max-width: 700px;
+            }
+
+            /* Caption of Modal Image */
+            #caption {
+              margin: auto;
+              display: block;
+              width: 80%;
+              max-width: 700px;
+              text-align: center;
+              color: #ccc;
+              padding: 10px 0;
+              height: 150px;
+            }
+
+            /* Add Animation */
+            .modal-content, #caption {
+              -webkit-animation-name: zoom;
+              -webkit-animation-duration: 0.6s;
+              animation-name: zoom;
+              animation-duration: 0.6s;
+            }
+
+            @-webkit-keyframes zoom {
+              from {-webkit-transform:scale(0)}
+              to {-webkit-transform:scale(1)}
+            }
+
+            @keyframes zoom {
+              from {transform:scale(0)}
+              to {transform:scale(1)}
+            }
+
+            /* The Close Button */
+            .close {
+              position: absolute;
+              top: 25px;
+              left: 40px;
+              color: #f1f1f1;
+              font-size: 40px;
+              font-weight: bold;
+              transition: 0.3s;
+              z-index:10;
+            }
+
+            .close:hover,
+            .close:focus {
+              color: #bbb;
+              text-decoration: none;
+              cursor: pointer;
+            }
+
+            /* 100% Image Width on Smaller Screens */
+            @media only screen and (max-width: 700px){
+              .modal-content {
+                width: 90%;
+              }
+            }
+        </style>
+
+
+    </head>
+
+
+    <!-- Body -->
+    <body id="body">
+
+
+    <!-- First Slide : Welcome and HugeCategory choice step 0 -->
+    <apex:outputPanel id="screen1">    
+        <apex:outputPanel rendered="{!step == 0}">
+            <center>
+
+                <!-- Cart -->
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 0),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 1),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart1.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 2),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart2.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 3),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart3.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 4),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart4.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 5),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size > 5),filterScreen == false)}">
+            <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5+.png')}"
+                 id="CartButton" onclick="javascriptToCart()"/>
+        </apex:outputPanel>
+
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);z-index:1;">
+                    <img src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Albea_logo_black.png')}" style="height:80px;    margin-bottom: -15px; "/>
+
+                    <div class="contentText" style="font-size:25px !important;font-weight:500;margin-top:15px;margin-bottom:15px;">Select an end-market</div><br/> 
+                    <div class="contentTable">
+                        <!--
+                        <apex:form >
+                            <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Color_Cosmetics.png')}" style="height:140px;float:left;margin-left:10px;" action="{!nextSlide}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                <apex:param name="family1" value="Color Cosmetics" assignTo="{!selectedFamily1}"/>
+                            </apex:commandButton>
+                            <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Skin_Care.png')}" style="height:140px;float:right;margin-right:10px;" action="{!nextSlide}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                <apex:param name="family1" value="Skin Care" assignTo="{!selectedFamily1}"/>
+                            </apex:commandButton>
+                            <br/>
+                            <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Personal_Care.png')}" style="height:140px;" action="{!nextSlide}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                <apex:param name="family1" value="Personal Care" assignTo="{!selectedFamily1}"/>
+                            </apex:commandButton>
+                            <br/>
+                            <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Fragrance.png')}" style="height:140px;float:left;margin-left:10px;" action="{!nextSlide}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                <apex:param name="family1" value="Fragrance" assignTo="{!selectedFamily1}"/>
+                            </apex:commandButton>
+                            <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Other_products.png')}" style="height:140px;float:right;margin-right:10px;" action="{!nextSlide}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                <apex:param name="family1" value="Other Products" assignTo="{!selectedFamily1}"/>
+                            </apex:commandButton>
+                        </apex:form>-->
+
+                            <apex:form >
+                                <apex:repeat value="{!families1}" var="family1">
+                                    <apex:commandButton style="width:90%;height:45px;background-color:#000000;color:#FFFFFF;text-transform: uppercase;font-size:25px;font-weight:500;" action="{!nextSlide}" value="{!family1}"  rerender="screen1,screen2,screen3,screen4,buttons">
+                                        <apex:param name="family1" value="{!family1}" assignTo="{!selectedFamily1}"/>
+                                    </apex:commandButton>
+                                    <br/><br/>
+                                </apex:repeat>
+                            </apex:form>
+
+                    </div>
+                </div>
+            </center>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+    <!-- Second Slide : Family choice step 1 -->
+
+    <apex:outputPanel id="screen2">        
+        <apex:outputPanel rendered="{!step == 1 && filterScreen == false}">
+            <div style="position:absolute;bottom:50px;top:0;left:0;right:0;overflow:auto;">
+
+                    <!-- Cart -->
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 0),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 1),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart1.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 2),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart2.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 3),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart3.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 4),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart4.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 5),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size > 5),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5+.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+
+
+                <center>
+                    <div class="contentTitle">
+
+                        <b>{!selectedFamily1}</b>
+
+                    </div>
+                    <br/>
+                    <apex:form >
+                        <div class="menu">
+                            <a style="color:#FFFFFF" class="active" onclick="expandMenu()">FILTER PRODUCTS &#9660;</a>
+
+                            <div id="filters">
+                                <apex:repeat value="{!families2}" var="family2">
+                                    <a id="{!family2}" onclick="nextSlideJS(this.id);">{!HTMLENCODE(family2)}</a>
+                                </apex:repeat>
+
+                            </div>
+
+                        </div>
+                        <br/>
+                        <div id="mosaic1" >
+
+                            <apex:outputPanel rendered="{!productsInFamily.size == 0}">
+                                This list is empty
+                            </apex:outputPanel>
+
+                            <apex:repeat value="{!productsInFamily}" var="prodItem">
+
+                                <div class="grid-item">
+                                    <img id="{!prodItem.Id}" alt="{!prodItem.Plant_commercial_reference__c + prodItem.Name}" src="{!prodItem.Tech_Image_1__c}" onclick="gotoProduct(this.id);"/>
+                                </div>
+
+
+                            </apex:repeat>
+                        </div>
+
+                    </apex:form>
+                </center>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Filter Screen -->
+
+        <apex:outputPanel rendered="{!(step == 1 || step == 2) && filterScreen == true}">
+            <center>
+                <div style="position:fixed;top:0;width:100%;height:110px;background: #FFFFFF;z-index:1">
+                        <div class="contentTitle">
+
+                            <apex:outputPanel rendered="{!step == 1}">
+                            <b>{!selectedFamily1}</b>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!step == 2}">
+                            <b>{!selectedFamily2}</b>
+                            </apex:outputPanel>
+
+                        </div>
+                        <br/>
+                        <div class="menu">
+                                <a style="color:#FFFFFF;text-align:right;" class="active" onclick="proceedFilterJS();">OK</a>
+                        </div>
+                </div>
+
+                    <apex:form >
+                        
+
+                        <div style="position:absolute;top:110px;margin-bottom:20px;overflow:scroll;">
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">PRODUCT TYPE</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='1' class='filterboxes' onclick="clickFilterJS(this.id)">PACK-ONLY</div>
+                                <div id='2' class='filterboxes' onclick="clickFilterJS(this.id)">FULL SERVICE</div>
+                                <div id='3' class='filterboxes' onclick="clickFilterJS(this.id)">ACCESSORIES</div>
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle" style="margin-bottom:10px;">MOQ (UNITS)</div>
+
+                                <div id='4' class='filterboxes' onclick="clickFilterJS(this.id)">0 - 5000</div>
+                                <div id='5' class='filterboxes' onclick="clickFilterJS(this.id)">5001 - 10000</div>
+                                <div id='6' class='filterboxes' onclick="clickFilterJS(this.id)">10001 - 20000</div>
+                                <div id='7' class='filterboxesmiddle' onclick="clickFilterJS(this.id)">20000+</div>
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">PRODUCT ATTRIBUTES</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='8' class='filterboxes' onclick="clickFilterJS(this.id)">ECO-DESIGN</div>
+                                <div id='9' class='filterboxes' onclick="clickFilterJS(this.id)">FAST-TRACK</div>
+                                <div id='10' class='filterboxes' onclick="clickFilterJS(this.id)">AIRTIGHT/AIRLESS</div>
+                                <div id='11' class='filterboxesleft' onclick="clickFilterJS(this.id)">HALAL</div>
+                                <div id='12' class='filterboxes' onclick="clickFilterJS(this.id)">TRAVEL SIZE</div>
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">MANUFACTURING AREA</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='13' class='filterboxes' onclick="clickFilterJS(this.id)">FRANCE</div>
+                                <div id='14' class='filterboxes' onclick="clickFilterJS(this.id)">ITALY</div>
+                                <div id='15' class='filterboxes' onclick="clickFilterJS(this.id)">NETHERLANDS</div>
+                                <div id='16' class='filterboxes' onclick="clickFilterJS(this.id)">SLOVAKIA</div>
+                                <div id='17' class='filterboxes' onclick="clickFilterJS(this.id)">UNITED KINGDOM</div>
+                                <div id='18' class='filterboxes' onclick="clickFilterJS(this.id)">RUSSIA</div>
+                                <div id='19' class='filterboxes' onclick="clickFilterJS(this.id)">GERMANY</div>
+                                <div id='20' class='filterboxes' onclick="clickFilterJS(this.id)">SPAIN</div>
+                                <div id='21' class='filterboxes' style="margin-bottom:25px;" onclick="clickFilterJS(this.id)">POLAND</div>
+
+
+                                <div id='22' class='filterboxes' onclick="clickFilterJS(this.id)">USA</div>
+                                <div id='23' class='filterboxes' onclick="clickFilterJS(this.id)">MEXICO</div>
+                                <div id='24' class='filterboxes' onclick="clickFilterJS(this.id)">BRAZIL</div>
+                                <div id='25' class='filterboxesmiddle' style="margin-right:20px;margin-bottom:25px;" onclick="clickFilterJS(this.id)" >CANADA</div>
+
+                                <div id='26' class='filterboxes' onclick="clickFilterJS(this.id)">CHINA</div>
+                                <div id='27' class='filterboxes' onclick="clickFilterJS(this.id)">INDIA</div>
+                                <div id='28' class='filterboxes' onclick="clickFilterJS(this.id)">INDONESIA</div>
+
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">PACK PRODUCED BY ALBEA</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='29' class='filterboxesleft' onclick="clickFilterJS(this.id)">YES</div>
+                                <div id='30' class='filterboxes' onclick="clickFilterJS(this.id)">NO (OUTSOURCED)</div>
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">EXTERNAL DIAMETER</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='31' class='filterboxes' onclick="clickFilterJS(this.id)">1mm - 15mm</div>
+                                <div id='32' class='filterboxes' onclick="clickFilterJS(this.id)">16mm - 30mm</div>
+                                <div id='33' class='filterboxes' onclick="clickFilterJS(this.id)">31mm - 50mm</div>
+
+                            </div>
+
+                            <div class="filterSection">
+
+                                <div class="filterTitle">FILLING CAPACITY</div>
+                                <div class="filterSubTitle">(all by default)</div>
+
+                                <div id='34' class='filterboxes' onclick="clickFilterJS(this.id)">1ml - 5ml</div>
+                                <div id='35' class='filterboxes' onclick="clickFilterJS(this.id)">6ml - 49ml</div>
+                                <div id='36' class='filterboxes' onclick="clickFilterJS(this.id)">50ml - 99ml</div>
+                                <div id='37' class='filterboxes' onclick="clickFilterJS(this.id)">100ml - 199ml</div>
+                                <div id='38' class='filterboxes' onclick="clickFilterJS(this.id)">200ml - 299ml</div>
+                                <div id='39' class='filterboxes' onclick="clickFilterJS(this.id)">300ml - 500ml</div>
+
+                            </div>
+                        
+                        </div>
+
+                    </apex:form>
+                </center>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+
+
+    <!-- Third Slide : Product choice step 2 -->
+    <apex:outputPanel id="screen3">
+        <apex:outputPanel rendered="{!step == 2 && filterScreen == false}" >
+
+            <div style="position:absolute;bottom:50px;top:0;left:0;right:0;overflow:auto;">
+
+                <!-- Cart -->
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 0),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 1),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart1.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 2),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart2.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 3),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart3.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 4),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart4.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 5),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size > 5),filterScreen == false)}">
+                    <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5+.png')}"
+                         id="CartButton" onclick="javascriptToCart()"/>
+                </apex:outputPanel>
+
+                <center>
+                    <div class="contentTitle">
+                        <b>{!selectedFamily1}</b>
+                    </div>
+                    <br/>
+                    <apex:form >
+                        <div class="menu">
+                                <a style="color:#FFFFFF" class="active">{!selectedFamily2}</a>
+
+                            </div>
+                            <br/>
+
+                        <div id="mosaic2">
+
+                            <apex:outputPanel rendered="{!productsInFamily.size == 0}">
+                                This list is empty
+                            </apex:outputPanel>
+
+                            <apex:repeat value="{!productsInFamily}" var="prodItem">
+
+                                <div class="grid-item">
+                                    <img id="{!prodItem.Id}" alt="{!prodItem.Plant_commercial_reference__c + prodItem.Name}" src="{!prodItem.Tech_Image_1__c}" onclick="gotoProduct(this.id);"/>
+                                </div>
+
+
+                            </apex:repeat>
+                        </div>
+
+                    </apex:form>
+                </center>
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    <!-- Product Page step 3 -->
+
+    <apex:outputPanel id="screen4">
+        <apex:outputPanel rendered="{!step == 3}">
+
+        <div style="position:absolute;bottom:50px;top:0;left:0;right:0;overflow:scroll;">
+
+                <!-- Cart -->
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 0),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 1),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart1.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 2),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart2.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 3),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart3.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 4),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart4.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size == 5),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(AND(step != 4, myLineItems.size > 5),filterScreen == false)}">
+                <img class="CartButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cart5+.png')}"
+                     id="CartButton" onclick="javascriptToCart()"/>
+            </apex:outputPanel>
+
+            <center>
+
+                <div  style="font-weight: 700;font-family:'Montserrat';font-size:1.4em;margin-top:18px;margin-left:50px;margin-right:50px;">
+                            {!selectedProductDisplay.Name}
+                </div>
+                <br/>
+                <apex:outputPanel rendered="{!selectedProductDisplay.Flag_image__c != 'No image found'}">
+                    <div style="width:40px;height:40px;float:left;position:absolute;left:10px;top:10px;">
+                        <img src="{!$Resource[selectedProductDisplay.Flag_image__c]}" style="max-width:100%;max-height:100%;"/>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Product_Category__c != null}">
+                    <div style="font-weight: 700;font-family:'Montserrat';font-size:15px;line-height:18px;">
+                    
+                        {!selectedProductDisplay.Product_Category__c} <br/>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!selectedProductDisplay.Plant_commercial_reference__c != null}">
+                    <div style="font-weight: 300;font-family:'Montserrat';font-size:15px;font-style:italic;line-height:18px;">
+                        Ref : {!selectedProductDisplay.Plant_commercial_reference__c}
+                        <br/>
+                    </div>                    
+                </apex:outputPanel> 
+
+                <div style="font-weight: 400;font-family:'Montserrat';font-size:15px;line-height:18px;">
+                    <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_Diameter_mm__c != null}">
+                        ∅ <apex:outputText escape="false" value="{!selectedProductDisplay.Assembled_product_Diameter_mm__c}"></apex:outputText>mm 
+
+
+                    </apex:outputPanel>  
+                    <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_Diameter_mm__c != null && selectedProductDisplay.Filling_capacity_ml__c != null}">
+                        - &nbsp;
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!selectedProductDisplay.Filling_capacity_ml__c != null}">
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Filling_capacity_ml__c}"></apex:outputText>ml
+                    </apex:outputPanel>
+                </div>
+
+                <br/>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Tech_Image_1__c != null && selectedProductDisplay.Tech_Image_1__c != null}">
+                    <img id="myImg" onclick="expand()" style="height:200px;" src="{!selectedProductDisplay.Tech_Image_1__c}" />
+                </apex:outputPanel>
+
+                <div id="myModal" class="modal">
+                    <span class="close" onclick="closemodal()">&times;</span>
+                    <img class="modal-content" id="img01"/>
+                    <div id="caption"></div>
+                </div>
+
+                <br/><br/>
+                <apex:form >
+                    
+                    <a href="{!selectedProductDisplay.Link_to_PDF__c}" styleClass="buttonStyle" style="width:150px;">
+                        <img src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/DownloadPDF.JPG')}" style="background:LightBlue;width:150px;"/>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <apex:commandButton image="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Basket.JPG')}" styleClass="buttonStyle" style="background:LightBlue;width:150px;" value="Add to basket" id="theButton2" action="{!addToCart}" onComplete="alert('Product added to basket');" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+                </apex:form>
+                <br/>
+
+                <div class="contentText">
+                    <!--<b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Product_Attributes__c.Label}" /></b><br/>-->
+                    <apex:outputText style="font-weight: 700;" escape="false" value="{!selectedProductDisplay.Product_Attributes__c}"></apex:outputText>
+                </div>
+                <!--
+                <div rendered="{!selectedProductDisplay.PricematriX__c != ''}">
+                    <img style="width:130px;" src="{!selectedProductDisplay.PricematriX__c}" />
+                </div>
+
+                <div rendered="{!selectedProductDisplay.Mix_Match__c != ''}">
+                    <img style="width:130px;" src="{!selectedProductDisplay.Mix_Match__c}" />
+                    <br/>
+                </div>-->
+                <div class="contentText">
+                    <apex:outputPanel rendered="{!AND(selectedProductDisplay.PricematriX__c != '', selectedProductDisplay.Mix_Match__c != '')}">
+                        <center>
+                            <img style="height:35px;margin-left:30px;margin-right:30px;" src="{!selectedProductDisplay.PricematriX__c}" />
+                            <img style="height:35px;margin-right:30px;margin-left:30px;" src="{!selectedProductDisplay.Mix_Match__c}" />
+                        </center>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!AND(selectedProductDisplay.PricematriX__c != '', selectedProductDisplay.Mix_Match__c == '')}">
+                        <img style="height:35px;" src="{!selectedProductDisplay.PricematriX__c}" />
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!AND(selectedProductDisplay.PricematriX__c == '', selectedProductDisplay.Mix_Match__c != '')}">
+                        <img style="height:35px;" src="{!selectedProductDisplay.Mix_Match__c}" />
+                    </apex:outputPanel>
+                </div>
+
+                <!--
+                <div class="contentText" style="text-align:justify;margin-left:20px;left;margin-right:20px;font-weight:400;font-size: 12px !important;">
+                    <apex:outputText escape="false" value="{!selectedProductDisplay.Description__c}"></apex:outputText>
+                </div>-->
+                <div class="contentText" style="text-align:justify;">
+                    <apex:outputText escape="false" value="{!selectedProductDisplay.Description__c}"></apex:outputText>
+                </div>
+                <br/>
+
+                <!--Tableau -->
+
+                <div class="contentText" style="background-color:#E6E6E6;margin-left:25px;left;margin-right:25px;overflow:auto;">
+
+                    <div class="contentText" style="font-weight:700;color:#FFFFFF;float:left;background-color:#666666;width:40%;margin-top:10px;margin-left:20px;">MOQ</div>
+                    <div class="contentText" style="font-weight:700;color:#FFFFFF;float:right;background-color:#666666;width:40%;;margin-top:10px;margin-right:20px;">LEADTIMES</div>
+                    <div class="contentText" style="font-size:11px!important;font-weight:300;font-style:italic;float:left;background-color:#E6E6E6;width:40%;margin-top:3px;margin-left:20px;margin-bottom:10px;">
+                        <div rendered="{!selectedProductDisplay.MOQ_packing_in_k__c != null}">
+                            <apex:outputText escape="false" value="{!selectedProductDisplay.MOQ_packing_in_k__c}"/> <apex:outputLabel value="ku per reference"/>
+                        </div>
+                    </div>
+                    <div class="contentText" style="font-size:11px!important;font-weight:300;font-style:italic;float:right;background-color:#E6E6E6;width:40%;;margin-top:3px;margin-right:20px;margin-bottom:10px;">
+                        <div rendered="{!selectedProductDisplay.Lead_Time__c != null}">
+                            <apex:outputLabel value="Exw:"/>   &nbsp;  <apex:outputText escape="false" value="{!selectedProductDisplay.Lead_Time__c}"></apex:outputText> &nbsp; <apex:outputLabel value="weeks"/> <br/>
+                        </div>
+                        <div rendered="{!selectedProductDisplay.Lead_time_DDP_Europe__c != null}">
+                            <apex:outputLabel value="DDP EU:"/> &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Lead_time_DDP_Europe__c}"></apex:outputText> &nbsp; <apex:outputLabel value="weeks"/> <br/>
+                        </div>
+                        <div rendered="{!selectedProductDisplay.Lead_time_DDP_US__c != null}">
+                            <apex:outputLabel value="DDP US:"/> &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Lead_time_DDP_US__c}"></apex:outputText> &nbsp; <apex:outputLabel value="weeks"/> <br/>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Tableau -->
+
+                <br/>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Product_Application__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Product_Application__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Product_Application__c}"></apex:outputText>                    
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Filling_Information__c != null}">
+                    <div class="contentText">
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Filling_Information__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Filling_Information__c}"></apex:outputText>
+                    </div>
+                    <br/>        
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Formula_Type__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Formula_Type__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Formula_Type__c}"></apex:outputText>
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Decoration_Options__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Decoration_Options__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Decoration_Options__c}"></apex:outputText>
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Manufacturing_area_or_Made_in__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Manufacturing_area_or_Made_in__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Manufacturing_area_or_Made_in__c}"></apex:outputText>                    
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.Materials__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Materials__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.Materials__c}"></apex:outputText>
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!(selectedProductDisplay.Assembled_product_Length_mm__c != 0 && selectedProductDisplay.Assembled_product_Length_mm__c != null) || (selectedProductDisplay.Orifice_dimension_head_cap_mm__c != 0 && selectedProductDisplay.Orifice_dimension_head_cap_mm__c != null) || (selectedProductDisplay.Number_of_pans__c != 0 && selectedProductDisplay.Number_of_pans__c != null) || (selectedProductDisplay.Assembled_product_Width_mm__c != 0 && selectedProductDisplay.Assembled_product_Width_mm__c != null) || (selectedProductDisplay.Pan_well_size__c != 0 && selectedProductDisplay.Pan_well_size__c != null) || (selectedProductDisplay.Assembled_product_Diameter_mm__c != '' && selectedProductDisplay.Assembled_product_Diameter_mm__c != null) || (selectedProductDisplay.Cup_size__c != '' && selectedProductDisplay.Cup_size__c != null) || (selectedProductDisplay.Assembled_product_height_mm__c != 0 && selectedProductDisplay.Assembled_product_height_mm__c != null) || (selectedProductDisplay.Tube_length_mm__c != 0 && selectedProductDisplay.Tube_length_mm__c != null)}">
+
+                    <div class="contentText">                    
+
+                        <b><apex:outputLabel value="Dimensions" style="text-transform: uppercase"/></b><br/>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_Length_mm__c != 0 && selectedProductDisplay.Assembled_product_Length_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Assembled_product_Length_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Assembled_product_Length_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Orifice_dimension_head_cap_mm__c != 0 && selectedProductDisplay.Orifice_dimension_head_cap_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Orifice_dimension_head_cap_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Orifice_dimension_head_cap_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Number_of_pans__c != 0 && selectedProductDisplay.Number_of_pans__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Number_of_pans__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Number_of_pans__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_Width_mm__c != 0 && selectedProductDisplay.Assembled_product_Width_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Assembled_product_Width_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Assembled_product_Width_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Pan_well_size__c != 0 && selectedProductDisplay.Pan_well_size__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Pan_well_size__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Pan_well_size__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_Diameter_mm__c != ''  && selectedProductDisplay.Assembled_product_Diameter_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Assembled_product_Diameter_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Assembled_product_Diameter_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Cup_size__c != '' && selectedProductDisplay.Cup_size__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Cup_size__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Cup_size__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Assembled_product_height_mm__c != 0 && selectedProductDisplay.Assembled_product_height_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Assembled_product_height_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Assembled_product_height_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!selectedProductDisplay.Tube_length_mm__c != 0 && selectedProductDisplay.Tube_length_mm__c != null}">
+                            <apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.Tube_length_mm__c.Label}"/> : &nbsp; <apex:outputText escape="false" value="{!selectedProductDisplay.Tube_length_mm__c}"></apex:outputText> <br/>
+                        </apex:outputPanel>                    
+                    </div>
+                    <br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!selectedProductDisplay.More_Info__c != null}">
+                    <div class="contentText">                    
+                        <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.More_Info__c.Label}" style="text-transform: uppercase"/></b><br/>
+                        <apex:outputText escape="false" value="{!selectedProductDisplay.More_Info__c}"></apex:outputText>
+                    </div>
+                </apex:outputPanel>
+
+                <br/>
+
+                <!--
+                <div class="contentText" style="text-align:justify;margin-left:20px;left;margin-right:20px;font-weight: 400;">
+                    <b><apex:outputLabel value="{!$ObjectType.CatalogProduct__c.fields.More_Info__c.Label}" style="text-transform: uppercase"/></b><br/>
+                    <apex:outputText escape="false" value="{!selectedProductDisplay.More_Info__c}"></apex:outputText>
+                </div>-->
+
+                <!--  IMAGE TECHNIQUE
+<div class="ProductImg FrontImg" style="background-image: url('{!selectedProductDisplay.VF_Image_bac__c}')"/>  -->
+
+
+            </center>
+
+        </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+    <!-- Cart step 4 -->
+
+    <apex:outputPanel id="cart">
+        <apex:outputPanel rendered="{!step == 4}"  >
+         <div style="position:absolute;bottom:50px;top:0;left:0;right:0;overflow:scroll;">
+            <apex:form >
+                <center>
+                    <img style="height:45px;margin-top:20px;" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/cartTitle.png')}"/>
+                </center>
+                <br/><br/>
+               
+                <table style="border-collapse: collapse;">
+                    
+                        <apex:repeat value="{!myLineItems}" var="lineItem" >
+
+                          <tr style="border-top: 1px solid #C6C6C6;border-bottom: 1px solid #C6C6C6;">
+                            <td style="width:25%">
+                                <img style="width:100%" src="{!URLFOR(lineItem.Tech_Main_Image__c)}"/>
+                            </td>
+                            <td style="width:50%">
+
+                                <apex:outputText style="font-weight:800;" escape="false" value="{!lineItem.Tech_Product_Name__c}"/>
+                                <!--
+                                <br/><br/>
+                                <apex:inputField style="width:40px;font-size:120%" type="number" value="{!lineItem.Quantity}"/>-->
+
+                            </td>
+                            <td style="width:25%">
+                                <center>
+                                    <img style="width:40%" alt="{!lineItem.Product__c}" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/deletePrd.png')}" onclick="deleteFromCartJS(this.alt);"/>
+                                </center>
+                            </td>
+                        </tr>
+                     </apex:repeat>
+                   
+                    
+
+                </table>
+            
+
+                <br/><br/>
+
+                <apex:outputPanel rendered="{!AND(AND(AND(accId != null, accId != ''), myLineItems.size != 0),profileName!='Marketing')}">
+                    <center>
+                        <img style="height:45px;" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/checkout.png')}" onclick="proceedCheckoutJS();"/>
+                    </center>
+                </apex:outputPanel>
+
+            </apex:form>
+         </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+    <apex:form >
+        <apex:actionFunction name="toCartJS" action="{!toCart}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="addToCart" action="{!addToCart}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="deleteFromCartApx" action="{!deleteFromCart}" rerender="screen1,screen2,screen3,screen4,buttons,cart">
+            <apex:param name="productToDelete" assignTo="{!productToDelete}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="gotoProductApx" action="{!gotoProduct}" rerender="screen1,screen2,screen3,screen4,buttons,cart">
+            <apex:param name="productId" assignTo="{!selectedProduct}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="gotoHomeJS" action="{!gotoHome}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="nextSlideApx" action="{!nextSlide}" rerender="screen1,screen2,screen3,screen4,buttons,cart">
+            <apex:param name="family2" assignTo="{!selectedFamily2}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="goPreviousJS" action="{!goPrevious}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="unfilterApx" action="{!unfilter}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="filterScreenApx" action="{!filterScreen}" rerender="screen1,screen2,screen3,screen4,buttons,cart" oncomplete="populateFilters({!filtersList})"/>
+        <apex:actionFunction name="clickFilterApx" action="{!clickFilter}" rerender="buttons,cart">
+            <apex:param name="selectedFilter" assignTo="{!selectedFilter}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="proceedFilterApx" action="{!proceedFilter}" rerender="screen1,screen2,screen3,screen4,buttons,cart"/>
+        <apex:actionFunction name="proceedCheckoutApx" action="{!proceedCheckout}" rerender="screen1,screen2,screen3,screen4,buttons,cart" oncomplete="alert('Checkout completed !')"/>
+    </apex:form>
+
+
+    <script type="text/javascript">
+            function gotoProduct(prod) {
+                console.log("gotoproduct starts : " + prod);
+
+                gotoProductApx(prod);
+            }
+            function nextSlideJS(fam) {
+                console.log("nextslideJS starts : " + fam);
+
+                nextSlideApx(fam);
+            }
+            function unfilterJS() {
+                console.log("unfilterJS starts : ");
+
+                unfilterApx();
+            }
+            function filterScreenJS() {
+                console.log("filterScreenJS starts : ");  
+
+                filterScreenApx();
+            }
+            function populateFilters(filtersList) {
+                console.log("populateFilters starts : ");
+                var i;
+                for (i = 0; i < filtersList.length; i++) { 
+                    var filterBox = document.getElementById(filtersList[i]);
+                    filterBox.style.backgroundColor = "black";
+                    filterBox.style.color = "white";
+                    filterBox.style.border = "none";                    
+                }
+                
+            }
+            function proceedFilterJS() {
+                console.log("proceedFilterJS starts : ");
+
+                proceedFilterApx();
+            }
+            function proceedCheckoutJS() {
+                console.log("proceedCheckoutJS starts : ");
+
+                proceedCheckoutApx();
+            }
+
+    </script>
+
+    </body>
+
+    
+    <!-- Script for the Filter boxes -->
+    <script type="text/javascript">
+        function clickFilterJS(filter) {
+          console.log("clickFilterJS starts : " + filter);
+          var filterBox = document.getElementById(filter);
+          if (filterBox.style.backgroundColor == "white" || filterBox.style.backgroundColor == '') {
+            filterBox.style.backgroundColor = "black";
+            filterBox.style.color = "white";
+            filterBox.style.border = "none";
+          } else {
+            filterBox.style.backgroundColor = "white";
+            filterBox.style.color = "black";
+            filterBox.style.border = "1px solid";
+          }
+          clickFilterApx(filter);
+        }
+    </script>
+
+    <!-- Script for the dropdown menu -->
+    <script type="text/javascript">
+        function expandMenu() {
+          var x = document.getElementById("filters");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+    </script>
+
+    <!-- Script for the searchbar -->
+    <script>
+        function search() {
+            var input, filter, ul, li, img, i, txtValue, txtValue2;
+            input = document.getElementById("searchbar");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("mosaic1");
+            li = ul.getElementsByTagName("img");
+            console.log(li.length);
+            for (i = 0; i < li.length; i++) {
+                img = li[i];
+                txtValue = img.id;
+                txtValue2 = img.alt;
+                console.log(txtValue);
+                if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        function search2() {
+            var input, filter, ul, li, img, i, txtValue, txtValue2;
+            input = document.getElementById("searchbar2");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("mosaic2");
+            li = ul.getElementsByTagName("img");
+            console.log(li.length);
+            for (i = 0; i < li.length; i++) {
+                img = li[i];
+                txtValue = img.id;
+                txtValue2 = img.alt;
+                console.log(txtValue);
+                if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+    <!-- Script for the expendable image -->
+    <script>
+        // Get the modal
+        function expand() {
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+
+          modal.style.display = "block";
+          modalImg.src = img.src;
+        }
+        function closemodal() {
+        // Get the <span> element that closes the modal
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+          modal.style.display = "none";
+        }
+    </script>
+
+    <!-- Cart Methods -->
+    <script type="text/javascript">
+
+        function javascriptToCart() {
+            console.log("About to call toCartJS()...");
+            toCartJS();
+            console.log("toCart() called.");
+        }
+
+        function deleteFromCartJS(prod) {
+            console.log("About to call deleteFromCartApx()...");
+            deleteFromCartApx(prod);
+            console.log("deleteFromCartApx() called.");
+        }
+
+
+    </script>
+
+
+    <!-- Header and Footer -->
+
+    <apex:outputPanel id="buttons">
+
+        <!-- Segment -->
+        <apex:outputPanel rendered="{!AND(step = 0, filterSegment == 'A')}">
+            <img class="SegmentButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/SegmentA.png')}"
+                 id="SegmentButton" onclick="unfilterJS()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(step = 0, filterSegment == 'B')}">
+            <img class="SegmentButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/SegmentB.png')}"
+                 id="SegmentButton" onclick="unfilterJS()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(step = 0, filterSegment == 'C')}">
+            <img class="SegmentButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/SegmentC.png')}"
+                 id="SegmentButton" onclick="unfilterJS()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(step = 0, filterSegment == 'D')}">
+            <img class="SegmentButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/SegmentD.png')}"
+                 id="SegmentButton" onclick="unfilterJS()"/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!AND(step = 0, filterSegment == 'E')}">
+            <img class="SegmentButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/SegmentE.png')}"
+                 id="SegmentButton" onclick="unfilterJS()"/>
+        </apex:outputPanel>
+
+
+
+        <apex:outputPanel rendered="{!step != 0 && filterScreen == false}">
+            <div class="footer">
+                <apex:outputPanel rendered="{!step == 1 || step == 2}">
+                    <img  class="FilterButton" src="{!IF(filtersList.size == 0,URLFOR($Resource.CatalogButtons, '/CatalogButtons/Filter.png'), URLFOR($Resource.CatalogButtons, '/CatalogButtons/FilterFilled.png'))}"
+                                    id="FilterButton" onclick="filterScreenJS()" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!step != 0}">
+                    <img class="HomeButton" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/Home.JPG')}"
+                         id="HomeButton" onclick="gotoHomeJS();"/>
+                </apex:outputPanel>
+
+                <!--
+        <apex:outputPanel rendered="{!step == 3}">
+        <img class="technical" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/TechnicalPDF.JPG')}"
+             id="technical" onclick="console.log('ici');gotoHomeJS();"/>
+        </apex:outputPanel>
+        -->
+
+                <apex:outputPanel rendered="{!step == 1}">
+                    <input class="searchbar" type="text" id="searchbar" onkeyup="search()" placeholder="search for products.." title="Type in a product name"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!step == 2}">
+                    <input class="searchbar" type="text" id="searchbar2" onkeyup="search2()" placeholder="search for products.." title="Type in a product name"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!step != 0}">
+                    <img class="leftArrow" src="{!URLFOR($Resource.CatalogButtons, '/CatalogButtons/LeftArrow.png')}"
+                         id="leftArrow" onclick="goPreviousJS();"/>
+                </apex:outputPanel>
+
+            </div>
+
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+
+
+    </html>
+
+
+
+
+</apex:page>

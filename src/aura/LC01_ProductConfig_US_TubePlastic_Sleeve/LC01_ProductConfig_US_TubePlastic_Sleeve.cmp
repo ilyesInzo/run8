@@ -1,0 +1,75 @@
+<aura:component extends="c:LC00_Section"> 
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="11. Sleeve Material" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Sleeve_type__c" 
+									value="{!v.selectedconfig.Sleeve_type__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Sleeve Type', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c','Sleeve_Type_Head__c']" 
+									savedfieldName="Sleeve_type__c"
+									saveddependentfields="['Diameter_inches__c','Head_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="14. Sleeve Aspect" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Head_Sleeve_Cap_Aspect_name__c" 
+									value="{!v.selectedconfig.Sleeve_Aspect__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head / Sleeve / Cap Aspect', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="" 
+									savedfieldName="Sleeve_Aspect__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+         
+       <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="12. Sleeve Material Mix" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Body_Material__c" 
+									value="{!v.selectedconfig.Sleeve_Material_Mix__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Body Material', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c','Head__c','Sleeve_type__c']" 
+									savedfieldName="Sleeve_Material_Mix__c"
+									saveddependentfields="['Diameter_inches__c','Head_Name__c','Sleeve_type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>       
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="15. Sleeve Color" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Head_Cap_Color_Name__c" 
+									value="{!v.selectedconfig.Sleeve_Color__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head / Cap Color', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="" 
+									savedfieldName="Sleeve_Color__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small"> 
+			<c:LC00_DependantFields label="13. Sleeve Finish" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Sleeve_Finish_name__c" 
+									value="{!v.selectedconfig.Sleeve_Finish_name__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Sleeve Finish', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+									dependentfields="" 
+									savedfieldName="Sleeve_Finish_name__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+          
+        </div>
+
+        
+    </div>
+</aura:component>

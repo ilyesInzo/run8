@@ -1,0 +1,152 @@
+<aura:component controller="LCC01_Scorings_Controller"  implements="force:appHostable" extends="c:LC00_QuotelineItem">
+    
+<!--     <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="mapoptions" type="MAP"/>    
+    <aura:attribute name="validatescore" type="Boolean"/>  
+    <aura:attribute name="toolingCapex" type="String" default="No"/>
+    
+<!--     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />  -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.itemchanged}" /> 
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+    <ltng:require scripts="{!join(',',
+                           $Resource.jQuery_310 ,
+                           $Resource.MomentJS2141,
+                           $Resource.ALJSv2 +'/jquery.aljs-all.min.js'
+                           )}"
+                  styles="{!$Resource.PriceMatrixCSS}" 
+                  afterScriptsLoaded="{!c.init}"/>
+                  
+    <!-- <ltng:require scripts="/resource/jQuery_310,/resource/ALJSv2/jquery.aljs-all.min.js" 
+                  styles="{!$Resource.PriceMatrixCSS}" afterScriptsLoaded="{!c.init}"/>
+     -->
+    <div class="slds pm">
+    	<aura:if isTrue="{!!empty(v.mapoptions)}">
+        <c:LC01_Header pageName="Deal Scoring" qli="{!v.qli}"  scorevalidation="{!v.validatescore}"/>
+        </aura:if>
+        <c:LC01_Wizard />
+        <hr class="slds-m-top--medium slds-m-bottom--medium" />
+        
+        
+        <div class="slds-section">
+            <h3 class="slds-section__title">
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_DealScoring}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+            
+            	<c:LC00_InputRadio label="BRAND POSITIONING" options="['Mass Market','Selective Market']" value="{!v.qli.Brand_Positionning__c}" group="Brand_Positionning__c" helptext="{!$Label.c.HT_BrandPositioning_US}"/>
+            
+            </div>         
+			
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="MULTIPLE RELEASED ORDER / BLANKET ORDER" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Multiple_Release_Order_Blanket_Order__c}" group="DS_Multiple_Release_Order_Blanket_Order__c" helptext="{!$Label.c.HT_MultipleReleaseOrder_EU}"/>
+            
+            </div>    
+					
+					
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+            
+                
+            	<c:LC00_InputRadio label="EST. PURCHASE ORDER / CONTRACT DURATION" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Est_purchase_order_contract_duration__c}" group="DS_Est_purchase_order_contract_duration__c" helptext="{!$Label.c.HT_ContractDuration_EU}"/>
+            
+            </div>
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+            
+            	<c:LC00_InputRadio label="# OF MONTHS OF STOCK AT ALBEA EXPENSE" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_NB_month_of_stock_at_Albea_expenses__c}" group="DS_NB_month_of_stock_at_Albea_expenses__c" helptext="{!$Label.c.HT_NoMonthStockAlbeaExpenses_US}"/>
+            
+            </div>
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+            
+            	<c:LC00_InputRadio label="NUMBER OF SUPPLIERS FOR CUSTOMERS" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Number_of_suppliers_for_customers__c}" group="DS_Number_of_suppliers_for_customers__c" helptext="{!$Label.c.HT_NoSuppliersForCust_US}"/>
+            
+            </div>
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="INDEXATION OF RAW MATERIALS COSTS" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Indexation_of_raw_material_costs__c}" group="DS_Indexation_of_raw_material_costs__c" helptext="{!$Label.c.HT_IndexationRawMaterialCosts_US}"/>
+            
+            </div>
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="NON-STOCK CUSTOMER REQUIREMENTS" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Non_stock_customer_requirements__c}" group="DS_Non_stock_customer_requirements__c" helptext="{!$Label.c.HT_NonStockCustReq_US}"/>
+            
+            </div>
+			
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                <c:LC00_InputRadio label="TOOLING /CAPEX INVESTMENTS REQUIRED" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Tooling_CAPEX_investments_required__c}" group="DS_Tooling_CAPEX_investments_required__c" helptext="{!$Label.c.HT_ToolingCapex_EU}"/>
+                               
+                <aura:renderIf isTrue="{!v.qli.DS_Tooling_CAPEX_investments_required__c == 'Yes'}">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                    <div class="slds-form-element__label">
+                        <label class="slds-align-middle" style="color:red;">Enter the tooling / CAPEX investment required ></label>
+                    	<ui:inputNumber value="{!v.qli.DS_Tooling_CAPEX_investment_required__c}" maxlength="12" />
+                    </div>
+                </div> 
+            	</aura:renderIf>
+                
+            </div>
+			
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="EXCLUSIVITY" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Exclusivity_Single_vs_Multiple_Supp__c}" group="DS_Exclusivity_Single_vs_Multiple_Supp__c" helptext="{!$Label.c.HT_Exclusivity_US}"/>
+            
+            </div>      
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="PENALTIES FOR THE CUSTOMER IN THE CONTRACT" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Penalties_customer_in_the_contract__c}" group="DS_Penalties_customer_in_the_contract__c" helptext="{!$Label.c.HT_PenaltiesforCustomerInContract_EU}"/>
+            
+            </div>
+            
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="TYPE OF BUSINESS" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Type_of_business__c}" group="DS_Type_of_business__c" helptext="{!$Label.c.HT_TypeOfBusiness_EU}"/>
+            
+            </div>   
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--x-small">
+                
+            	<c:LC00_InputRadio label="PENALTIES IN THE CONTRACT FOR ALBÉA" mapoptions="{!v.mapoptions}" value="{!v.qli.DS_Penalties_in_the_contract_for_Albea__c}" group="DS_Penalties_in_the_contract_for_Albea__c" helptext="{!$Label.c.HT_PenaltiesInContractForAlbea_EU}"/>
+            
+            </div>            
+        </div>
+        <div class="slds-section">
+            <h3 class="slds-section__title slds-text-align--center">
+                <button class="slds-button slds-section__title-action">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.LBL_AdditionalComments}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">                        
+                    	<ui:inputTextArea value="{!v.qli.DS_Additionnal_comments_on_deal_scoring__c}"/> 
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</aura:component>

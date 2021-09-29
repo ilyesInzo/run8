@@ -1,0 +1,117 @@
+<!--
+ - Created by Thanina on 10/07/2019. parentObjectType ObjectLookupName
+ -->
+    <aura:component access="global" controller="LightningCellApex">
+
+        <aura:attribute name="selectedLookUpRecordAcc" type="sObject" default="{}"/>
+        <aura:attribute name="record" type="sObject" description="record which is being displayed"/>
+        <aura:attribute name="field" type="Object" description="field object which is being rendered"/>
+        <aura:attribute name="cellValue" type="Object"/>
+        <aura:attribute name="cellLabel" type="String"/>
+        <aura:attribute name="ObjectLookupName" type="String"/>
+        <aura:attribute name="ObjectLookupFilter" type="String" default=""/>
+        <aura:attribute name="isEditable"  type="boolean" default="false"/>
+        <aura:attribute name="isTextField" type="boolean" default="false"/>
+        <aura:attribute name="isReferenceField" type="boolean" default="false"/>
+        <aura:attribute name="isDateField" type="boolean" default="false"/>
+        <aura:attribute name="isDateTimeField" type="boolean" default="false"/>
+        <aura:attribute name="isCurrencyField" type="boolean" default="false"/>
+        <aura:attribute name="isLookupFilter" type="boolean" default="false"/>
+        <aura:attribute name="showSaveCancelBtn" type="boolean" default="false"/>
+        <aura:attribute name="iconLookupName" type="String" default="standard:search"/>
+
+        <!-- To manage PickLists -->
+
+        <aura:attribute name="isPicklist"  type="boolean" default="false"/>
+        <aura:attribute name="picklistOptions" type="List" default="[
+        {'label': 'Pending', 'value': 'Pending'},
+        {'label': 'Approved', 'value': 'Approved'},
+        {'label': 'Rejected', 'value': 'Rejected'},
+        {'label': '--None--', 'value': 'None'}
+        ]"/>
+
+        <!-- End Manage Picklist -->
+
+        <!-- here add en event and recup selected record -->
+        <aura:registerEvent name="saveUpdatedRecord" type="c:GetUpdatedRecord"/>
+        <!-- End register Event Nina -->
+        <aura:handler name="init" value="{!this}" action="{!c.Init}"/>
+
+
+        <aura:if isTrue="{!v.isTextField}">
+            <aura:if isTrue="{!v.isEditable}">
+                <ui:inputText class="slds-input inputWidth"
+                              labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                              aura:id="inputId"
+                              change="{!c.onNameChange}"
+                              value="{!v.cellValue}" />
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!or(v.field.name == 'Name', v.field.name == 'Id')}" >
+                        <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.record.Id + '/view'}" target="_blank" label="{!v.cellValue}"/>
+                    <aura:set attribute="else">
+                    <ui:outputText value="{!v.cellValue}"/>
+                    </aura:set>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+
+        </aura:if>
+        <aura:if isTrue="{!v.isDateField}">
+            <aura:if isTrue="{!v.isEditable}">
+                <ui:inputDate change="{!c.onNameChange}" value="{!v.cellValue}" />
+                <aura:set attribute="else">
+                <ui:outputDate value="{!v.cellValue}"/>
+                </aura:set>
+            </aura:if>
+        </aura:if>
+        <aura:if isTrue="{!v.isDateTimeField}">
+            <ui:outputDateTime value="{!v.cellValue}"/>
+            <aura:if isTrue="{!v.isEditable}">
+                <ui:inputDateTime change="{!c.onNameChange}" value="{!v.cellValue}" />
+                <aura:set attribute="else">
+                    <ui:outputDateTime value="{!v.cellValue}"/>
+                </aura:set>
+            </aura:if>
+        </aura:if>
+        <aura:if isTrue="{!v.isCurrencyField}">
+            <aura:if isTrue="{!v.isEditable}">
+                <ui:inputCurrency change="{!c.onNameChange}" value="{!v.cellValue}" />
+                <aura:set attribute="else">
+                    <ui:outputCurrency value="{!v.cellValue}"/>
+                </aura:set>
+            </aura:if>
+
+        </aura:if>
+        <!-- Picklist -->
+        <aura:if isTrue="{!v.isPicklist}">
+            <aura:if isTrue="{!v.isEditable}">
+                <lightning:combobox name="pickval" label="" value="{!v.cellValue}" placeholder="Select" options="{!v.picklistOptions}" onchange="{!c.OnChangePicVal}"/>
+                <aura:set attribute="else">
+                    <lightning:combobox name="pickval" label="" value="{!v.cellValue}" placeholder="" options="{!v.picklistOptions}" disabled="true"/>
+                </aura:set>
+            </aura:if>
+
+        </aura:if>
+        <!-- End Picklist -->
+
+        <aura:if isTrue="{!v.isReferenceField}">
+            <aura:if isTrue="{!v.isEditable}">
+                <c:SimpleLookup objectAPIName="{!v.ObjectLookupName}"
+                                IconName="standard:user"
+                                selectedRecord="{!v.selectedLookUpRecordAcc}"
+                                SearchKeyWord="{!v.cellLabel}"
+                                showSaveBTN="{!v.showSaveCancelBtn}"
+                                InputRecord="{!v.record}"
+                                InputField="{!v.field}"
+                                ListFilters="{!v.ObjectLookupFilter}"
+
+
+                />
+                <aura:set attribute="else">
+                    <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.cellValue + '/view'}" target="_blank" label="{!v.cellLabel}"/>
+                </aura:set>
+            </aura:if>
+
+        </aura:if>
+
+    </aura:component>

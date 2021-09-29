@@ -1,0 +1,71 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+                
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">          
+        	<c:LC00_DependantFields label="19. PBT Body" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="PBT_Body__c" 
+						savedfieldName="PBT_Body__c"
+						value="{!v.selectedconfig.PBT_Body__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'PBT body option', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Engine_Name__c']"
+						saveddependentfields="['Engine_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="22. Cap Decoration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Hot_Stamping__c" 
+						savedfieldName="Cap_Decoration__c"
+						value="{!v.selectedconfig.Cap_Decoration__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Cap Decoration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Pack_Name__c', 'Cap__c']"
+						concat="['_']"
+									selectedConfig="{!v.selectedconfig}"
+						/>  
+        </div>  
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">           
+        	<c:LC00_DependantFields label="20. Plastic Protection" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Plastic_Protection__c" 
+						savedfieldName="Plastic_Protection__c"
+						value="{!v.selectedconfig.Plastic_Protection__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Sleevage option', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Engine_Name__c']"
+						saveddependentfields="['Engine_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/>   
+        </div>  
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">             
+        	<c:LC00_DependantFields label="23. Diptube Length" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Diptube_Length__c" 
+						savedfieldName="Diptube_Length__c"
+						value="{!v.selectedconfig.Diptube_Length__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Diptube Length option', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Engine_Name__c']"
+						saveddependentfields="['Engine_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="21. Collar Decoration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Hot_Stamping__c" 
+						savedfieldName="Collar_Decoration__c"
+						value="{!v.selectedconfig.Collar_Decoration__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Collar Decoration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/>  
+        </div>  
+        
+        
+		
+    </div>
+</aura:component>

@@ -1,0 +1,96 @@
+<aura:component >
+    <aura:attribute name="quoteLineItems" type="QuoteLineItem[]" />
+    <aura:attribute name="currencies" type="String[]" />
+    <aura:attribute name="productCluster" type="String[]" />
+    <aura:attribute name="productPlant" type="List" />
+     <aura:attribute name="choosenCluster" type="String" />
+
+    <style>    
+        .showPurefoilcheckbox {
+        	display:inline-block !important;
+        }
+	</style>
+    
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+        <thead>
+            <tr class="slds-text-title--caps slds-theme--shade">
+                <th scope="col">
+                    <div class="slds-truncate" title="Opportunity Name">Albea Product Sub Segment Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Item Name">Item name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Quantity">Annual Quantity (KU)</div>
+                </th>
+               <th scope="col">
+                    <div class="slds-truncate" title="Currency">Billing Currency</div>
+                </th>
+               <!--  <th scope="col">
+                    <div class="slds-truncate" title="Production Cluster">Production Cluster</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Production Plant">Production Plant</div>
+                </th>  -->
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.quoteLineItems}" var="quoteLineItem" indexVar="index">       
+                <tr aura:id="{!'Line'+quoteLineItem.PricebookEntryId}" id="{!'Line'+quoteLineItem.PricebookEntryId}">   
+                    <th style="vertical-align:top;" scope="row" data-label="Product Name">
+                        <div style="margin-top:8px" class="slds-truncate" title="productName">{!quoteLineItem.Description}</div>
+                    </th> 
+                    <th scope="col" style="vertical-align:top;">
+                        <div class="slds-truncate" title="Quantity">
+                            <ui:inputText value="{!quoteLineItem.Item_name__c}"/> 
+                           
+                            <!--div>{!quoteLineItem.Description__c}  </div-->
+                        </div>
+                    </th>
+                    <td data-label="Quantity">
+                        <div class="slds-truncate" title="Quantity">
+                            <ui:inputNumber value="{!quoteLineItem.Quantity}"/> 
+                            <div class="{!quoteLineItem.Shape__c}">
+                                <span style="padding-right: 10px;">Purefoil Segment?</span>
+                                <ui:inputCheckbox class="showPurefoilcheckbox" value="{!quoteLineItem.Purefoil_Segment__c}"/>	
+                            </div>
+                            <!--div>{!quoteLineItem.Description__c}  </div-->
+                        </div>
+                    </td>
+                    <td data-label="Billing Currency" style="vertical-align:top;"> 
+                        <div style="{!(quoteLineItem.isPriceMatrix__c == true ? 'vertical-align:top; display:none;' : 'vertical-align:top;')}" class="slds-truncate" title="Currency"  >
+                            <ui:inputSelect value="{!quoteLineItem.Billing_Currency__c}" class="slds-select">                                            
+                                <aura:iteration items="{!v.currencies}" var="currency" indexVar="index"> 
+                                    <option value="{!currency}">{!currency}</option>
+                                </aura:iteration>
+                            </ui:inputSelect>                                                                                              
+                        </div>
+                       <div style="{!(quoteLineItem.isPriceMatrix__c == false ? 'display:none;' : '')}" class="slds-truncate" title="Currency"  >
+                            <ui:inputText disabled ="true" value="{!(quoteLineItem.Location__c == 'EU' ? 'EURO' : 'American Dollar')}" />                                                                                            
+                        </div>
+                    </td> 
+                    
+                  <!--     <td data-label="Production Cluster">
+                        <div class="slds-truncate" title="Production Cluster">
+                            <ui:inputSelect value="{!quoteLineItem.Production_Cluster__c}" class="slds-select">                                            
+                                <aura:iteration items="{!v.productCluster}" var="pCluster" indexVar="index"> 
+                                    <option value="{!pCluster}">{!pCluster}</option>
+                                </aura:iteration>
+                            </ui:inputSelect>
+                        </div>
+                    </td>
+                    <td data-label="Production Plant">
+                        <div class="slds-truncate" title="Production Plant">
+                    		<ui:inputSelect value="{!quoteLineItem.Production_Plant__c}" class="slds-select">                                            
+                                <aura:iteration items="{!v.productPlant}" var="pPlant" indexVar="index"> 
+                                    <option value="{!pPlant}">{!pPlant}</option>
+                                </aura:iteration>
+                            </ui:inputSelect>
+                        </div>
+                    </td> -->
+                                        
+                </tr>                
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

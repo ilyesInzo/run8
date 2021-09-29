@@ -1,0 +1,15 @@
+.THIS {
+}
+.THIS .input-ku-left{
+    width: 85%;
+    border-radius: .25rem 0.0rem 0.0rem .25rem;
+}
+.THIS .input-ku-right{
+    float: right; 
+    width: 15%; 
+    border-radius: 0.0rem .25rem .25rem 0.0rem;  
+    border-left-width: 0px;
+}
+.THIS .input-ku-right[disabled]{
+  cursor: initial;
+}

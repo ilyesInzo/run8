@@ -1,0 +1,16 @@
+<aura:component controller="OpportunityWizardController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="displayContractReminder" type="Boolean" />
+    <aura:attribute name="idContract" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>     
+    <aura:if isTrue="{!v.displayContractReminder}">
+    <center>
+    <ui:message severity="warning" closable="true">
+        <big><b>A <a href="{!'/one/one.app?#/sObject/'+ v.idContract + '/view'}" target="_blank">contract</a> has been created</b></big>        
+	</ui:message>
+    </center>
+    </aura:if>
+        
+
+</aura:component>

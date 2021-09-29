@@ -1,0 +1,220 @@
+.THIS th{
+	font-style: italic;
+}
+.THIS td{
+	border: 1px solid #BFBFBF;
+    
+}
+.THIS .row1 td, .THIS .row1 input{
+	background-color: #0099CC!important;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    font-size: 95%;
+    padding-left:5px;
+    padding-right:0%; 
+}
+.THIS .row2 td, .THIS .row2 input{
+	background-color: #FFFFCC!important;
+    font-weight: bold;
+}
+
+.THIS .row3 td{
+    text-align: center;
+    Height: 15px;
+}
+
+.THIS input[type="radio"]{
+	text-align: center;
+    width: 20px;
+}
+
+.THIS .row3 td, .THIS .row3 input{
+	background-color: #E7E6E6!important;
+}
+.THIS .row4 td, .THIS .row4 input{
+	background-color: #0070C0!important;
+    color:#FFFFFF;
+    font-size: 90%;
+    padding-left:0%;
+    padding-right:0%;
+    text-align: left;
+}
+.THIS input{
+	padding-right:1px !important; 
+    padding-left:1px !important;
+    text-align: center;
+    width: 43px;
+    color:black;
+    border:none!important;
+}
+.THIS input:focus{
+	outline:none;
+}
+.THIS td.divider{
+    padding-left:5px;
+    background: none;
+    border: none;
+    background-color: transparent!important;
+}
+.THIS .result-row th{
+    width: 121px;
+}
+.THIS .result-row .left-free-space{
+    width: 43px;
+    background-color: none;
+    border: none;
+}
+.THIS .label{
+	display:none;
+}
+
+.THIS .Grey{   
+    background-color: #A9A9A9 !important; 
+   text-align: center;
+   padding-right:1px !important; 
+    padding-left:1px !important;
+   /* text-align: right;
+   padding-left:20%;
+   padding-right:20%; */
+   font-size: 100%;
+border-radius: 1px;
+}
+.THIS .Black{   
+    background-color: #000000 !important;
+    color: white;
+    padding-right:1px !important; 
+    padding-left:1px !important;
+  /*  text-align: right;
+   padding-left:20%;
+   padding-right:20%;*/ 
+   font-size: 100%;
+	border-radius: 1px;
+}
+.THIS .Red{   
+    background-color: #FF0000 !important; 
+    text-align: center;
+    padding-right:1px !important; 
+    padding-left:1px !important;
+   /* text-align: right;
+   padding-left:20%;
+   padding-right:20%; */
+   font-size: 100%;
+	border-radius: 1px;
+}
+.THIS .Yellow{   
+    background-color: #FFD700 !important;  
+    text-align: center;
+    padding-right:1px !important; 
+    padding-left:1px !important;
+	/*text-align: right;
+   padding-left:20%;
+   padding-right:20%;*/
+   font-size: 100%;
+   border-radius: 1px;
+
+}
+.THIS .DarkGreen{
+   
+   background-color: #008000 !important;
+   text-align: center;
+   padding-right:1px !important; 
+    padding-left:1px !important;
+   /* text-align: right;
+   padding-left:20%;
+   padding-right:20%; */
+   font-size: 100%;
+   border-radius: 1px;
+}
+.THIS .LightGreen{   
+    background-color: #92d050 !important;  
+    text-align: center;
+    padding-right:1px !important; 
+    padding-left:1px !important;
+   /* text-align: right;
+   padding-left:20%;
+   padding-right:20%; */
+   font-size: 100%;
+	border-radius: 1px;
+}
+.THIS .Price{   
+    height: 8px; 
+    
+}
+.THIS .Hide {
+    
+    display: none;
+}
+.THIS .Div {
+    text-align: center;
+	min-height:10px; 
+    width:100%;
+    padding: 0px 0px;
+    border:none;
+    font-size: 105%;
+    color : white;
+}
+.THIS .largeOutput {
+    padding-right:1px !important; 
+    padding-left:1px !important;
+}
+
+.THIS .mySpinner{
+   z-index: 10;
+    height: 188px;
+    width: 484px;
+    position: absolute;
+}  
+
+.THIS .input:focus{ color: black; }
+
+.THIS .row1 input:focus{
+  color: white;
+}
+
+.THIS .tooltip {
+    position: absolute;
+    display: inline-block;
+    width: 500px;
+    height: 200px;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.THIS .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.THIS .tooltip .tooltiptext {
+    visibility: hidden;
+   
+}
+
+.THIS .title{
+  font-weight: bold;
+  
+  margin-top: 13px;
+  color:white ;
+}
+
+.THIS .ok_Icon{
+  width: 40px;
+  float:left;    
+  margin-right: 8px;
+}
+
+.THIS .popup{
+    
+    z-index: 32;
+    margin-top:-150px;
+    width: 300px;
+    margin-left: 80px;
+  
+}
+
+.THIS .greenButton{
+  float: right;
+  margin-bottom: 5px;
+  margin-right: 15px;
+  background-color: green;
+}

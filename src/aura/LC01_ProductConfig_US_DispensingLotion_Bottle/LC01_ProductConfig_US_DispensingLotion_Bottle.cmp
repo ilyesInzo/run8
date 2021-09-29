@@ -1,0 +1,80 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="24. Bottle Volume" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Volume__c" 
+									savedfieldName="Bottle_Volume__c"
+									value="{!v.selectedconfig.Bottle_Volume__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Bottle Volume', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Bottle_type__c']"
+									saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>
+        </div> 
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="27. Offset" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Offset__c" 
+						savedfieldName="Offset__c"
+						value="{!v.selectedconfig.Offset__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Offset', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Product_Name__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="25. Coloring" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Coloring__c"
+						value="{!v.selectedconfig.Coloring__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Coloring', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Product_Name__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>  
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="28. Bottle Hot Stamping" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Hot_Stamping__c" 
+						savedfieldName="Hot_Stamping__c"
+						value="{!v.selectedconfig.Hot_Stamping__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Hot Stamping', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Product_Name__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/>   
+        </div>  
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="26. Silk-Screening" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Silk_Screening__c" 
+						savedfieldName="Silk_Screening__c"
+						value="{!v.selectedconfig.Silk_Screening__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle SilkScreening', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Product_Name__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="29. Ring Coloration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Ring_Coloration__c"
+						value="{!v.selectedconfig.Ring_Coloration__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Ring coloration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Product_Name__c']"
+						saveddependentfields="['Pack_Name__c']"
+									selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+		
+    </div>
+</aura:component>

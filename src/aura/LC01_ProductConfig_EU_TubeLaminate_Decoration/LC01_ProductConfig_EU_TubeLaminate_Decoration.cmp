@@ -1,0 +1,69 @@
+<aura:component extends="c:LC00_Section">
+    
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <label class="slds-form-element__label">34. Printing Techno</label>
+            <ui:inputText aura:id="printtechno" value="{!v.selectedconfig.Printing_technologies__c}" disabled="true"/>            
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">            
+        	<c:LC00_Picklist label="37. # Silkscreen" options="['', 'Yes (1 color)', 'No']" value="{!v.selectedconfig.Silkscreen__c}"/>  
+            
+            <!-- <c:LC00_DependentPicklist picklistLabel="" 
+                             name="" location="EU" sObjectName="PM_Tubes_Config__c" tableName="" dependsOn="[]"/> -->
+        </div>
+        				
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="35. # Flexo Colors" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Nb_Colors__c" 
+                                    value="{!v.selectedconfig.NB_Flexo_Colors__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'NB of Flexo colors', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="NB_Flexo_Colors__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    
+                                    />
+            
+            <!-- <c:LC00_DependentPicklist picklistLabel="" 
+                             name="" location="EU" sObjectName="PM_Tubes_Config__c" tableName="" dependsOn="[]"/> -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           
+        	<!-- <c:LC00_Picklist label="38. Cold / Hot Foil" options="['', 'Yes', 'No']" value="{!v.selectedconfig.Cold_Hot_Foil__c}"/>  -->
+        	 <c:LC00_DependantFields label="38. Cold / Hot Foil" 
+									objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cold_Hot_Foil__c" 
+                                    value="{!v.selectedconfig.Cold_Hot_Foil__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cold Hot Foil', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Sleeve_Material__c','Aspect__c','Sleeve_Finish__c']"
+                                    savedfieldName="Cold_Hot_Foil__c"
+                                    saveddependentfields="['Sleeve_Material__c','Sleeve_Aspect__c','Sleeve_Finish_name__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    disablelist="['380 CRAFT']"  
+                                     disablefiled="Sleeve_Material_Mix__c"
+									/>    
+        </div>
+        
+        <div  class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            
+        	<!-- <c:LC00_Picklist label="36. Metalic Flexo" options="['', 'Yes', 'No']" value="{!v.selectedconfig.Metalic_Flexo__c}"/>   -->
+        	 <c:LC00_DependantFields label="36. Metalic Flexo" 
+									objectName="PM_Tubes_Config__c" 
+                                    fieldName="Metalic_Flexo__c" 
+                                    value="{!v.selectedconfig.Metalic_Flexo__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Metalic Flexo', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Metalic_Flexo__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    disablelist="['380 CRAFT']"
+                                     disablefiled="Sleeve_Material_Mix__c"
+									/>     
+        </div>
+    </div>
+</aura:component>

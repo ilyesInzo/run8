@@ -1,0 +1,19 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="LC01_OpenPriceMatrix">
+
+    <aura:attribute name="display" type="Boolean" default="false" />
+    <aura:attribute name="qli" type="QuoteLineItem" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:if isTrue="{!v.display &amp;&amp; v.qli.Product_Final_Look__c != null }">
+    
+	    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+	        <div class="slds-p-horizontal--small slds-size--1-of-1">
+	            <div class="slds-p-horizontal--small slds-align--absolute-center" style="background-color: ghostwhite;" >
+                    <img src="{! '/servlet/servlet.FileDownload?file='+v.qli.Product_Final_Look__c}" class="slds-media slds-media--center" style="width: 250px;" />
+	            </div>
+	        </div>
+	    </div>
+    
+    </aura:if>
+    
+</aura:component>

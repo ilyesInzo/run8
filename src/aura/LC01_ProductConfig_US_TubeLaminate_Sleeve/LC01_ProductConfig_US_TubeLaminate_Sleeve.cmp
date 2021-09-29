@@ -1,0 +1,78 @@
+<aura:component extends="c:LC00_Section">
+    
+    <aura:attribute name="selectedtubeconfig" type="PM_Selected_Tubes_Config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}" />
+    
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           <c:LC00_DependantFields label="11. Sleeve Material" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Web_Structure__c" 
+									value="{!v.selectedconfig.Sleeve_type__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Web Choices', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c']" 
+									savedfieldName="Sleeve_type__c"
+									saveddependentfields="['Diameter_inches__c']"
+								    selectedConfig="{!v.selectedconfig}"
+
+		                          />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           <c:LC00_DependantFields label="14. Sleeve Finish" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Sleeve_Finish__c"
+									value="{!v.selectedconfig.Sleeve_Finish_name__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Sleeve Finish', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="" 
+									savedfieldName="Sleeve_Finish_name__c"
+									saveddependentfields=""
+								   selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           	<c:LC00_DependantFields label="12. Sleeve Material Mix" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Web_Type__c" 
+									value="{!v.selectedconfig.Sleeve_Material_Mix__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Web Type', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c','Web_Structure__c']" 
+									savedfieldName="Sleeve_Material_Mix__c"
+									saveddependentfields="['Diameter_inches__c','Sleeve_type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>        
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+					<c:LC00_DependantFields label="15. Sleeve Aspect" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Head_Sleeve_Cap_Aspect_name__c" 
+									value="{!v.selectedconfig.Sleeve_Aspect__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Sleeve Aspect', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Web_Type__c']" 
+									savedfieldName="Sleeve_Aspect__c"
+									saveddependentfields="['Sleeve_Material_Mix__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+          <c:LC00_DependantFields label="13. Reference Web" 
+                                    objectName="PM_Tubes_Config__c" 
+									fieldName="Web_Type_Name__c" 
+                                    value="{!v.selectedconfig.Reference_Web__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Web Type', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Web_Type__c']" 
+                                    savedfieldName="Reference_Web__c"
+                                    saveddependentfields="['Sleeve_Material_Mix__c']"
+                                    isDisabled="true"
+								  selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+ 
+        
+    </div>
+</aura:component>

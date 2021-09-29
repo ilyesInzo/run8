@@ -1,0 +1,221 @@
+<aura:component controller="CloneQuoteWizard" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<ltng:require styles="{!$Resource.ToastMultipleLines}" />
+	
+	<!-- Attributs declaration -->
+	<aura:attribute name="recordId" type="Id"/>
+	<aura:attribute name="oppty" type="Opportunity" default="{'sobjectType' : 'Opportunity'}" />
+	<aura:attribute name="clonedQuote" type="Quote" default="{'sobjectType' : 'Quote'}" />
+	<aura:attribute name="UseNewOpportunityFlag" type="boolean" default="false" />
+	<aura:attribute name="UseSelectedOpportunityFlag" type="boolean" default="false" />
+	<aura:attribute name="UseSelectedAccountFlag" type="boolean" default="false" />
+	<aura:attribute name="disabledCheckbox" type="boolean" default="false" />
+	<aura:attribute name="enabledCheckbox" type="boolean" default="true" />
+	<aura:attribute name="checkboxValue" type="boolean" default="false" />
+	<aura:attribute name="selectedLookUpRecordAcc" type="sObject" default="{}"/>
+	<aura:attribute name="selectedLookUpRecordOpp" type="sObject" default="{}"/>
+	<aura:attribute name="displayCopyQuote" type="boolean" default="{}"/>
+
+	<!-- Initialisation of the data -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<aura:if isTrue="{!v.displayCopyQuote}">
+	<!-- Main interface-->
+    <div class="slds-grid slds-wrap slds-grid--pull-padded" style="text-align: right;">
+        <div class="slds-p-horizontal--small slds-size--1-of-1">
+            <div class="slds-p-horizontal--small slds-align--absolute-right ">
+                <div class="slds-button  slds-align--absolute-right slds-p-around--x-small slds-m-bottom--x-small" style="padding-bottom: 0px;margin-bottom: 0px;">
+                    <lightning:button onclick="{!c.showModal}" class="slds-align--absolute-right">
+                        <span class="slds-text-heading--x-small">Copy quote</span>
+                    </lightning:button>   
+                </div>
+            </div> 
+        </div>
+    </div>
+    </aura:if>
+    <div aria-hidden="false" aura:id="cloneQuoteWizard" role="dialog" class="slds-modal slds-modal--large slds-fade-in-hide">
+    	<div class="slds-modal__container">
+    	    <div class="slds-modal__content slds-p-around--medium"  style="border: 3px solid rgb(0, 112, 210);">
+    	    	<form>
+	                <div>
+
+
+	                    <!-- PAGE HEADER -->
+	          	        <div class="slds-page-header" role="banner">
+	          			    <div class="slds-grid">
+	          				    <div class="slds-col">          
+	          				        <h1 class="slds-text-heading--medium">Copy Quote Wizard</h1>
+	          				    </div>
+	          			    </div>
+	          	        </div>
+	          	        <!-- / PAGE HEADER -->
+
+	      	            <!-- Input FORM -->
+	      	            <br />
+
+	      	            <center>
+	      	            <lightning:button disabled="{!v.disabledCheckbox}" aura:id="sameOpportunityButton" variant="neutral" label="I want to attach quote to the SAME opportunity" onclick="{!c.cloneQuote}" />
+	      	            <br />
+	      	            <br />
+	      	            <br />
+	      	            <lightning:button aura:id="selectOpportunityButton" variant="neutral" label="I want to attach quote to another OPEN opportunity" onclick="{!c.showSelectOpportunityModal}" />
+	      	            <br />
+	      	            <br />
+	      	            <br />
+	      	            <lightning:button aura:id="newOpportunityButton" variant="neutral" label="I want to attach quote to a NEW opportunity" onclick="{!c.showNewOpportunityModal}" />
+	      	            <br />
+	      	            <br />
+	      	            <br />
+
+	      	            </center>
+						
+	      	         	<!-- / Input FORM -->
+	      	         	<div class="slds-x-small-buttons--horizontal" style="float:right;">
+                            <ui:button label="Close" class="slds-button slds-button-neutral" press="{!c.hideModal}"/>  
+                        </div>
+
+
+
+	                </div>   
+                </form>      
+            </div>         
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="newOpportunityWizard" role="dialog" class="slds-modal slds-modal--medium slds-fade-in-hide">
+    	<div class="slds-modal__container">
+    	    <div class="slds-modal__content slds-p-around--medium"  style="border: 3px solid rgb(0, 112, 210);">
+    	    	<form>
+	                <div>
+	                    <!-- Input FORM -->
+
+	          	        <div class="slds-page-header" role="banner">
+	          			    <div class="slds-grid">
+	          				    <div class="slds-col">          
+	          				        <h1 class="slds-text-heading--medium">New Opportunity Wizard</h1>
+	          				    </div>
+	          			    </div>
+	          	        </div>
+	          	        
+	  					<div>
+							<div class="slds-form slds-form_compound">
+								<fieldset class="slds-form-element"  style="margin-top: 10px;">
+									<div class="slds-form-element__group">
+										<div class="slds-form-element__row">
+											<div class="slds-form-element slds-size_1-of-2">
+												<label class="slds-form-element__label" for="input-01">Opportunity Name</label>
+												<force:inputField value="{!v.oppty.Name}" />
+											</div>
+											<div class="slds-form-element slds-size_1-of-2">
+												<label class="slds-form-element__label" for="input-02">RFQ Reception Date</label>
+												<force:inputField value="{!v.oppty.CloseDate}" />
+											</div>
+										</div>
+									</div>
+									<div class="slds-form-element__group">
+										<div class="slds-form-element__row">
+											<div class="slds-form-element slds-size_1-of-2">
+											<div aura:id="fieldContainer">											
+													<!--<force:inputField value="{!v.oppty.AccountId}"/>-->
+													<c:customLookup objectAPIName="account" IconName="standard:account" label="Account Name" selectedRecord="{!v.selectedLookUpRecordAcc}" quoteId="{!v.recordId}"/>
+											</div>
+											</div>	
+												<!--
+											<div class="slds-form-element slds-size_1-of-2">
+												<label class="slds-form-element__label" for="input-03">Stage</label>
+												<force:inputField value="{!v.oppty.StageName}"/>
+											</div>
+										-->
+											<div class="slds-form-element slds-size_1-of-2">
+												<label class="slds-form-element__label" for="input-04">Quote Type</label>
+												<force:inputField value="{!v.oppty.Quote_Type__c}"/>
+											</div>
+										</div>
+									</div>
+									<!--
+									<div class="slds-form-element__group">
+										<div class="slds-form-element__row">
+											<div class="slds-form-element slds-size_1-of-2">
+												<label class="slds-form-element__label" for="input-05">Account Name</label>
+												<div aura:id="fieldContainer">											
+													<force:inputField value="{!v.oppty.AccountId}"/>
+													<c:customLookup objectAPIName="account" IconName="standard:account" label="Account Name" selectedRecord="{!v.selectedLookUpRecord}"/>
+												</div>	
+											</div>
+										</div>
+									</div>-->
+								</fieldset>
+							</div>
+						</div>					
+	      	         	
+	      	         	<div class="slds-x-small-buttons--horizontal" style="float:right;">
+                            <ui:button label="Save" class="slds-button slds-button-neutral" press="{!c.cloneQuoteNewOpportunity}"/>
+                            <ui:button label="Cancel" class="slds-button slds-button-neutral" press="{!c.hideNewOpportunityModal}"/>  
+                        </div>
+
+                        <!-- / Input FORM -->
+	                </div>   
+                </form>      
+            </div>         
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="selectOpportunityWizard" role="dialog" class="slds-modal slds-modal--medium slds-fade-in-hide">
+    	<div class="slds-modal__container">
+    	    <div class="slds-modal__content slds-p-around--medium"  style="border: 3px solid rgb(0, 112, 210);">
+    	    	<form>
+	                <div>
+	                    <!-- PAGE HEADER -->
+	          	        <div class="slds-page-header" role="banner">
+	          			    <div class="slds-grid">
+	          				    <div class="slds-col">          
+	          				        <h1 class="slds-text-heading--medium">Select Opportunity Wizard</h1>
+	          				    </div>
+	          			    </div>
+	          	        </div>
+	          	        
+	  					
+					    <div style="height: 10rem;">
+							<div class="slds-form-element">
+								<div class="slds-form-element__control">
+									<!--
+									<div class="slds-form-element">
+										<label class="slds-form-element__label" for="input-01">Opportunity Name</label>
+										<force:inputField value="{!v.clonedQuote.OpportunityId}" />
+									</div>
+								-->
+									<div aura:id="fieldContainer">											
+										<!--<force:inputField value="{!v.oppty.AccountId}"/>-->
+										<c:customLookup objectAPIName="opportunity" IconName="standard:opportunity" label="Opportunity Name" selectedRecord="{!v.selectedLookUpRecordOpp}"/>
+									</div>	
+								</div>
+							</div>
+						</div>
+						
+	      	         	<!-- / Input FORM -->
+	      	         	<div class="slds-x-small-buttons--horizontal" style="float:right;">
+                            <ui:button label="Save" class="slds-button slds-button-neutral" press="{!c.cloneQuoteExistingOpportunity}"/>
+                            <ui:button label="Cancel" class="slds-button slds-button-neutral" press="{!c.hideSelectOpportunityModal}"/>  
+                        </div>
+	                </div>   
+                </form>      
+            </div>         
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="cloneQuoteServiceMessage" role="dialog" class="slds-modal slds-modal--medium slds-fade-in-hide">
+    	<div class="slds-modal__container">
+    	    <div class="slds-modal__content slds-p-around--medium"  style="border: 3px solid rgb(0, 112, 210);">
+    	    	<div style="position: relative;text-align:center;padding-bottom: 36px;">
+    	    		Please wait. Salesforce is copying your quote. 
+    	    	</div>
+
+    	    	<div style="position:relative; display: block;width: 80px; left: 44%; bottom: 18px;">
+        			<lightning:spinner aura:id="mySpinner" alternativeText="Loading" size="small" />
+    			</div>
+
+    	    	<!--<div class="slds-x-small-buttons-%-horizontal" style="display:block;text-align:center;">
+    	    		<ui:button label="Close" class="slds-button slds-button-neutral" press="{!c.hideCloneQuoteServiceMessage}"/>
+    	    	</div>
+    	        -->
+            </div>         
+        </div>
+    </div>
+
+</aura:component>

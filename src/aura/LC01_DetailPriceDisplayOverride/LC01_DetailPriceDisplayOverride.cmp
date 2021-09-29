@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable" access="global" controller="LC01_DetailOverridePMPrice">
+	<aura:attribute name="section" type="String" required="true" default=""/>
+    <aura:attribute name="title" type="String" required="true" default=""/>
+    <aura:attribute name="moq" type="Integer" required="true" default=""/>
+    <aura:attribute name="moqMax" type="Integer" required="true" default=""/>
+    <aura:attribute name="overrideValue" type="Decimal"/>
+    <aura:attribute name="qliId" type="String" required="true" default="{ 'sobjectType': 'QuoteLineItem'}" />
+    <!-- add -->
+    <aura:attribute  name="disable" type="Boolean" default="false"/>
+ 	<!-- <ui:inputNumber value="{!v.overrideValue}" change="{!c.saveOverride}"/> -->
+
+ 	<ui:inputNumber value="{!v.overrideValue}" disabled="{!v.disable}"/>
+ 	
+</aura:component>

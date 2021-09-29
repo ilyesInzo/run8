@@ -1,0 +1,132 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">       
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+              <c:LC00_DependantFields label="15. Actuator Material" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Actuator_finishing__c" 
+						savedfieldName="Actuator_Material__c"
+						value="{!v.selectedconfig.Actuator_Material__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Actuator Material', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+					    saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c']"
+                        concat="['_', '_','_', '_','_']"
+						isDisabled="true"
+						selectedConfig="{!v.selectedconfig}"
+                         isNotDef="true"
+						/> 
+        </div>   
+        
+          <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <c:LC00_DependantFields label="19. Collar decoration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Collar_decoration__c" 
+						savedfieldName="Collar_Decoration__c"
+						value="{!v.selectedconfig.Collar_Decoration__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Collar decoration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c']"
+                        concat="['_', '_','_', '_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                            isNotDef="true"
+						/> 
+        
+        </div>  
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+              <c:LC00_DependantFields label="16. Actuator Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Actuator_Finishing__c" 
+						savedfieldName="Actuator_Finishing__c"
+						value="{!v.selectedconfig.Actuator_Finishing__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Actuator finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c']"
+                        concat="['_', '_','_', '_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                      isNotDef="true"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <c:LC00_DependantFields label="20. Insert coloring " 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Insert_Coloring__c"
+						value="{!v.selectedconfig.Insert_Coloring__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Insert coloring', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c', 'Actuator__c']" 
+                        concat="['_', '_', '_', '_', '_', '_', '_', '_']"
+						selectedConfig="{!v.selectedconfig}"
+                        isNotDef="true"
+						/> 
+        
+        </div>  
+            
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+		
+              <c:LC00_DependantFields label="17. Collar Material" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Collar_Finishing__c" 
+						savedfieldName="Collar_Material__c"
+						value="{!v.selectedconfig.Collar_Material__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Collar Material', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c']"
+                        concat="['_', '_','_', '_','_']"
+						isDisabled="true"
+									  selectedConfig="{!v.selectedconfig}"
+                                      isNotDef="true"
+						/> 		
+        </div>   
+        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+
+                  <c:LC00_DependantFields label="21. Cap Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Cap_Finishing__c" 
+						savedfieldName="Cap_Finishing__c"
+						value="{!v.selectedconfig.Cap_Finishing__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Cap finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c', 'Actuator__c', 'Lockability__c', 'Collar__c','Dosage__c','Purge_Ring__c','Cap__c']"
+                        dependentfields="['Concatenate__c']"
+                        concat="['_', '_', '_', '_', '_','_', '_', '_', '_', '_', '_', '_', '_']"
+						selectedConfig="{!v.selectedconfig}"
+                        isNotDef="true"
+						/> 
+						
+        </div> 
+          <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">        
+          <c:LC00_DependantFields label="18. Collar Finishing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Collar_Finishing__c" 
+						savedfieldName="Collar_Finishing__c"
+						value="{!v.selectedconfig.Collar_Finishing__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Collar Finishing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c']"
+                        concat="['_', '_','_', '_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                  isNotDef="true"
+						/> 
+        </div>  
+         <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+
+                  <c:LC00_DependantFields label="22. Cap decoration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Cap_Decoration__c" 
+						savedfieldName="Cap_Decoration__c"
+						value="{!v.selectedconfig.Cap_Decoration__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Cap decoration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c','Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c', 'Actuator__c', 'Lockability__c', 'Collar__c','Dosage__c','Purge_Ring__c','Cap__c']"
+                        dependentfields="['Concatenate__c']"
+                        concat="['_', '_', '_', '_', '_','_', '_', '_', '_', '_', '_', '_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                         isNotDef="true"
+						/> 
+						
+        </div>   
+		
+    </div>
+</aura:component>

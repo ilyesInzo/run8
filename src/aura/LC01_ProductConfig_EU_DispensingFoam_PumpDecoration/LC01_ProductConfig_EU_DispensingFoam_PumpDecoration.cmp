@@ -1,0 +1,77 @@
+<aura:component extends="c:LC00_Section">
+
+    <aura:attribute name="label12" type="String" default="Cap coloring"/>
+    
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="11.	Actuator coloring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Nozzle_Coloration__c" 
+									savedfieldName="Actuator_coloring__c"
+									value="{!v.selectedconfig.Actuator_coloring__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Nozzle Coloration', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Nozzle_Type__c']"
+									saveddependentfields="['Product_Hierarchy__c','Actuator__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>   
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="14.	Sleeved Pump" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Sleeved_Pump__c" 
+									savedfieldName="Sleeved_Pump__c"
+									value="{!v.selectedconfig.Sleeved_Pump__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Pump Decoration', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+             
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="12.	Collar coloring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Base_cap__c" 
+									savedfieldName="Collar_Decoration__c"
+									value="{!v.selectedconfig.Collar_Decoration__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Base Cap', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="15.	Hot Stamping" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Hot_Stamping__c" 
+									savedfieldName="Hot_Stamping__c"
+									value="{!v.selectedconfig.Hot_Stamping__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Hot Stamping', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+											selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="{!'13. ' + v.label12}" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Color__c" 
+									savedfieldName="Cap_Decoration__c"
+									value="{!v.selectedconfig.Cap_Decoration__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Overcap color', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Nozzle_Type__c']"
+									saveddependentfields="['Product_Hierarchy__c','Actuator__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        
+        
+    </div>
+</aura:component>

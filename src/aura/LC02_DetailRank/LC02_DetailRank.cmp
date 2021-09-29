@@ -1,0 +1,82 @@
+<aura:component controller="LC02_DetailRankController" access="global" implements="force:appHostable,flexipage:availableForAllPageTypes" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+   	<aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contactName" type="String"/>
+    <aura:attribute name="reportLink" type="String" default="{!$Label.c.GameReport}"/>
+  
+    <aura:attribute name="contactRank" type="String"/>
+    <aura:attribute name="contactTotalPoints" type="Integer"/>
+    <aura:attribute name="contactNbrBadge" type="Integer"/>
+    
+    <aura:attribute name="contactBadges" type="Object[]" />
+    
+    <lightning:card>
+        <aura:set attribute="title">
+            <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+  				<img alt="Person name" src="{!$Resource.RanksImages + '/RanksImages/'+ v.contactRank + '.png'}" title="Person name" />
+			</span>
+            Hello, You have :
+            {!v.contactNbrBadge} Badge(s)
+            {!v.contactTotalPoints} Point(s)
+
+            <a class="slds-button slds-button_neutral" style = "float: right" href="{!v.reportLink}">To see other users ranks</a>
+ 
+        </aura:set>
+    </lightning:card>
+    
+    <aura:iteration items="{!v.contactBadges}" var="family">
+        <div class="slds-section slds-is-open">
+  			<h3 class="slds-section__title slds-theme_shade">
+      			<span class="slds-truncate slds-p-horizontal_small" style="font-weight:bold" title="{!family.familyBadge}">{!family.familyBadge}</span>
+  			</h3>
+            <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    
+    				<aura:iteration items="{!family.userbadges}" var="badge">
+           
+                    	<div class="slds-col--padded slds-large-size--1-of-3">
+                            
+                            <lightning:card>
+                                
+                                <aura:set attribute="title">
+                                    <span style="font-weight:bold">{!badge.badgeName}</span>                                  
+                                </aura:set>
+                                 
+                                <figure class=".slds-avatar--circle .slds-avatar--small open-rank-bloc">
+                                    <center>
+                                        <div data-record ="{!badge.badgeName}" class=".slds-avatar--large open-rank-list" onclick="{!c.openRankList}">
+                                            <aura:if isTrue="{!badge.wonPoints >= badge.pointsToWin}">
+                                                <img src="{!badge.badgeUrl}" alt="Description of the image" />
+                                                <aura:set attribute="else">
+                                                    <img src="{!badge.badgeUrl}" class="grayscale" alt="Description of the image" />
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </center>
+                                    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                                        
+                                        	<div class="slds-col--padded slds-large-size--1-of-2">
+    											<center>Badge point requirement : {!badge.pointsToWin}</center>
+                                        	</div>
+                                            <div class="slds-col--padded slds-large-size--1-of-2">
+                                                <center>Won Points : {!badge.wonPoints}</center>
+                                        	</div>
+                                    </div>
+                                </figure>
+                                  
+                            </lightning:card>
+							                                                    
+  						</div>
+                    
+                	</aura:iteration>
+                </div>
+            </div>
+		</div>
+            
+    </aura:iteration>
+    
+    <div aura:id="showChildModal" ></div>
+
+</aura:component>

@@ -1,0 +1,79 @@
+<!--
+ - Created by Thanina on 03/09/2019.
+ -->
+
+<apex:page id="DynamicViewListPageSalesAlloc" sidebar="false" showHeader="true" title="Sales Allocations Updates">
+
+    <apex:includeLightning />
+    <div style="width:100%;height:100%;" id="LightningContainer" />
+
+    <script type="text/javascript">
+        //get account Id from URL
+        var objName = "{!$CurrentPage.parameters.ObjectName}";
+        var fieldSetViewName = "{!$CurrentPage.parameters.ListName}";
+        var moreFilters = '';
+        moreFilters = "{!$CurrentPage.parameters.Filters}";
+
+
+        var isDirector = "{!$User.Director__c}";
+        var isManager = "{!$User.Manager__c}";
+        var isKAM = "{!$User.KAM__c}";
+        var userId = "{!$User.Id}";
+        var isAdditional = "{!$User.Additional__c}";
+        var directorFilter = "{!$User.CustomerGroup__c}";
+
+
+        if (objName == '' || objName == undefined) objName = 'Sales_Allocations__c';
+
+        if (fieldSetViewName == '' || fieldSetViewName == undefined) {
+            if (isDirector == 'true') {
+                fieldSetViewName = 'ListDirector01';
+                //alert('I am Here.......');;
+
+                moreFilters = " and  (Request_MAJ_Alloc_Status__c = null or Request_MAJ_Alloc_Status__c = 'None' or Request_MAJ_Alloc_Status__c = '' or ( Request_MAJ_Alloc_Status__c = 'Pending' and Submitted_by__c = '" + userId + "')) and " + directorFilter;
+                // moreFilters = " or ( Request_MAJ_SA_Status__c = 'Pending' and Submitted_by__c = '"+ userId +"' )";
+            }
+            else {
+                if (isManager == 'true') {
+                    fieldSetViewName = 'ListManager01';
+                    moreFilters = " and (ManagerID18__c = '" + userId + "'  or 	KAMid18__c = '" + userId + "' or Additional_id18__c = '" + userId + "') and  (Request_MAJ_Alloc_Status__c = null or Request_MAJ_Alloc_Status__c = 'None' or Request_MAJ_Alloc_Status__c = '' or ( Request_MAJ_Alloc_Status__c = 'Pending' and Submitted_by__c = '" + userId + "'))";
+
+                    //" and (Manager__c = '"+ userId +"' or 	KAM__c = '"+ userId +"' or Additional_id18__c = '"+ userId +"')"
+                }
+                else {
+                    if (isKAM == 'true') {
+                        fieldSetViewName = 'ListKam01';
+                    }
+                    else {
+                        if (isAdditional == 'true') {
+                            fieldSetViewName = 'ListAdditional01';
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+
+        $Lightning.use("c:DisplayListView", function () {
+            $Lightning.createComponent("c:DynamicTableView",
+                {
+                    "sObjectName": objName,
+                    "fieldSetName": fieldSetViewName,
+                    "filters": moreFilters,
+                    "listTitle": "Sales Allocation List",
+                    "displaySelectedColumns": false,
+                    "needRejectApproveBtn": false
+
+                }, //Pass Parameter
+                "LightningContainer", function (component) {
+                    console.log('Component created');
+                });
+        });
+
+
+    </script>
+
+
+</apex:page>

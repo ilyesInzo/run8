@@ -1,0 +1,64 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="LC03_displayAccountFields" >
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="recordInfo" type="Object" />
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="curView" type="String" />	
+    
+    
+    
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      layoutType="FULL"                      
+                      targetRecord="{!v.recordInfo}"                        
+                      targetFields="{!v.simpleRecord}"    
+                      targetError="{!v.recordError}"
+                      />       
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-card slds-form--stacked">
+        <div class="slds-page-header" role="banner">
+            <h3 class="slds-text-heading_label"><b>Helios Information</b></h3>            
+    	</div>
+        
+        <div class="slds-form-element" style="padding-left:10px;">
+            <label class="slds-form-element__label" for="accHeliosBranchCode">Helios Branch Code</label>
+            <div class="slds-form-element__control">
+                <ui:outputText value="{!v.simpleRecord.Helios_Branch_Code__c}" aura:id="accHeliosBranchCode"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element" style="padding-left:10px;">
+            <label class="slds-form-element__label" for="accHEliosID">Helios ID</label>
+            <div class="slds-form-element__control">
+                <ui:outputText value="{!v.simpleRecord.Helios_ID__c}" aura:id="accHEliosID"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element" style="padding-left:10px;">
+            <label class="slds-form-element__label" for="accHEliosID">ERP ID</label>
+            <div class="slds-form-element__control">
+                <ui:outputText value="{!v.simpleRecord.ERP_ID__c}" aura:id="accErpID"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element" style="padding-left:10px;">
+            <label class="slds-form-element__label" for="accHEliosStatusDQ">Helios Status DQ</label>
+            <div class="slds-form-element__control">
+                <ui:outputText value="{!v.simpleRecord.Helios_Status_DQ__c}" aura:id="accHEliosStatusDQ"/>
+            </div>
+        </div>
+        
+        <div class="slds-form-element" style="padding-left:10px;">
+            <label class="slds-form-element__label" for="accHeliosDQErrors">Helios DQ Errors</label>
+            <div class="slds-form-element__control">
+                <aura:unescapedHtml value="{!v.simpleRecord.Helios_DQ_Errors__c}" aura:id="accHeliosDQErrors"/>
+            </div>
+        </div>
+        
+        
+        
+        <br/>
+    </div>
+</aura:component>

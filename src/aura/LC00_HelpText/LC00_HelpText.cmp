@@ -1,0 +1,21 @@
+<aura:component >
+    <aura:attribute name="helpText" type="String"/>
+    <aura:attribute name="width" type="String"/>
+    <aura:attribute name="class" type="String" default="whitefill"/>  
+	<div class="slds-form-element__icon slds-m-right--xx-small slds-m-top--none slds-m-bottom--xx-small">         
+            <div class="tooltip">
+                <lightning:icon iconName="utility:info" size="xx-small" class="{!v.class}"/>
+                <div id="help" class="slds-popover slds-popover--tooltip slds-nubbin--bottom-left tooltiptext" 
+                     role="tooltip" 
+                     aria-live="polite" 
+                     style="{!'width:' + v.width}">
+                    <div class="slds-popover__body slds-text-longform">
+                        <span>
+                            <!-- {!v.helpText} -->
+                            <aura:unescapedHtml value="{!v.helpText}"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</aura:component>

@@ -1,0 +1,12 @@
+.THIS .slds-icon_container{
+    margin-right: 5px;
+    float: left;
+}
+.THIS.slds-section.slds-is-open .slds-icon{
+    
+    transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+}
+.THIS button{
+  cursor: initial;
+}

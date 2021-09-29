@@ -1,0 +1,10 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">       
+       
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">        
+            <label class="slds-form-element__label" style="color: orange;">21. 5 days lead time</label>
+            <ui:inputText value="{!v.selectedconfig.X5_days_lead_time__c}" disabled="true"/>
+        </div>
+		
+    </div>
+</aura:component>

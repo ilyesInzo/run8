@@ -1,0 +1,129 @@
+<aura:component controller="LC01_ValidateQuote">
+
+	<aura:attribute name="qliId" type="String" default="" />
+    <aura:attribute name="oppId" type="String" default="" />
+    
+    <aura:handler event="aura:donewaiting" action="{!c.hideSpinner}"/>
+    
+    <aura:attribute name="qliRecord" type="QuoteLineItem" default="{ 'sobjectType': 'QuoteLineItem'}" />
+    <aura:attribute name="quoteRecord" type="Quote" default="{ 'sobjectType': 'Quote'}" />
+    <aura:attribute name="opportunityRecord" type="Opportunity" default="{ 'sobjectType': 'Opportunity'}" />
+    <aura:attribute name="accountRecord" type="Account" default="{ 'sobjectType': 'Account'}"/>
+    
+    <aura:attribute name="validate" type="Boolean" default="" />
+    <aura:attribute name="headerText" type="String" default="" />
+    <aura:attribute name="projectTypeList" type="List"  />
+    <aura:attribute name="quoteTypeList" type="List"  />
+    
+	<aura:attribute name="recordError" type="String" access="private"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+        
+    
+    <div class="slds-m-around_xx-large">
+        
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal--large">
+		    <div class="slds-modal__container">
+                <div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              			<!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              			<div class="slds-spinner_container">
+                			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  				<span class="slds-assistive-text">Loading</span>
+                  				<div class="slds-spinner__dot-a"></div>
+                  				<div class="slds-spinner__dot-b"></div>
+                			</div>
+              			</div>
+     				  </div>
+		    	<!-- Modal Header -->
+			    <header class="slds-modal__header">
+			        <lightning:buttonIcon iconName="utility:close" class="slds-modal__close" size="large" variant="bare" alternativeText="Close" onclick="{! c.closeModal }"/>
+			        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.headerText}</h2>
+			     </header>
+			     <!-- Main Body of Modal -->
+			      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                      
+                      
+			          <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <c:customLookup objectAPIName="account" IconName="standard:account" label="Account Name" SearchKeyWord="{!v.accountRecord.Name}" selectedRecord="{!v.accountRecord}"/>
+                        </div>
+                          
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >Opportunity Name</label>
+                            <ui:inputText  value="{!v.opportunityRecord.Name}"/> 
+                        </div>
+                      </div>
+                      
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >Quote Type</label>
+                            <ui:inputSelect value="{!v.opportunityRecord.Quote_Type__c}" class="slds-select">
+                                <aura:iteration items="{!v.quoteTypeList}" var="quoteType" indexVar="index">
+                                    <aura:if isTrue="{!v.opportunityRecord.Quote_Type__c == quoteType}">
+                                    	<option text ="{!quoteType}" value="{!quoteType}" selected="{!quoteType}" />
+                                    <aura:set attribute="else">
+                                    	<option text ="{!quoteType}" value="{!quoteType}"/>
+                                    </aura:set>
+                                    </aura:if>
+                                </aura:iteration>
+                            </ui:inputSelect>
+                        </div>
+                          
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >RFQ Reception Date</label>
+                            <ui:inputDate displayDatePicker ="true" value="{!v.opportunityRecord.CloseDate}"/> 
+                        </div>
+                      </div>
+                      
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >Quote Name</label>
+                            <ui:inputText  value="{!v.quoteRecord.Name}"/> 
+                        </div>
+                          
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >Project Type</label> 
+                           	<ui:inputSelect value="{!v.quoteRecord.Project_TYpe__c}" class="slds-select">
+                                <aura:iteration items="{!v.projectTypeList}" var="projectType" indexVar="index">
+                                    <aura:if isTrue="{!v.quoteRecord.Project_TYpe__c == projectType}">
+                                    	<option text ="{!projectType}" value="{!projectType}" selected="{!projectType}" />
+                                    <aura:set attribute="else">
+                                    	<option text ="{!projectType}" value="{!projectType}"/>
+                                    </aura:set>
+                                    </aura:if>
+                                </aura:iteration>
+                            </ui:inputSelect> 
+                        </div>
+                      </div>
+                      
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <label class="slds-form-element__label" >Quote due Date</label>
+                            <ui:inputDate displayDatePicker ="true" value="{!v.quoteRecord.Quote_Due_Date__c}"/> 
+                      </div>
+                      
+                   </div>
+                      
+			    </div>
+			    <!-- Footer of Modal -->
+			    <footer class="slds-modal__footer">
+			        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.closeModal}" />
+			        <aura:if isTrue="{!v.validate}">
+            			<lightning:button variant="brand" label="Validate" 
+                          iconName="utility:check" iconPosition="left" onclick="{!c.validateConfiguration}">
+                        	Validate <c:LC00_HelpText helpText="Change the simulation Quote and configuration from 'Simulation' to 'Draft'" width="100px"/>
+                        </lightning:button>    
+            		<aura:set attribute="else">
+      					<lightning:button variant="brand" label="Save" 
+                          iconName="utility:save" iconPosition="left" onclick="{!c.saveConfiguration}">
+                        	Save <c:LC00_HelpText helpText="Save the simulation Quote and the selected configuration" width="100px"/>
+                        </lightning:button>    
+    				</aura:set>
+  					</aura:if>     
+			    </footer>
+		    </div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</div>
+
+
+</aura:component>

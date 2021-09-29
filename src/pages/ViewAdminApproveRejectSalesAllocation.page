@@ -1,0 +1,48 @@
+<!--
+ - Created by Thanina on 04/09/2019.
+ -->
+
+<apex:page id="ViewAdminApproveRejectSalesAllocation" title="Approve Reject Sales Alloc">
+    <apex:includeLightning />
+    <!--Lightning Container-->
+    <div style="width:100%;height:100%;" id="LightningContainer" />
+
+    <script type="text/javascript">
+        //get account Id from URL
+        var objName = "{!$CurrentPage.parameters.ObjectName}";
+        var fieldSetViewName = "{!$CurrentPage.parameters.ListName}";
+        var moreFilters = '';
+        moreFilters = "{!$CurrentPage.parameters.Filters}";
+
+        var isDirector = "{!$User.Director__c}";
+        var isManager = "{!$User.Manager__c}";
+        var isKAM = "{!$User.KAM__c}";
+        var userId = "{!$User.Id}";
+
+        if (objName == '' || objName == undefined) objName = 'Sales_Allocations__c';
+
+        if (fieldSetViewName == '' || fieldSetViewName == undefined) fieldSetViewName = 'ListAdmin01';
+
+
+        //alert('{!$Profile.Name}'+ ' {!$User.Id}');
+
+
+
+        $Lightning.use("c:DisplayListView", function () {
+            $Lightning.createComponent("c:DynamicTableView",
+                {
+                    "sObjectName": objName,
+                    "fieldSetName": fieldSetViewName,
+                    "filters": moreFilters,
+                    "listTitle": "Approve/Reject Sales Allocations MAJ Request",
+                    "displaySelectedColumns": true,
+                    "needRejectApproveBtn": true
+
+                }, //Pass Parameter
+                "LightningContainer", function (component) {
+                    console.log('Component created');
+                });
+        });
+
+    </script>
+</apex:page>

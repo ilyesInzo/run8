@@ -1,0 +1,18 @@
+<aura:component >
+    <aura:attribute name="label" type="String" required="true"/>
+    <aura:attribute name="name" type="String" required="true"/>
+    <aura:attribute name="options" type="String[]" required="true"/>
+    <aura:attribute name="helptext" type="String"/>
+	<fieldset class="slds-form-element">
+        <label class="slds-form-element__label" for="brandPositioning">{!v.label}</label>
+        <div class="slds-form-element__control">
+            <aura:iteration items="{!v.options}" var="o" indexVar="i">
+                <label class="slds-radio" for="{!v.name + i}">
+                    <input type="radio" name="{!v.name}" id="{!v.name + i}" />
+                    <span class="slds-radio--faux"></span>
+                    <span class="slds-form-element__label">{!o}</span>
+                </label>
+            </aura:iteration>
+        </div>
+    </fieldset>
+</aura:component>

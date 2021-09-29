@@ -1,0 +1,63 @@
+<aura:component extends="c:LC00_Section">
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">1. Shape</label>
+            <c:LC00_ButtonGroup_shapes buttons="['Cylindrical','Oval']" />            
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">6. Sleeve Material</label>
+            <c:LC00_ButtonGroup buttons="['Mono','Coex','Crystal','Esthetic Coex']"/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">2. Diameter (mm)</label>
+            <c:LC00_ButtonGroup buttons="['19','22','25','28','30','35','40','50']"/>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_Picklist options="['PEHD 100%','PEHD/PEBD 70/30%','PEHD/PEBD 30/70%','PEHD/PEBDL 70/30%','PEHD/PEBDL 30/70%','PCR','NON STANDARD MIX']" 
+                             label="7. Sleeve Material Mix"/>
+        </div>        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">3. Fill Capacity (mL)</label>
+            <c:LC00_ButtonGroup buttons="['100','125','150','175','200','250','300']"/>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">8. Sleeve Finish</label>
+            <c:LC00_ButtonGroup buttons="['Gloss','Matte','Matte &amp; Gloss']"/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">4. Sleeve Length (mm)</label>
+            <ui:inputNumber value="110" disabled="true"/> 
+             <p>
+                <i>
+                    
+                    <span style="color: red;"><b><u>Important</u></b> : Please do not forget to choose Sleeve Length, even if it is just one option,if you didn't it may prevent other fields to be taken on consediration .</span>
+                </i>
+            </p>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">9. Sleeve Aspect</label>
+            <c:LC00_ButtonGroup buttons="['Transparent','Opaque','Pearl']"/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">5. Specific Length (mm)</label>
+            <ui:inputNumber disabled="false"/> 
+            <p>
+                <i>
+                    If specific length, please fill in the required length - an upcharge will be applied<br/>
+                    <span style="color: red;"><b><u>Important</u></b> : Fill capacity is indicative, and may vary depending on formula.</span>
+                </i>
+            </p> 
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">10. Sleeve Color</label>
+            <c:LC00_ButtonGroup buttons="['White / Natural','Standard color','Dark color']"/>
+        </div>
+        
+    </div>
+</aura:component>

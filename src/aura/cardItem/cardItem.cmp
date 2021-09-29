@@ -1,0 +1,41 @@
+<aura:component implements="force:appHostable" >
+    <aura:attribute name="qli" type="QuoteLineItem" />
+    <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-hint-parent">
+        <!-- div class="slds-media__figure">
+            <div class="slds-icon_container">
+                <lightning:icon iconName="standard:quotes" size="small" alternativeText="Contact icon"/>
+                <span class="slds-assistive-text">Contact</span>
+            </div>
+        </div -->
+        <div class="slds-media__body">
+            <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+                <h3 class="slds-truncate" title="Related Record Title 1"><a href="javascript:void(0);">{!v.qli.Name}</a></h3>
+                <div class="slds-shrink-none">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.openPriceMatrix}" >PriceMatrix</button>
+                </div>
+            </div>
+            <div class="slds-tile__detail slds-text-body--small">
+                <dl class="slds-dl--horizontal">
+                    <dt class="slds-dl--horizontal__label">
+                        <span class="slds-truncate" title="List Price">List Price:</span>
+                    </dt>
+                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                        <ui:outputCurrency aura:id="list-price" value="{!v.qli.ListPrice}"/>
+                    </dd>
+                    <dt class="slds-dl--horizontal__label">
+                        <span class="slds-truncate" title="Sales Price">Sales Price:</span>
+                    </dt>
+                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                        <ui:outputCurrency aura:id="sales-price" value="{!v.qli.SalesPrice}"/>
+                    </dd>
+                    <dt class="slds-dl--horizontal__label">
+                        <span class="slds-truncate" title="Quantity">Quantity:</span>
+                    </dt>
+                    <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                        <span class="slds-truncate" title="{!v.qli.Quantity}">{!v.qli.Quantity}</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</aura:component>

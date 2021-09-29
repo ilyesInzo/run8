@@ -1,0 +1,9 @@
+.THIS .slds-modal__close {
+
+	color : white;
+}
+
+.THIS .slds-modal__close:hover {
+
+	color : blue;
+}

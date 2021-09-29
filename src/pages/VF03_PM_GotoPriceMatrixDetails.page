@@ -1,0 +1,29 @@
+<apex:page standardController="QuoteLineItem" tabStyle="QuoteLineItem" standardStylesheets="true"  applyBodyTag="false" docType="html-5.0"
+           extensions="VFC03_PM_GotoPriceMatrixEXt"  >
+    <!-- action="{!redirectToPriceMatrix}" -->
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+    <head>
+        <title>Manage Contact Interests</title>
+        <style>
+            body{
+            /*font-size:75%;*/
+            }
+        </style>
+    </head>
+    
+    <!-- apex:includeScript value="/lightning/lightning.out.js" /-->
+    <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+    $Lightning.use("c:PricematriX_Backoffice", function() {
+        $Lightning.createComponent("c:LC01_Home",
+                                   {},
+                                   "lightning",
+                                   function(cmp) {
+                                       // do some stuff
+                                       console.log("Component created!");
+                                       console.log(cmp);
+                                   });
+    });
+    </script>
+</apex:page>

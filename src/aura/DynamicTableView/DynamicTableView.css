@@ -1,0 +1,28 @@
+.THIS.SearchBar{
+
+      width:200px;
+
+
+}
+
+.THIS.othercolor {
+    
+    color:red;
+}
+ .THIS.SearchInput{
+
+    width:200px;
+
+}
+.THIS .popup{
+    
+    z-index: 32;
+    margin-top:-150px;
+    width: 300px;
+    margin-left: 80px;
+  
+}
+.THIS.slds-spinner_container {  
+  z-index: 10000;
+  position: fixed;   
+}

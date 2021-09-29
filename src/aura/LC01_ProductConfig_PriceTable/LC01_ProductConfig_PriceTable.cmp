@@ -1,0 +1,54 @@
+<aura:component controller="LC01_SelectedProductConfigCtrl">
+
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="moqpricelst" type="PM_MOQ_price__c[]" />
+    <aura:attribute name="selectedConfig" type="Object" description="Saved config"/>
+    <aura:attribute name="selectedConfigType" type="String" default="PM_Selected_Tubes_Config__c" description="Saved config type (Tubes/Dispensing)"/>
+    <aura:attribute name="detailPageComponentName" type="String" description="component Name of detail prices page"/>
+    
+    
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    
+    <aura:handler name="change" value="{!v.qli}" action="{!c.handlechange}" />
+    <aura:handler name="change" value="{!v.selectedConfig}" action="{!c.handlechange}" />
+    
+    <aura:handler event="c:LE00_SelectedTube" action="{!c.refreshmoq}" />
+      
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+    
+    <div class="slds-grid ">
+        <div class="slds-m-top--x-small slds-size--12-of-12">
+            <div class=" slds-p-horizontal--small slds-m-top--small slds-m-bottom--small">
+                <table class="moq-listprice">
+                    <tr class="moq">
+                        <th>MOQ</th> 
+                        <aura:iteration items="{!v.moqpricelst}" var="moq">
+                        	<aura:if isTrue="{!moq.MOQ_Max__c != 999}">
+                        		<td>{!moq.MOQ__c}</td>
+                        	</aura:if> 
+            			</aura:iteration>
+
+                    </tr>
+                    <tr class="listprice" aura:id="trPrices">
+                        <th>List Price</th>
+                        <aura:iteration items="{!v.moqpricelst}" var="moq">
+                        	<aura:if isTrue="{!moq.MOQ_Max__c != 999}">
+                        	<td>
+                        	<aura:if isTrue="{!moq.List_Price__c >= 0}">  
+                        		<ui:outputNumber value="{!moq.List_Price__c}" format="0"/>{! ' '+moq.Billing_Currency__c}
+						        <aura:set attribute="else">
+							        <span style="color:red;"> Specific </span>
+						        </aura:set>
+					    	</aura:if>
+                        	</td>
+                        	</aura:if>
+            			</aura:iteration>
+                    </tr>
+                </table>
+            </div>
+        </div>
+       
+       
+    </div>
+    
+</aura:component>

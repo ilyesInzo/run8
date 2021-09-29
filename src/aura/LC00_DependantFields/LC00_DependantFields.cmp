@@ -1,0 +1,78 @@
+<aura:component controller="LC00_DependentFieldsCtrl">
+
+	<!-- Pararemters -->
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="value" type="String" default=""/>
+    <aura:attribute name="objectName" type="String"/>
+    <aura:attribute name="fieldName" type="String"/>
+    <aura:attribute name="parameters" type="MAP"/>
+    <aura:attribute name="dependentfields" type="String[]"/>
+    <aura:attribute name="isDisabled" type="Boolean" default="false"/>
+    <aura:attribute name="isDisabledHist" type="Boolean" default="false"/>
+    <aura:attribute name="savedfieldName" type="String"/>
+    <aura:attribute name="disablefiled" type="String" default=""/>
+    <aura:attribute name="saveddependentfields" type="String[]"/>
+    <aura:attribute name="disablelist" type="String[]"/>
+    <aura:attribute name="concat" type="String[]" default="[]"/>
+    <aura:attribute name="buttonDisabled" type="Boolean" default="false"/>
+    <aura:attribute name="displayCond" type="Boolean" default="true"/>
+    <aura:attribute name="autoselect" type="Boolean" default="false"/>
+    <aura:attribute name="isNotDef" type="Boolean" default="false"/>
+    <aura:attribute name="DefaultVal" type="String"  />
+    
+    <aura:attribute name="options" type="String[]" default="['']"/>
+    <aura:attribute name="optionssize" type="Integer" default="0"/>
+    <aura:attribute name="optionslength" type="Integer" default="0"/>
+    <aura:attribute name="dependentmaplist" type="Map"/>
+    <aura:attribute name="isinit" type="Boolean"/>
+    <aura:attribute name="pickvalue" type="String" default=""/> 
+    <aura:attribute name="dependentvaluesmap" type="Map"/>
+	
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    <aura:registerEvent name="clickSave" type="c:LC00_DependentFieldsEvent"/> 
+    
+    <aura:handler name="change" value="{!v.value}" action="{!c.valuechange}"/>
+	<aura:attribute name="selectedConfig" type="sObject" />
+    
+	<div>
+	<aura:if isTrue="{!v.displayCond}">
+	<div>
+		<aura:if isTrue="{!v.isDisabled}">
+			<div>
+	        	<ui:inputText value="{!v.value}" label="{!v.label}" disabled="true"/>  
+	        </div>
+	    </aura:if>
+	</div>
+
+	<div>
+		<aura:if isTrue="{!or(and(and(lessthan(v.optionslength, 85),greaterthan(v.optionslength, 0)),not(v.isDisabled)), v.savedfieldName == 'Cap_Name__c')}">
+			<div>
+				<label class="slds-form-element__label">{!v.label}</label>
+				<div class="slds-button-group" style="display: block!important;" role="group">
+					<aura:iteration items="{!v.options}" var="opt">			        	
+						<ui:button label="{!opt}" buttonTitle="{!opt}" class="{!if(v.pickvalue == opt, 'slds-button--brand', 'slds-button--neutral')}" press="{!c.buttonChange}" labelClass="label-button" />
+					</aura:iteration>
+				</div>
+			</div>
+		</aura:if>
+	</div> 
+
+
+	<div>
+		<aura:if isTrue="{!and(and(!v.isDisabled, or(v.optionslength == 0, v.optionslength >= 85)), v.savedfieldName != 'Cap_Name__c')}">
+			<div>
+				<ui:inputSelect label="{!v.label}" value="{!v.pickvalue}" change="{!c.pickvaluechange}" disabled="{!v.optionssize == 0}" >
+					<ui:inputSelectOption text="" label="{!v.value}" />  
+					<aura:iteration items="{!v.options}" var="opt"> 
+						<ui:inputSelectOption text="{!opt}" label="{!opt}"/>
+					</aura:iteration>
+			  </ui:inputSelect>
+		  </div>
+		</aura:if> 
+	</div>
+	</aura:if>
+    </div>
+    
+</aura:component>

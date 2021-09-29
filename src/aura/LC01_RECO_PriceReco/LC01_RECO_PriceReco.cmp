@@ -1,0 +1,209 @@
+<aura:component controller="LC01_PriceRecommendation" implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:hasPageReference,lightning:isUrlAddressable">
+    <aura:attribute name="qliId" type="String" default="" required="true"/>
+    <aura:attribute name="qliCurrency" type="String" default="" required="true"/>
+    <aura:attribute name="qli" type="QuoteLineItem" required="true" default="{ 'sobjectType': 'QuoteLineItem'}" />
+    <aura:attribute name="priceRecoData" type="PriceReco[]" /> 
+    <aura:attribute name="isSimulation" type= "Boolean" />
+    <aura:attribute name="moqPrices" type="PM_MOQ_price__c[]" /> 
+ 	  <aura:attribute name="othermoqpriceReco" type="PriceReco" />       
+    <aura:attribute name="othermoqValue" type="integer" /> 
+    <aura:attribute name="othermoqTGValue" type="String" /> 
+    <aura:attribute name="othermoqMinValue" type="String" />
+    <aura:attribute name="othermoqLin1Value" type="String" />
+    <aura:attribute name="othermoqLin2Value" type="String" />
+    <aura:attribute name="othermoqLin3Value" type="String" />
+    <aura:attribute name="othermoqMaxValue" type="String" />
+    <aura:attribute name="othermoqDisplay" type="boolean" />
+    <aura:attribute name="othermoqdisabledLin3" type="boolean" default="false" /> 
+    <aura:attribute name="othermoqMaxThreshold" type="boolean" default="false"/>
+    <aura:attribute name="msg" type="String" />
+    
+   <aura:registerEvent name="FinalPricesEvent" type="c:LE00_FinalPrices"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.getExistingPriceReco}" /> 
+  <!--  <aura:handler name="init" value="{!this}" action="{!c.getPriceReco}" />-->
+    
+    <aura:handler event="c:LE00_PriceReco" action="{!c.getPriceReco}" />
+    <aura:handler name="change" value="{!v.othermoqValue}" action="{!c.processOtherMOQ}" />
+    
+                       
+     
+<style>
+.cLC01_RECO_PriceReco .result-row th {
+    color: white;
+    width: 60px !important;
+}   
+div .hide {
+	    display: none;
+} 
+
+div .show {
+	    display: block;
+}    
+    
+    
+</style>
+    
+    <!-- START Refactoring of the table -->        
+    <div class="slds-size--1-of-1" >
+        <div aura:id="priceRecoDiv">
+            <table>
+                <thead>
+                    <tr> 
+                        <td colspan="3">Price Expressed In {!v.qliCurrency}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                        <td class="divider"></td>
+                        <td class="other-moq-header">{!$Label.c.LBL_OtherMOQ}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>          
+                      	<aura:iteration items="{!v.priceRecoData}" var="priceReco" indexVar="index">
+                              
+                            
+                                <aura:if isTrue="{!index==0}">
+                                    <td style="width:120px;">
+                                    <table>
+                                    
+                                    <tr class="first-row"><th>{!$Label.c.LBL_MOQinKunits}</th></tr>
+                                    <tr class="second-row"><th>{!$Label.c.LBL_TGPrice000}</th></tr>
+                                    <tr><th style="padding-bottom: 5px;"></th></tr>
+                                    <tr class="result-row row1"><th>{!priceReco.minThreshHoldPriceValue}</th></tr>
+                                    <tr class="result-row row2"><th>{!priceReco.lin1PriceValue}</th></tr>
+                                    <tr class="result-row row3"><th>{!priceReco.lin2PriceValue}</th></tr>
+                                    <tr class="result-row row4"><th>{!priceReco.lin3PriceValue}</th></tr>
+                                    <tr class="result-row row5"><th>{!priceReco.maxThreshHoldPriceValue}</th></tr>
+                                    <tr><th class="divider"></th></tr>
+                                     
+                                        </table></td>
+                                 </aura:if>
+                                 <aura:if isTrue="{!index!=0}">
+                                 <aura:if isTrue="{!greaterthan(v.moqPrices.length,0)}">   
+                                  	<aura:if isTrue="{! !priceReco.showColumn==false}">
+                                   		<td> 
+	                                     <table  style="min-width: 20px;">                                    
+	                                    <tr class="first-row"><td>{!priceReco.moq}</td></tr>
+	                                    <tr class="{!priceReco.display?'second-row':'second-row price-reco-disable'}"><td>{!priceReco.tgValue}</td></tr>
+	                                    <tr><td style="padding-bottom: 5px;"></td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row1':'result-row row1 price-reco-disable'}"><td>{!priceReco.minThreshHoldPriceValue}</td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row2':'result-row row2 price-reco-disable'}"><td>{!priceReco.lin1PriceValue}</td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row3':'result-row row3 price-reco-disable'}"><td>{!priceReco.lin2PriceValue}</td></tr>
+	                                    <tr class="{!(priceReco.disabledLin3 == false)?'result-row row4':'result-row row4 price-reco-disable'}"><td>{!priceReco.lin3PriceValue}</td></tr>
+	                                    <tr class="{!(priceReco.disabledMaxThreshold  == false)?'result-row row5':'result-row row5 price-reco-disable'}"><td>{!priceReco.maxThreshHoldPriceValue}</td></tr>
+	                                    <tr><td class="divider"></td></tr>
+	                                   		
+	                                	</table>
+	                                     <div style="display:none;">
+	                                         <lightning:input aura:id="moqcoldisplay" label="m" type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <!--<lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>
+	                                         <lightning:input type="text" value="{!priceReco.moq}" name="moqdisplay"/>-->
+	                                     </div>
+	                                     </td>
+                                   </aura:if>
+                                   
+                                   <aura:set attribute="else" >
+                                   		<aura:if isTrue="{!lessthan(index,8)}"> 
+                                   		<td> 
+	                                     <table  style="min-width: 20px;">                                    
+	                                    <tr class="first-row"><td>-</td></tr>
+	                                    <tr class="{!priceReco.display?'second-row':'second-row price-reco-disable'}"><td>-</td></tr>
+	                                    <tr><td style="padding-bottom: 5px;"></td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row1':'result-row row1 price-reco-disable'}"><td>-</td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row2':'result-row row2 price-reco-disable'}"><td>-</td></tr>
+	                                    <tr class="{!priceReco.display?'result-row row3':'result-row row3 price-reco-disable'}"><td>-</td></tr>
+	                                    <tr class="{!(priceReco.disabledLin3 == false)?'result-row row4':'result-row row4 price-reco-disable'}"><td>-</td></tr>
+	                                    <tr class="{!(priceReco.disabledMaxThreshold  == false)?'result-row row5':'result-row row5 price-reco-disable'}"><td>-</td></tr>
+	                                    <tr><td class="divider"></td></tr>
+	                                   		
+	                                	</table>
+	                                     
+	                                     </td>
+	                                    </aura:if> 
+                                   </aura:set>
+                                   
+                                  </aura:if>                                     	
+                                 </aura:if>
+                                
+                                
+	  					</aura:iteration> 
+                            <td>&nbsp;</td>
+                            <td>
+                                 <table>                                    
+                                    <tr class="first-row"><td> 
+                                    
+                                    <!--<lightning:input aura:id="othermoqValue" type="number" value="{!v.othermoqValue}" onchange="{!c.processOtherMOQ}"/>   -->                                    
+                						<ui:inputNumber value="{!v.othermoqValue}" size="3" maxlength="3"  class="other-moq" />
+                                        </td></tr>  
+                                    <tr class="second-row"><td>{!v.othermoqTGValue}</td></tr>
+                                    <tr><td style="padding-bottom: 5px;"></td></tr>          
+                                     
+                                    <tr class="result-row row1"><td>{!v.othermoqMinValue}</td></tr>
+                                    <tr class="result-row row2"><td>{!v.othermoqLin1Value} </td></tr>
+                                    <tr class="result-row row3"><td>{!v.othermoqLin2Value}</td></tr>
+                      				<tr class="{!(v.othermoqdisabledLin3 == 'false' || v.othermoqdisabledLin3 == false) ?'result-row row4':'result-row row4 price-reco-disable'}"><td>{!v.othermoqLin3Value}</td></tr>
+                                    <tr class="{!(v.othermoqMaxThreshold == 'false' || v.othermoqMaxThreshold == false)?'result-row row5':'result-row row5 price-reco-disable'}"><td>{!v.othermoqMaxValue}</td></tr>       
+                                    <!--<tr class="result-row row4"><td>{!v.othermoqLin3Value} &nbsp;</td></tr>
+                                    <tr class="result-row row5"><td>{!v.othermoqMaxValue} &nbsp;</td></tr>-->
+                                    <tr><td class="divider"></td></tr>
+                                </table>                            
+                            </td>
+                    	</tr> 
+                </tbody> 
+                
+            </table>
+        </div>
+    </div>
+            
+    <!-- END Refactoring of the table -->        
+            
+    
+    <div class="slds-text-align--right slds-p-top--small">
+         <lightning:button label="Send Email"
+                      iconName="utility:new_window"
+                      iconPosition="left"
+                      variant="brand"
+                      onclick="{!c.newPopup}"
+                      />
+        <lightning:button variant="brand" label="Refresh" 
+                          iconName="utility:sync" iconPosition="left" onclick="{!c.getPriceReco}"/>
+    </div>
+    <div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox1" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container" style="width: 65%;">
+            <div class="slds-modal__header">
+                Send Email 
+            </div>
+            
+            <div class="slds-modal__content slds-p-around--medium">
+                 
+               
+                <lightning:inputRichText label="Message " aura:id="msg" value="{!v.msg}" /> 
+                
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button label="Send" onclick="{!c.sendEmailBTN }" />
+                <lightning:button label="Cancel" onclick="{!c.cancel}" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="slds-text-align--right slds-p-top--small">
+      <p>
+                <i>
+                      
+                    <span style="color: red;"><b><u>Important</u></b> : If you get grey line,  you are not allowed to use this discount without a confirmation.</span>
+                </i>
+            </p> 
+     </div>
+    <aura:if isTrue="{!v.isSimulation}">
+    	<c:LC01_SimulatorButtons qliId = "{!v.qliId}" qli = "{!v.qli}"/>
+    </aura:if>
+</aura:component>

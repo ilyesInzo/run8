@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable" controller="LC01_ProductConfigCtrl" extends="c:LC00_QuotelineItem">
+
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/> 
+    <aura:attribute name="currentContext" type="string" default="TubePurefoil" />
+    <!-- 
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="showProductImg" type="boolean" default="true" />
+    <aura:attribute name="selectedtubeconfig" type="PM_Selected_Tubes_Config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}" />
+    <aura:attribute name="collapseStatus" type="Map" default="{Sleeve: true, Head: true, Dispensing_System: true, Cap: true, Decoration: true, Packing: true, Initial_Config: true}" />
+     
+    
+    <!-- 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler name="SectionCollapseEvent" event="c:LE00_SectionAccordionCollapse" action="{!c.handleCollapseEvent}"/>
+    
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <div class="slds pm">
+    
+        <c:LC01_ProductConfig_Header pageName="Product Configuration: Purefoil Tube" qli="{!v.qli}" 
+                                     service="c:LC01_ServiceTubeConfig" showCombo="true" 
+        							configPageName="c:LC01_ProductConfig_EU_TubePurefoil" 
+                                     configId="{!v.selectedtubeconfig.Id}" selectedconfig="{!v.selectedtubeconfig}" disableforEUTubes="false"/>  
+                                     
+        <c:LC01_Wizard step="1"/>
+        
+        
+        <br/><br/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+             <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3" >
+                <!--<div aura:id="productImage"> 
+                      <c:LC01_ProductConfig_imagePreview qli="{!v.qli}" imageSource="{! '/servlet/servlet.FileDownload?file=' + v.qli.Product_Final_Look__c}" showProductImg="{!v.showProductImg}"  /> 
+                </div> -->
+                 <div aura:id="specPreconfig"> 
+                        <c:LC01_ProductConfig_SpecPreconfigContainer selectedConfig="{!v.selectedtubeconfig}" 
+                            location="EU" productSubSegment="Purefoil" quoteStatus="{!v.qli.copy_quote_status__c}"/> 
+                 </div> 
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--2-of-3">
+                <c:LC01_ProductConfig_EU_TubePurefoil_InitialConfig name="Deal Context" open="{!v.collapseStatus.Initial_Config}" selectedconfig="{!v.selectedtubeconfig}" qli="{!v.qli}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_Sleeve name="Sleeve" open="{!v.collapseStatus.Sleeve}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_DispensingSystem name="Dispensing System" open="{!v.collapseStatus.Dispensing_System}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_Head name="Head" open="{!v.collapseStatus.Head}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_Cap name="Cap" open="{!v.collapseStatus.Cap}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_Decoration name="Decoration" open="{!v.collapseStatus.Decoration}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_EU_TubePurefoil_Packing name="Packing" open="{!v.collapseStatus.Packing}" selectedconfig="{!v.selectedtubeconfig}"/>
+    			<c:LC00_SaveButton selectedconfig="{!v.selectedtubeconfig}" />
+            </div>
+           
+        </div>
+        <c:LC01_Combo savedConfig="{!v.selectedtubeconfig}"/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 ">
+                    <c:LC01_ProductConfig_EU_TubePurefoil_Header name="List Price" open="true" qli="{!v.qli}" selectedconfig="{!v.selectedtubeconfig}"/>
+                </div>
+        </div>
+        
+    </div>
+    
+</aura:component>

@@ -1,0 +1,36 @@
+<aura:component implements="force:appHostable">
+
+       	<aura:attribute name="title" type="String"/>
+    	<aura:attribute name="imageName" type="String"/>
+    	<aura:attribute name="imageFolder" type="String"/>
+    	<aura:attribute name="imageFormat" type="String"/>
+
+    
+    <div>
+    	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal--large">
+		    <div class="slds-modal__container">
+                <div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              			<!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              			<div class="slds-spinner_container">
+                			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  				<span class="slds-assistive-text">Loading</span>
+                  				<div class="slds-spinner__dot-a"></div>
+                  				<div class="slds-spinner__dot-b"></div>
+                			</div>
+              			</div>
+     				  </div>
+		    	<!-- Modal Header -->
+			    <header class="slds-modal__header">
+			        <lightning:buttonIcon iconName="utility:close" class="slds-modal__close" size="large" variant="bare" alternativeText="Close" onclick="{! c.closeModal }"/>
+			        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.title}</h2>
+			     </header>
+    			 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                     <img src="{!$Resource.LC00Images +'/'+ v.imageName + '.' + v.imageFormat}"/>
+           
+                </div>
+            </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

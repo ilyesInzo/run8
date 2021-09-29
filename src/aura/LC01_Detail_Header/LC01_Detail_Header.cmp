@@ -1,0 +1,6 @@
+<aura:component extends="c:LC00_Header">
+
+	<aura:registerEvent name="DetailEvent" type="c:LE00_Detailed_Pricing"/>  
+	<lightning:button variant="neutral" label="Go to configurator" iconName="utility:left" 
+                                iconPosition="left" onclick="{!c.backToProductConfig}" />
+</aura:component>

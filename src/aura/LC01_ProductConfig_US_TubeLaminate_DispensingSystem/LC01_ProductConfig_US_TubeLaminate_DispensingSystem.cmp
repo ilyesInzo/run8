@@ -1,0 +1,91 @@
+<aura:component extends="c:LC00_Section">
+
+    <aura:attribute name="selectedtubeconfig" type="PM_Selected_Tubes_Config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}" />
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+           <c:LC00_DependantFields label="5. Dispensing System" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Dispensing_System_Family__c" 
+									value="{!v.selectedconfig.Dispensing_System_Family__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Dispensing System Family', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c']"
+									savedfieldName="Dispensing_System_Family__c"
+									saveddependentfields="['Diameter_inches__c']"
+								   selectedConfig="{!v.selectedconfig}"
+									 /> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+         <c:LC00_DependantFields label="8. Head Aspect" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Aspect__c" 
+									value="{!v.selectedconfig.Head_Aspect__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head Cap Aspect', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									savedfieldName="Head_Aspect__c" 
+									saveddependentfields=""
+								 selectedConfig="{!v.selectedconfig}"
+									 /> 
+
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="6. Dispensing name" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Dispensing_System_Name__c" 
+									value="{!v.selectedconfig.Dispensing_System_Name__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Dispensing System Name', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c', 'Dispensing_System_Family__c']" 
+									savedfieldName="Dispensing_System_Name__c"
+									saveddependentfields="['Diameter_inches__c', 'Dispensing_System_Family__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+       
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="9. Head Color" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Color__c" 
+									value="{!v.selectedconfig.Head_Color__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head / Cap Color', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									savedfieldName="Head_Color__c"
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									 /> 
+
+       
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="7. Head Name" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Head_Name__c" 
+									value="{!v.selectedconfig.Head_Name__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head Name', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c', 'Dispensing_System_Family__c','Dispensing_System_Name__c']"									
+									savedfieldName="Head_Name__c"
+									saveddependentfields="['Diameter_inches__c', 'Dispensing_System_Family__c','Dispensing_System_Name__c']"
+									 selectedConfig="{!v.selectedconfig}"
+									/> 
+            
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="10.  Rondelle / Insert" 
+									objectName="PM_Tubes_Config__c" 
+									fieldName="Head_Barrier__c" 
+									value="{!v.selectedconfig.Rondelle_Insert__c}" 
+									parameters="{Location__c : 'US', Table_Name__c : 'Head Barrier', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Diameter_inches__c', 'Head__c']"									
+									savedfieldName="Rondelle_Insert__c"
+									saveddependentfields="['Diameter_inches__c', 'Head_Name__c']"
+									 selectedConfig="{!v.selectedconfig}"
+									/>             
+        </div>
+
+    </div>
+</aura:component>

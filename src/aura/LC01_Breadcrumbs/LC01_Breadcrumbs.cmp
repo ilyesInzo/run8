@@ -1,0 +1,21 @@
+<aura:component >
+    
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    
+    <nav role="navigation" aria-label="Breadcrumbs">
+        <ol class="slds-breadcrumb slds-list--horizontal" style="letter-spacing: normal;font-size: .65rem;">
+            <li class="slds-breadcrumb__item size-small slds-text-title--caps">
+                <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.qli.Quote.Opportunity.AccountId + '/view'}" label="{!v.qli.Quote.Opportunity.Account.Name}" target="_blank"/>
+            </li>
+            <li class="slds-breadcrumb__item size-small slds-text-title--caps">
+                <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.qli.Quote.OpportunityId + '/view'}" label="{!v.qli.Quote.Opportunity.Name}" target="_blank"/>
+            </li>
+            <li class="slds-breadcrumb__item size-small slds-text-title--caps">
+                <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.qli.QuoteId + '/view'}" label="{!v.qli.Quote.Name}" target="_blank"/>
+            </li>
+            <li class="slds-breadcrumb__item size-small slds-text-title--caps">
+                <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.qli.Id + '/view'}" label="{!v.qli.LineNumber}" target="_blank" />
+            </li>
+        </ol>
+    </nav>
+</aura:component>

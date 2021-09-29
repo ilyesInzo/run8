@@ -1,0 +1,205 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">  
+            
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="1. Product Name" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Name__c" 
+									savedfieldName="Product_Name__c"
+									value="{!v.selectedconfig.Product_Name__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product Name', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="{!if(or(or(v.selectedconfig.Product_Name__c == 'ABS941', v.selectedconfig.Product_Name__c == 'XD11'), v.selectedconfig.Product_Name__c == 'SP7'),'8. Collar',if(v.selectedconfig.Product_Name__c == 'XM99','8. Actuator Color','8. Collar / Cap'))}" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Collar__c" 
+									savedfieldName="Collar__c"
+									value="{!v.selectedconfig.Collar__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Collar / Cap', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c', 'Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c','Actuator__c']"
+									concat="['_','_','_','_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="2. Product Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Type__c" 
+									savedfieldName="Product_Type__c"
+									value="{!v.selectedconfig.Product_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product Type', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Name__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        
+                	<c:LC00_DependantFields label="9. Cap Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Cap__c" 
+									savedfieldName="Cap_Type__c"
+									value="{!v.selectedconfig.Cap_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Caps', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Collar__c']"
+									concat="['_']"
+									displayCond="{!v.selectedconfig.Product_Name__c == 'XM99'}"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+									
+                	<c:LC00_DependantFields label="9. Cap Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Cap__c" 
+									savedfieldName="Cap_Type__c"
+									value="{!v.selectedconfig.Cap_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Caps', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c', 'Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c','Actuator__c','Collar__c']"
+									concat="['_','_','_','_','_','_']"
+									displayCond="{!v.selectedconfig.Product_Name__c != 'XM99'}"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+					
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields selectedConfig="{!v.selectedconfig}" label="3. Bottle Volume"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Volume__c" 
+									savedfieldName="Bottle_Volume__c"
+									value="{!v.selectedconfig.Bottle_Volume__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Volume', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+									concat="['_']"
+									/>
+        </div>
+  
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="10. Insert Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Description__c" 
+									savedfieldName="Insert_Type__c"
+									value="{!v.selectedconfig.Insert_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Options - Description', Product_Segment__c : 'Fine mist pumps', Product_Part__c : 'Panache', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c','Attachment__c']"
+									concat="['_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="4. Pump Segmentation" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_configuration__c" 
+									savedfieldName="Pump_Segmentation__c"
+									value="{!v.selectedconfig.Pump_Segmentation__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product configuration', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+									concat="['_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">   			
+                	<c:LC00_DependantFields label="11. Dosage" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Dosage__c" 
+									savedfieldName="Dosage__c"
+									value="{!v.selectedconfig.Dosage__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Standard Dosage', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Name__c']"
+									displayCond="{!v.selectedconfig.Product_Name__c != 'XD11'}"
+											selectedConfig="{!v.selectedconfig}"
+									/>     			
+					  <c:LC00_DependantFields label="11. Dosage" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Dosage__c" 
+									savedfieldName="Dosage__c"
+									value="{!v.selectedconfig.Dosage__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'High dosage', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Product_Type__c','Insert_Type__c']"
+									concat="['_','_']"
+									displayCond="{!v.selectedconfig.Product_Name__c == 'XD11'}"
+											  selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="5. Attachment" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Attachement__c" 
+									savedfieldName="Attachment__c"
+									value="{!v.selectedconfig.Attachment__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Attachement', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c', 'Pump_Segmentation__c']"
+									concat="['_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+           
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="12. Gasket Material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Gasket_Material__c" 
+									savedfieldName="Gasket_Material__c"
+									value="{!v.selectedconfig.Gasket_Material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Gasket Material', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Attachment__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="6. Neck Finish" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Neck_Finish__c" 
+									savedfieldName="Neck_Finish__c"
+									value="{!v.selectedconfig.Neck_Finish__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Neck Finish', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c', 'Pump_Segmentation__c', 'Attachment__c']"
+									concat="['_','_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+           
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="13. Difficult Bulk" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Description__c" 
+									savedfieldName="Difficult_Bulk__c"
+									value="{!v.selectedconfig.Difficult_Bulk__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Options - Description', Product_Segment__c : 'Fine mist pumps', Product_Part__c : 'Difficult Bulk', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c','Attachment__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>  
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="7. Actuator" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Actuator__c" 
+									savedfieldName="Actuator__c"
+									value="{!v.selectedconfig.Actuator__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Actuator', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c', 'Product_Type__c', 'Pump_Segmentation__c', 'Attachment__c', 'Neck_Finish__c']"
+									concat="['_','_','_','_']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+    </div>
+</aura:component>

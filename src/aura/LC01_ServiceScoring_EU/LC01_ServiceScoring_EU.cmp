@@ -1,0 +1,131 @@
+<aura:component controller="LCC01_Scorings_Controller" implements="force:appHostable" extends="c:LC00_QuotelineItem">
+    
+<!--     <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="mapoptions" type="MAP"/>
+    <aura:attribute name="toolingCapex" type="String" default="No"/>
+    
+<!--     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />  -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.itemchanged}" /> 
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+    
+    <ltng:require scripts="{!join(',',
+                           $Resource.jQuery_310 ,
+                           $Resource.MomentJS2141,
+                           $Resource.ALJSv2 +'/jquery.aljs-all.min.js'
+                           )}"
+                  styles="{!$Resource.PriceMatrixCSS}" 
+                  afterScriptsLoaded="{!c.init}"/>
+                  
+    <!-- <ltng:require scripts="/resource/jQuery_310,/resource/ALJSv2/jquery.aljs-all.min.js" 
+                  styles="{!$Resource.PriceMatrixCSS}" afterScriptsLoaded="{!c.init}"/> -->
+    <div class="slds pm">
+    	<aura:if isTrue="{!!empty(v.mapoptions)}">
+        	<c:LC01_Header pageName="Service Scoring" qli="{!v.qli}"  scorevalidation="true"/>
+        </aura:if>
+        <c:LC01_Wizard />
+
+        <hr class="slds-m-top--medium slds-m-bottom--medium" />
+        
+        
+        <div class="slds-section">
+            <h3 class="slds-section__title slds-text-align--center">
+                <button class="slds-button slds-section__title-action">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_ScoreUpcomingDeal}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="SAMPLING"  helptext="{!$Label.c.HT_Sampling_EU}" group="Sampling__c" value="{!v.qli.Sampling__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+          
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="BELOW MOQS"  helptext="{!$Label.c.HT_BelowMOQs_EU}" group="Below_MOQs__c" value="{!v.qli.Below_MOQs__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+                
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="DECORATION DEVELOPMENT"  helptext="{!$Label.c.HT_Decorationdevelopment_EU}" group="Decoration_development__c" value="{!v.qli.Decoration_development__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="PRODUCT CUSTOMIZATION"  helptext="{!$Label.c.HT_ProductCustomization_EU}" group="Product_Customization__c" value="{!v.qli.Product_Customization__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="COLOR MATCHING PROCESS"  helptext="{!$Label.c.HT_ColorMatchingProcess_EU}" group="Color_matching_process__c" value="{!v.qli.Color_matching_process__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="NON STANDARD SUPPLY CHAIN PROCESS"  helptext="{!$Label.c.HT_NonStandardSupplyChainProcess_EU}" group="Non_standard_supply_chain_process__c" value="{!v.qli.Non_standard_supply_chain_process__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="PREPRODUCTION"  helptext="{!$Label.c.HT_Preproduction_EU}" group="Preproduction__c" value="{!v.qli.Preproduction__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="REGULATORY AFFAIRES"  helptext="{!$Label.c.HT_RegulatoryAffairs_EU}" group="Regulatory_Affairs__c" value="{!v.qli.Regulatory_Affairs__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="COMPATIBILITY TESTS"  helptext="{!$Label.c.HT_CompatibilityTest_EU}" group="Compatibility_Tests__c" value="{!v.qli.Compatibility_Tests__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+    
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="R&amp;D OFFICE"  helptext="{!$Label.c.HT_RnDOffice_EU}" group="R_D_Office__c" value="{!v.qli.R_D_Office__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="SPRAY TESTS"  helptext="{!$Label.c.HT_SprayTest_EU}" group="Spray_Tests__c" value="{!v.qli.Spray_Tests__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-8 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="TRAINING FOR CUSTOMER"  helptext="{!$Label.c.HT_Trainingforcustomers_EU}" group="Training_for_customer__c" value="{!v.qli.Training_for_customer__c}" mapoptions="{!v.mapoptions}" resetvalue="Not Applicable"/>
+            </div> 
+            
+            
+            
+        </div>
+        <div class="slds-section slds-m-top--xx-small">
+            <h3 class="slds-section__title slds-text-align--center">
+                <button class="slds-button slds-section__title-action">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.LBL_AdditionalCommentsScoring}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <!--<textarea id="textarea-input-01" class="slds-textarea" value="No comments" placeholder="" rows="2" style="height: 47px;"></textarea>
+                    	-->
+                        <ui:inputTextArea value="{!v.qli.Additionnal_comments_on_service_scoring__c}"/>                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+</aura:component>

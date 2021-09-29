@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    
+     <aura:attribute name="NetPrice" type="PM_Review_NetPrice_per_MOQ__c[]"/>
+</aura:event>

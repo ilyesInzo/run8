@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable" extends="c:LC00_Modal">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="leanPossibility" type="String[]" default="LEAN, LEAN_LFLD, PREMIUM" />
+    <div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">Lean Possibility</h2>
+        <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.dismissModal}">
+            <lightning:icon iconName="utility:close" size="medium" alternativeText="Close"/>
+            <span class="slds-assistive-text">Close</span>
+        </button>
+    </div>
+    <div class="pm">
+        <div class="slds-modal__content slds-p-around--medium">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                    <p>Lean Possibility - Ref:</p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                    <ui:inputText value="R01" />
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-bottom--small">
+                    <p class="lean-pos-info">If - after check with the plant - the lean possibility is not correct, please select the right one below and validate</p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                    <p>Validated Lean Possibility</p>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                    <ui:inputSelect aura:id="leans">
+                        <aura:iteration items="{!v.leanPossibility}" var="lean">
+                            <ui:inputSelectOption text="{!lean}" label="{!lean}" />
+                        </aura:iteration>
+                    </ui:inputSelect>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-3 slds-m-bottom--small">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-modal__footer">
+        <button class="slds-button slds-button--neutral" onclick="{!c.dismissModal}">VALIDATE</button>
+    </div>
+</aura:component>

@@ -1,0 +1,55 @@
+<aura:component implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes" access="global" >
+    <!-- controller="LC01_QuoteLineItemsRelatedListController" -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds pm" >     
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="standard:quotes" size="large" alternativeText="Quote icon"/>
+                    </div>
+                    <div class="slds-media__body slds-truncate">
+                        <h2>
+                            <a href="javascript:void(0);" class="slds-text-link--reset">
+                                <span class="slds-text-heading--small">Quote Line Items (3)</span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button--neutral">Add Line Item</button>
+                </div>
+            </div>
+            <div class="slds-card__body">
+                <div class="slds-card__body--inner slds-grid slds-wrap slds-grid--pull-padded">
+                    <c:LC01_QuoteLineItemsCard qli="{ 'sobjectType': 'QuoteLineItem',
+                                     'Name': 'Quote Line item 1',
+                                     'ListPrice': 730,
+                                     'SalesPrice': 750,
+                                     'Quantity': 1200 }" />
+                    
+                    <c:LC01_QuoteLineItemsCard qli="{ 'sobjectType': 'QuoteLineItem',
+                                     'Name': 'Quote Line item 2',
+                                     'ListPrice': 520,
+                                     'SalesPrice': 610,
+                                     'Quantity': 2000 }" />
+      
+                    <c:LC01_QuoteLineItemsCard qli="{ 'sobjectType': 'QuoteLineItem',
+                                     'Name': 'Quote Line item 3',
+                                     'ListPrice': 400,
+                                     'SalesPrice': 420,
+                                     'Quantity': 1300 }" />
+                    
+                    <c:LC01_QuoteLineItemsCard qli="{ 'sobjectType': 'QuoteLineItem',
+                                     'Name': 'Quote Line item 4',
+                                     'ListPrice': 410,
+                                     'SalesPrice': 420,
+                                     'Quantity': 1300 }" />
+                </div>
+            </div>
+            <div class="slds-card__footer"><a href="javascript:void(0);">View All <span class="slds-assistive-text">entity type</span></a></div>
+        </article>
+    </div>
+    
+</aura:component>

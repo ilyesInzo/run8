@@ -1,0 +1,128 @@
+.THIS.step {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    counter-reset: step;
+    margin: 2em;
+    margin-top: 0;
+    position: relative;
+}
+
+.THIS.step p {
+    width: 25%;
+    text-align: center;
+}
+
+.THIS.step::before,
+.THIS.step::after {
+    content: '';
+    position: absolute;
+    top: 0.75em;
+    bottom: 0.75em;
+    left: 0;
+    right: 0;
+    background: #ccc;
+}
+.THIS.step::after {
+    background:#0176E5 ;
+    -webkit-transition: right 0.5s;
+    transition: right 0.5s;
+}
+/* Adjust blue line length */
+.THIS.step[data-step="0"]::after {
+    right: 100%;
+}
+.THIS.step[data-step="1"]::after {
+    right: 63%;
+}
+.THIS.step[data-step="2"]::after {
+    right: 37%;
+}
+.THIS.step[data-step="3"]::after {
+    right: 0%;
+}
+.THIS.step[data-step="4"]::after {
+    right: 0%;
+}
+
+
+.THIS input {
+    display: none;
+}
+.THIS p {
+    counter-increment: step;
+    color: #aaa;
+    height: 2em;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin: 0;
+}
+.THIS p:first-of-type {
+    background: -webkit-linear-gradient(left, #fff 50%, transparent 50%);
+    background: linear-gradient(to right, #fff 50%, transparent 50%);
+}
+.THIS p:last-of-type {
+    background: -webkit-linear-gradient(left, transparent 50%, #fff 50%);
+    background: linear-gradient(to right, transparent 50%, #fff 50%);
+}
+.THIS p::before {
+    content: counter(step);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 auto 0.5em;
+    height: 2em;
+    width: 2em;
+    border-radius: 2em;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: #ccc;
+}
+.THIS .forward p::before {
+    -webkit-transition: background 0 0.5s, color 0 0.5s;
+    transition: background 0 0.5s, color 0 0.5s;
+}
+.THIS[data-step="0"] p:nth-child(1),
+.THIS[data-step="1"] p:nth-child(2),
+.THIS[data-step="2"] p:nth-child(3),
+.THIS[data-step="3"] p:nth-child(4){
+    color: #000;
+}
+.THIS[data-step="1"] p:nth-child(1)::before,
+.THIS[data-step="2"] p:nth-child(1)::before,
+.THIS[data-step="2"] p:nth-child(2)::before,
+.THIS[data-step="3"] p:nth-child(1)::before,
+.THIS[data-step="3"] p:nth-child(2)::before,
+.THIS[data-step="3"] p:nth-child(3)::before,
+.THIS[data-step="4"] p:nth-child(1)::before,
+.THIS[data-step="4"] p:nth-child(2)::before,
+.THIS[data-step="4"] p:nth-child(3)::before,
+.THIS[data-step="4"] p:nth-child(4)::before
+{
+    content: '✔︎';
+}
+.THIS[data-step="0"] p:nth-child(1)::before,
+.THIS[data-step="1"] p:nth-child(1)::before,
+.THIS[data-step="1"] p:nth-child(2)::before,
+.THIS[data-step="2"] p:nth-child(1)::before,
+.THIS[data-step="2"] p:nth-child(2)::before,
+.THIS[data-step="2"] p:nth-child(3)::before,
+.THIS[data-step="3"] p:nth-child(1)::before,
+.THIS[data-step="3"] p:nth-child(2)::before,
+.THIS[data-step="3"] p:nth-child(3)::before,
+.THIS[data-step="3"] p:nth-child(4)::before,
+.THIS[data-step="4"] p:nth-child(1)::before,
+.THIS[data-step="4"] p:nth-child(2)::before,
+.THIS[data-step="4"] p:nth-child(3)::before,
+.THIS[data-step="4"] p:nth-child(4)::before{
+    background: #0176E5;
+    color: #fff;
+}

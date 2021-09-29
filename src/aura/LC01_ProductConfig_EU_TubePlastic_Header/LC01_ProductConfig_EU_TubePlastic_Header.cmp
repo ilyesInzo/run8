@@ -1,0 +1,51 @@
+<aura:component extends="c:LC00_Section" controller="LC01_SelectedProductConfigCtrl">
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    
+    <aura:attribute name="numVersion" type="Integer[]" default="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50" />
+    <aura:attribute name="numPlate" type="Integer[]" default="1,2,3,4,5,6,7,8,9,10" />
+    
+    <aura:attribute name="open2" type="Boolean" default="false"/>
+    <aura:attribute name="collapsible" type="Boolean" default="true"/>
+    
+
+ 
+
+    <aura:attribute name="displayDetails" type="Boolean" default="false" /> 
+    
+    <aura:handler event="c:LC00_DependentFieldsEvent" action="{!c.hideDetailsJS}" />
+    
+    <c:LC01_ProductConfig_PriceTable qli="{!v.qli}" 
+                                     selectedConfig="{!v.selectedconfig}" 
+                                     selectedConfigType="PM_Selected_Tubes_Config__c" 
+                                     detailPageComponentName="LC01_Detail_EU_TubePlastic"/>
+    
+    
+   
+
+    <aura:if isTrue="{!v.qli.Id != null}">
+        
+
+        <div class="{!v.open2 ? 'slds-section slds-is-open' : 'slds-section'}" style="margin-top: 30px;margin-bottom:50px" >
+            <h3 class="slds-section__title" onclick="{!c.displayDetailsJS }" >
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <aura:if isTrue="{!v.collapsible}">
+                        <lightning:icon iconName="{!v.displayDetails == true?'utility:chevronright':'utility:chevronup'}" size="xx-small"/>
+                    </aura:if>
+                    
+                    Details
+                </button>
+            </h3>
+            <aura:if isTrue="{!v.displayDetails == true}">
+                <div style ="margin-top:30px;" >
+                   <c:LC01_Detail_EU_TubePlastic qliId="{!v.qli.Id}" />
+                </div>
+            </aura:if>
+
+            
+           
+        </div>
+        
+           
+    </aura:if>
+            
+</aura:component>

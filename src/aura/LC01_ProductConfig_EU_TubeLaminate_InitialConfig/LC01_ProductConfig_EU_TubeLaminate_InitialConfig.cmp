@@ -1,0 +1,118 @@
+<aura:component extends="c:LC00_Section">
+    
+        <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    	<div class="slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small ">        
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+            <label class="slds-form-element__label" >Delivery</label>
+            <div class="slds-form-element__control">
+               <c:LC00_DependantFields objectName="PM_Tubes_Config__c" 
+                                    fieldName="Delivery__c" 
+                                    value="{!v.selectedconfig.Delivery__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Delivery', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Delivery__c"
+                                    saveddependentfields=""
+                                    buttonDisabled="true"
+                                       selectedConfig="{!v.selectedconfig}"
+                                    />
+            </div>
+        </div>
+         <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+            <label class="slds-form-element__label">Destination</label>
+            <div class="slds-form-element__control">  
+                         <c:LC00_DependantFields objectName="PM_Tubes_Config__c" 
+                                    fieldName="Destination__c" 
+                                    value="{!v.selectedconfig.Destination__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Destination', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Delivery__c']"
+                                    savedfieldName="Destination__c"
+                                    saveddependentfields="['Delivery__c']"
+                                    buttonDisabled="true"
+                                                 selectedConfig="{!v.selectedconfig}"
+                                    />
+            </div>
+        </div>
+        
+        <!-- affichage COMBO -->
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+	    	<label class="slds-form-element__label" >
+	    	Combo 
+	    	<c:customHelpText text="Please note that a combo requires 3 conditions: - The tube must have exactly the same specifications  - Only a change of text color (max 1) is possible  - The minimum per artwork is 25 000     The premium for Combo is calculated as  below: ((Number of versions - 1) x plate changes x price of plate change) / Total of Campaign MOQ" />
+	    	 
+	    	</label>
+	        <div class="slds-form-element__control" >
+	        	<ui:inputSelect value="{!v.selectedconfig.Is_Combo__c}" aura:id="Is_Combo__c" class="slds-text-align--left" change="{!c.SelectChange}"/>
+	        	
+	        </div>
+	     </div> 
+    </div>
+    
+    <!-- Display COMBO section if Is Combo is set to Yes -->
+    <aura:if isTrue="{!v.selectedconfig.Is_Combo__c == 'Yes'}">
+    <br/>
+    <div > 
+    </div> 
+    <div class="{!v.selectedconfig.Is_Combo__c == 'Yes' ? 'slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small' : 'slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small hideSection'}">        
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+            <label class="slds-form-element__label" >Number of versions</label>
+            <div class="slds-form-element__control">
+            	<ui:inputNumber value="{!v.selectedconfig.Combo_Num_Versions__c}"  aura:id="Combo_Num_Versions__c"  />
+            	   <!-- <ui:inputSelect aura:id="Combo_Num_Versions" value="{!v.selectedconfig.Combo_Num_Versions__c}" > 
+            	 	<aura:iteration items="{!v.numVersion}" var="nv">
+		            	<ui:inputSelectOption text="{!nv}" label="{!nv}"/>
+		        	</aura:iteration> 
+		        </ui:inputSelect> -->
+            </div>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+            <label class="slds-form-element__label">Plate changes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <div class="slds-form-element__control">  
+            	<ui:inputNumber value="{!v.selectedconfig.Combo_Num_Plate_Changes__c}"  aura:id="Combo_Num_Plate_Changes__c"/>    
+            	<!--<ui:inputSelect  value="{!v.selectedconfig.Combo_Num_Plate_Changes__c}"  aura:id="Combo_Num_Plate_Changes__c">
+		            <aura:iteration items="{!v.numPlate}" var="np">
+		            	<ui:inputSelectOption text="{!np}" label="{!np}"/>
+		        	</aura:iteration>
+            	</ui:inputSelect> -->
+            </div>  
+         </div>
+    	 
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+	    	<label class="slds-form-element__label" ># of tubes per artwork</label>
+	        <div class="slds-form-element__control" >
+            	<ui:inputNumber value="{!v.selectedconfig.Combo_Num_Tubes_Artwork__c}"  aura:id="Combo_Num_Tubes_Artwork__c"/>
+	        </div>
+	        <div style="color:red">Min 25 000 U </div>
+	     </div>  	     
+    </div>
+    </aura:if> 
+    <!--END display COMBO -->
+    
+    <br/>
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small ">
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size--1-of-3">
+            <label class="slds-form-element__label" >Payment Terms</label><br/>
+            <div class="slds-form-element__control">
+                <ui:inputSelect class="slds-input" aura:id="Payment_terms__c" value="{!v.selectedconfig.Payment_terms__c}"/>
+            </div>
+
+            <div style="color:red">{!if(empty(v.qli.Payment_terms__c), '', if(empty(v.selectedconfig.Payment_terms__c), 'Please enter payment terms', 'NB : Payment terms from Scoring > ' + v.qli.Payment_terms__c))}</div>
+
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+            <label class="slds-form-element__label" >Stockage</label><br/>
+            <div class="slds-form-element__control">
+                <ui:inputSelect class="slds-input slds-text-align--left" aura:id="Stockage__c" value="{!v.selectedconfig.Stockage__c}"/>
+            </div>
+                 
+				         <div style="color:red" >{!if(empty(v.selectedconfig.Stockage__c),'Please enter stockage','')}</div>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-large-size-1-of-3">
+          <!-- Hidden value for Platt's -->   
+        </div>
+    </div>
+  
+</aura:component>

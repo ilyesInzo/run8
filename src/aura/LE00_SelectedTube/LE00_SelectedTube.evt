@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Used to track changes on Selected tube" >
+	  <aura:attribute name="moqList" type="PM_MOQ_price__c[]"/>
+</aura:event>

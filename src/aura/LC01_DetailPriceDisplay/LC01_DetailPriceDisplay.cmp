@@ -1,0 +1,18 @@
+<aura:component >
+    <aura:attribute name="price" type="Decimal" required="true"/>
+	<aura:attribute name="specific" type="Decimal" default="-1"/>   
+	<aura:attribute name="currency" type="String" default="$"/>   
+	<aura:attribute name="currencyPosition" type="String" default="before"/>        
+    <div class="{!v.price == -1? 'specificStyle': 'hide'}">
+        Specific
+    </div>   
+    <div class="{!v.price == 0? 'zerostyle': 'hide'}">        
+       <ui:outputCurrency value="{!v.price}" format="##0."/>
+    </div>    
+     
+    <div class="{!and(v.price != -1, v.price != 0) ? 'value' : 'hide'}"> 
+        <ui:outputText value="{!v.currencyPosition == 'before' ? v.currency : '' }"/>
+        &nbsp;<ui:outputCurrency value="{!v.price}" format="##0."/>&nbsp;
+        <ui:outputText value="{!v.currencyPosition == 'after' ? v.currency : '' }"/>
+    </div>      
+</aura:component>

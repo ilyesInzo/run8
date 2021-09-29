@@ -1,0 +1,152 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="1. Application" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Type__c" 
+									savedfieldName="Product_Type__c"
+									value="{!v.selectedconfig.Product_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product Type', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="7. Dosage"
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Dosage__c" 
+									savedfieldName="Dosage__c"
+									value="{!v.selectedconfig.Dosage__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Dosage', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Engine_Name__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="2. Product Name" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Name__c" 
+									savedfieldName="Product_Name__c"
+									value="{!v.selectedconfig.Product_Name__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product Name', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Type__c']"
+									saveddependentfields="['Product_Type__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="8. Bottle Material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Bottle_type__c" 
+									savedfieldName="Material__c"
+									value="{!v.selectedconfig.Material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Pump Bottle', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Engine_Name__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="3. Engine &amp; Neck" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Engine_Name__c" 
+									savedfieldName="Engine_Neck__c"
+									value="{!v.selectedconfig.Engine_Neck__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Engine and Neck', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Name__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="9. Bottle Size" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Size__c" 
+									savedfieldName="Bottle_Size__c"
+									value="{!v.selectedconfig.Bottle_Size__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Size', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Engine_Name__c','Bottle_type__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c','Material__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+        
+                		<!-- Added By Achraf LAMZABI -->
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="4. Pump Material"
+									objectName="PM_Dispensing_Config__c"
+									fieldName="Pump_material__c"
+									savedfieldName="Pump_material__c"
+									value="{!v.selectedconfig.Pump_material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Pump material', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}"
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Type__c', 'Product_Name__c']"
+									concat="['_', '_']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+		</div>
+        
+		<!-- End Added Achraf LAMZABI -->
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="10. Collar Configuration" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Collar__c" 
+									savedfieldName="Collar_Configuration__c"
+									value="{!v.selectedconfig.Collar_Configuration__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Cylindrical collar', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c',]"
+									saveddependentfields="['Product_Name__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="5. Insert Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Insert_Type__c" 
+									savedfieldName="Insert_Type__c"
+									value="{!v.selectedconfig.Insert_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Insert Type', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Engine_Name__c']"
+									saveddependentfields="['Product_Name__c','Engine_Neck__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        
+		
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label" style="color: orange;">10. Dip tube Length (mm)</label>
+            <ui:inputText value="{!v.selectedconfig.Diptube_length_mm__c}" /> 
+        </div>   
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="6. Pump Segmentation" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Pump_Segmentation__c" 
+									savedfieldName="Pump_Segmentation__c"
+									value="{!v.selectedconfig.Pump_Segmentation__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Configuration', Product_Segment__c : 'Sampler pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Name__c']"
+									saveddependentfields="['Engine_Neck__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+         
+		<div style="color:red">
+        {!if(v.selectedconfig.Product_Name__c == 'Sofix 1,2ml / 1,5ml','Please note the first possible MOQ is 25-50k ; product not available for a lower MOQ.',if(and(v.selectedconfig.Product_Name__c == 'Sofistic\'s 15 ml', v.selectedconfig.Engine_Neck__c == 'Nea M17-21'),'The TG is given for MOQ 25-50k and not for MOQ 10-50k. For MOQ 10-25k please add 75€ to the total TG.',''))}
+        </div>
+
+    	
+		<div style="color:red">
+    	{!if(or(and(v.selectedconfig.Product_Name__c == 'Sofix 1,2ml / 1,5ml', v.selectedconfig.Material__c == 'Glass Bottle'),and(v.selectedconfig.Product_Name__c == 'Sofix+ 1,5ml / 2ml', v.selectedconfig.Material__c == 'Glass Bottle')), 'Please note that for Sofix &amp; Sofix + Glass bottles, set up fees of 2K€ have to be included for quantities below 100Ku (several decorations possible for the same MOQ). You can also redirect your customer directly to Flacopharm.', '')}
+    	 </div>
+        
+    </div>
+</aura:component>

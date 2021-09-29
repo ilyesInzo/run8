@@ -1,0 +1,63 @@
+<aura:component extends="c:LC00_Section">    
+    
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <label class="slds-form-element__label">5. 10. Head Name</label>
+            <ui:inputText aura:id="headname" value="{!v.selectedconfig.Head_Name__c}" disabled="true"/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="13. Insert" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Insert__c" 
+                                    value="{!v.selectedconfig.insert__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Insert', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c','Dispensing_System_Name__c']"
+                                    savedfieldName="insert__c"
+                                    saveddependentfields="['Diameter_mm__c','Dispensing_System_Name__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="11. Head Aspect" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Aspect__c" 
+                                    value="{!v.selectedconfig.Head_Aspect__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Head_Aspect__c"
+                                    saveddependentfields=""
+                                     selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="14. Rondelle" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Rondelle__c" 
+                                    value="{!v.selectedconfig.Rondelle__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Rondelle', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c','Dispensing_System_Name__c']"
+                                    savedfieldName="Rondelle__c"
+                                    saveddependentfields="['Diameter_mm__c','Dispensing_System_Name__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="12. Head Color" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Color__c" 
+                                    value="{!v.selectedconfig.Head_Color__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Laminate', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Head_Color__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+    </div> 
+</aura:component>

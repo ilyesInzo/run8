@@ -1,0 +1,201 @@
+<aura:component controller="QuoteWizardController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="record" type="Quote" />
+    <aura:attribute name="displayAddProductButton" type="Boolean" default="false" />
+    <aura:attribute name="displayContractReminder" type="String" />
+    <aura:attribute name="pricebooks" type="PriceBook2[]" />
+    <aura:attribute name="priceBookEntries" type="PricebookEntry[]" />
+    <aura:attribute name="priceBookEntriesMap" type="Map" />
+    <aura:attribute name="quoteLineItems" type="QuoteLineItem[]" />
+    <aura:attribute name="selectedPriceBook" type="String"/>
+    <aura:attribute name="PlasticProduct" type="String" default="Plastic Tubes" />
+    <aura:attribute name="productLines" type="String" />
+    <aura:attribute name="currencies" type="String[]" />
+    <aura:attribute name="defaultCurrency" type="String" />
+    <aura:attribute name="productCluster" type="String[]" />
+    <aura:attribute name="productPlant" type="String[]" />
+    <aura:attribute name="showPriceBookSelection" type="String" />    
+    <aura:attribute name="selectedProductFamily" type="String"/>
+    <aura:attribute name="productFamilyItems" type="String[]" />
+    <aura:attribute name="choosenCluster" type="String" />
+    <!--  Added for brexit -->
+    <aura:attribute name="displayBrexitPopup" type="Boolean" default = "false"/>
+    <aura:attribute name="countryCode" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>     
+    <!--<aura:handler name="change" value="{!v.pricebooks}" action="{!c.displayProductLine}"/>    -->
+    <!-- MDK : TicketSUP_1524 -->
+    <aura:attribute name="quoteLineItemsSelected" type="QuoteLineItem[]" />
+    <!-- End TicketSUP_1524 -->
+    
+  	<aura:method name="displayProductLineMethod" action="{!c.displayProductLine}" description="bar controller function" />    
+    <aura:method name="closeModalMethod" action="{!c.hideModal}" description="bar controller function" />
+    <aura:method name="refreshMethod" action="{!c.doInit}" description="bar controller function" />
+
+    <force:recordData aura:id="forceRecordCmp"
+        recordId="{!v.recordId}"
+        fields="Status,Opportunity.Account.Country__r.Country_Code__c"
+        targetRecord="{!v.record}"
+        recordUpdated="{!c.recordUpdated}"
+/>
+
+    <aura:if isTrue="{!v.displayAddProductButton}">
+        <div class="slds-grid slds-wrap slds-grid--pull-padded" style="text-align: right;">
+            <div class="slds-p-horizontal--small slds-size--1-of-1">
+                <div class="slds-p-horizontal--small slds-align--absolute-right ">
+                    <div class="slds-button  slds-align--absolute-right slds-p-around--x-small slds-m-bottom--x-small" style="padding-bottom: 0px;margin-bottom: 0px;">
+                        <lightning:button onclick="{!c.showModal}" class="slds-align--absolute-right">
+                            <span class="slds-text-heading--x-small">Add Products</span>
+                        </lightning:button>   
+                    </div>
+                </div> 
+            </div>
+      	</div>
+    </aura:if>
+    
+    <aura:if isTrue="{!not(empty(v.displayContractReminder))}">
+    <center>
+    <ui:message title="Reminder" severity="warning" closable="true">
+   	    A contract has been created - click <a href="{!'/one/one.app?#/sObject/'+ v.displayContractReminder + '/view'}" target="_blank">here</a> to access
+    </ui:message>
+    </center>
+    </aura:if>
+        
+  	<div aria-hidden="false" aura:id="productModal" role="dialog" class="slds-modal slds-modal--large slds-fade-in-hide">
+    	  <div class="slds-modal__container">
+    	      <div class="slds-modal__content slds-p-around--medium"  style="border: 3px solid rgb(0, 112, 210);">
+                <div>
+                     <!--  Added for brexit -->
+                     <aura:if isTrue="{!and(v.displayBrexitPopup, v.countryCode == 'GB')}">
+                        <div aria-hidden="false" aura:id="brexitModal" role="dialog" class="slds-modal slds-modal--small slds-fade-in-hide">
+                            <div class="slds-modal__container"> 
+                                <div class="brexitPopup slds-modal__content" > 
+                                    <div style="width: 170px;margin-left: auto; margin-right: auto;">
+                                        <img src="{!$Resource.UKFlag}" class="UKFlag"/>
+                                        <p class="slds-text-title--caps brexitTitle" >
+                                          BREXIT ALERT 
+                                        </p> 
+                                    </div>
+                                    
+                                    <p class="slds-text-heading--medium" style="margin-top: 45px;">
+                                      For UK customers, <br/> if the production plant is european, please use DAP Incoterm  
+                                    </p> 
+                                   <div class="slds-x-small-buttons--horizontal">
+                                      <ui:button label="OK" class="slds-button slds-button-neutral blueButton" press="{!c.saveQuoteItem}"/>
+                                       
+                                   </div>
+                                </div> 
+                            </div>
+                        </div> 
+                     </aura:if>
+                    
+                     <!--  End brexit -->
+                    <!-- PAGE HEADER -->
+          	        <div class="slds-page-header" role="banner">
+          			        <div class="slds-grid">
+          				          <div class="slds-col">          
+          						          <h1 class="slds-text-heading--medium">New Quote Item Wizard</h1>
+          				          </div>
+          			        </div>
+          	        </div>
+          	        <!-- / PAGE HEADER -->
+      	            <!-- Input FORM -->
+      	            <div class="slds-col slds-col--padded slds-p-top--medium">
+        	              <form class="slds-form--stacked">            
+                            <div class="slds-form-element slds-is-required">
+          		                  <div class="slds-form-element__control">
+        				                    Select Product Line	  							
+                                    <ui:inputSelect aura:id="inputSelectId" value="{!v.selectedProductFamily}" class="slds-select" change="{!c.displayProductLine}">
+                                        <option>None</option>
+                                        <aura:iteration items="{!v.productFamilyItems}" var="productFamilyItem" indexVar="index">
+                                            <option value="{!productFamilyItem}">{!productFamilyItem}</option>
+                                        </aura:iteration>
+                                    </ui:inputSelect>   
+          		                  </div> 
+         		                </div>
+          		              <br/><br/>
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+                                <thead>
+                                    <tr class="slds-text-title--caps slds-theme--shade">
+                                        <th scope="col">
+                                            <!--<div class="slds-truncate" title="Select">Select</div>-->
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Albea Product Sub Segment Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Account Name">Albea Product Sub Segment Code</div>
+                                        </th>
+                                        <!--th scope="col">
+                                            <div class="slds-truncate" title="Stage">Description</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Family">Albea Product Sub Segment Family</div>
+                                        </th -->
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <aura:iteration items="{!v.priceBookEntries}" var="pricebookEntry" indexVar="index">
+                                        <tr>                   
+                                            <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control">
+                                                        <label class="slds-checkbox">
+                                                            <ui:inputCheckbox text="{!pricebookEntry.Id}" aura:id="boxPack" value="{!pricebookEntry.IsActive}" change="{!c.selectProductLine}"/>
+                                                            <span class="slds-checkbox--faux"></span>
+                                                            <span class="slds-form-element__label text"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <th scope="row" data-label="Product Name">
+                                                <div class="slds-truncate" title="productName">
+                                                    <a href="javascript:void(0);">{!pricebookEntry.Name}</a>
+                                                </div>
+                                            </th>
+                                            <td data-label="Product Code">
+                                                <div class="slds-truncate" title="Code">{!pricebookEntry.Product2.ProductCode}</div>
+                                            </td>
+                                            <!--td data-label="Description">
+                                                <div class="slds-truncate" title="description">{!pricebookEntry.Product2.Description}</div>
+                                            </td>
+                                            <td data-label="Family">
+                                                <div class="slds-truncate" title="family">{!pricebookEntry.Product2.Family}</div>
+                                            </td -->
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>                        
+                            <br/><br/>
+                            <!-- MDK : TicketSUP_1524 -->
+                            <div aura:id="dynamicTableId">
+                                {!v.body}
+                            </div>  
+                            <!-- End TicketSUP_1524 -->                        
+                            <br/><br/>
+                            <div class="slds-x-small-buttons--horizontal" style="float:right;">
+                                <!--  Added for brexit -->
+                                <div class="mySpinner slds-hide" aura:id="spinner">
+                                    <lightning:spinner alternativeText="Loading" size="small" />
+                                </div>
+                                
+                                <aura:if isTrue="{!v.countryCode == 'GB'}">
+                                    <ui:button label="Save" class="slds-button slds-button-neutral" press="{!c.displayBrexitPopupJS}"/>
+                                    <aura:set attribute="else">
+                                        <ui:button label="Save" class="slds-button slds-button-neutral" press="{!c.saveQuoteItem}"/>
+                                    </aura:set>
+                                </aura:if>
+                                <!--  End brexit -->
+                                
+                                <ui:button label="Close" class="slds-button slds-button-neutral" press="{!c.hideModal}"/>  
+                                <div aura:id="errorMessageId" style="color:red;display: inline;padding-left:10px;">
+                                	{!v.body}
+                                </div>
+                            </div>        
+                        </form>		 
+                    </div>
+                </div>
+            </div>         
+        </div>         
+    </div>
+</aura:component>

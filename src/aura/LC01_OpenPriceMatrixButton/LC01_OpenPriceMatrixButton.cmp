@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="LC01_OpenPriceMatrix" >
+	
+	<aura:attribute name="record" type="Object"/>	
+
+	<aura:attribute name="displayComponent" type="Boolean" default="false" />
+
+    <aura:attribute name="display" type="Boolean" default="false" />
+    <aura:attribute name="displayErrorCurrency" type="Boolean" default="false" />
+    <aura:attribute name="displayErrorProdCluster" type="Boolean" default="false" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler event="force:refreshView" action="{!c.init}"/>
+
+    <force:recordData aura:id="recordHandler"
+      recordId="{!v.recordId}"
+      layoutType="FULL"
+      targetRecord="{!v._record}"
+      recordUpdated="{!c.recordUpdated}"
+      />
+    
+    <aura:if isTrue="{!v.displayComponent}">
+    <aura:if isTrue="{!v.display &amp;&amp; !v.displayErrorCurrency}">
+		    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+		        <div class="slds-p-horizontal--small slds-size--1-of-1">
+		            <div class="slds-p-horizontal--small slds-align--absolute-center ">
+		                <div class="slds-button  slds-align--absolute-center slds-button--brand slds-p-around--x-small slds-m-bottom--x-small">
+		                    <lightning:button variant="brand" onclick="{!c.gotoPMHomePage}" class="slds-align--absolute-center">
+		                        <span class="slds-text-heading--small">Open PricematriX</span>
+		                    </lightning:button>   
+		                </div>
+		            </div> 
+		        </div>
+		    </div>
+		
+    </aura:if>
+    
+   <aura:if isTrue="{!v.display &amp;&amp; v.displayErrorCurrency}">
+   		<div class="slds-box slds-theme_shade slds-theme_alert-texture slds-align--absolute-center">
+				<p style="color:red;font-size:1.2em;text-align: center;">Please set the
+					<strong>Billing Currency</strong> to <strong>EURO </strong>or<strong> American Dollar</strong> to be able to use Price Matrix!</p>
+		</div>		                
+   </aura:if> 
+    </aura:if>
+    
+</aura:component>

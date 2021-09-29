@@ -1,0 +1,32 @@
+<aura:component controller="LC01_Message_Global_Config_Ctrl" >
+
+    <aura:attribute name="valuesmap" type="Map"/>
+    <aura:attribute name="messagestart" type="String"/>
+    <aura:attribute name="messageend" type="String"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="color" type="String"/>       
+    <aura:attribute name="tablename" type="String"/>
+    <aura:attribute name="sObjectName" type="String"/>
+    <aura:attribute name="dependentfieldvalue" type="String"/>
+    <aura:attribute name="fieldvalue" type="String"/>
+    <aura:attribute name="fieldreturnval" type="String"/>    
+    <aura:attribute name="location" type="String"/> 
+    <aura:attribute name="tubesegment" type="String"/>
+    <aura:attribute name="messageresult" type="String" default=""/>
+    
+    <!--
+    	<aura:handler name="change" value="{!v.value}" action="{!c.getmessageinfo}"/>
+  	-->
+    
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:if isTrue="{!v.messageresult != ''}"> 
+	    <p>                   
+	         <span style="{! 'color: ' + v.color + ';'}" >{!v.messagestart + ' ' + v.messageresult + ' ' + v.messageend}</span>
+	    </p> 
+  	</aura:if> 
+
+    
+</aura:component>

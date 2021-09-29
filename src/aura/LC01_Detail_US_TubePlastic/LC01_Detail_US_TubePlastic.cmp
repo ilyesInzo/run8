@@ -1,0 +1,379 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" access="global" controller="LC01_DetailCtrl" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:attribute name="displayalert" type="Boolean" default="false"/>
+   <!-- Ticket 6329 -->
+    <aura:attribute name="hideLine" type="Boolean"/>
+    <!-- Ticket 6329 -->
+
+    <aura:attribute name="tubehead" type="Object[]" default="Basis Price,Length Upcharge,Body Material Upcharge" />
+    <aura:attribute name="sleeve" type="Object[]" default="Sleeve Type,Sleeve Coloration,Sleeve Printing" />
+    <aura:attribute name="cap" type="Object[]" default="Cap Basis Price,Cap Feature,Peel Seal,Consigned Cap,Manual Capping" />
+    <!-- Edir for Rox ticket -->
+    <aura:attribute name="printing" type="Object[]" default="Printing Techno,Printing Effect,Labelling,Labelling adjustments,Hot Stamping,Matte Coating,UV Inhibitor,Double Pigment" />
+    <!-- end edit -->
+    <aura:attribute name="packing" type="Object[]" default="Pallet,Polybag" />
+     <!-- updated by adding  last element -->
+    <aura:attribute name="others" type="Object[]" default="Combo Upcharge,Quality Upcharge,Resin Adjustment,End of Year Rebate,Miscellaneous adjustments" />
+    <!-- updated by adding  last element -->
+    <aura:attribute name="editable" type="String" default="Cap Basis Price,Miscellaneous adjustments,Labelling adjustments" />
+    <aura:attribute name="total" type="Object[]"/>
+    <aura:attribute name="currency" type="String"/>
+    <aura:attribute name="currencyPosition" type="String"/>
+    
+    <aura:attribute name="cap_desc_price" type="String" default="none"/>
+    <!-- added for ticket 6329  -->
+      <!-- <aura:attribute name="labelling_adjPrice" type="String" default="none"/> -->
+     <!-- End added for ticket 6329 --> 
+   
+    <aura:attribute name="specificMOQ" type="String"/> 
+    <aura:attribute name="totalSpecificMOQ" type="String"/> 
+    <aura:attribute name="specificCombo" type="String"/> 
+    <aura:attribute name="isCombo" type="String"/>
+    <aura:attribute name="totalLine" type="PriceDetailLine"/>
+    
+    <!-- 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler event="c:LE00_Detailed_Pricing" action="{!c.savedescprice}" />
+    
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large" style="position:fixed;"/>
+    
+    <div class="slds pm">
+       <!-- <c:LC01_Detail_Header pageName="Detailed Pricing : Plastic" qli="{!v.qli}" /> -->
+        <!--<c:LC01_Header pageName="Detailed Pricing : Plastic" qli="{!v.qli}" />-->
+        <div class="slds-m-bottom--small">
+            <table >
+                <tr class="moq_header">
+                    <td style="width:25%;">MOQ in Kunits....</td>
+                    <td style="white-space: nowrap;">[5 - 10[</td>
+					<td style="white-space: nowrap;">[10 - 15[</td> 
+					<td style="white-space: nowrap;">[15 - 20[</td> 
+					<td style="white-space: nowrap;">[20 - 25[</td> 
+					<td style="white-space: nowrap;">[25 - 30[</td> 
+					<td style="white-space: nowrap;">[30 - 50[</td> 
+					<td style="white-space: nowrap;">[50 - 100[</td> 
+					<td style="white-space: nowrap;">[100 - 250[</td> 
+					<td style="white-space: nowrap;">[250 - 500[</td> 
+					<td style="white-space: nowrap;">> 500</td>   
+					<td class="divider"></td>
+					<td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}">{!v.specificMOQ}</td>                    
+                                   
+                </tr>
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="11">Tube &amp; Head</td>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','','display:none;')}"></td>
+                </tr>
+                <aura:iteration items="{!v.tubehead}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+                    	<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                   
+                    </tr>
+                </aura:iteration> 
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="sub_header"> 
+                    <td colspan="11">Sleeve</td>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}"></td>
+                
+                </tr>
+                <aura:iteration items="{!v.sleeve}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+ 						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                   
+                    </tr>
+                </aura:iteration>                 
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="11"><span>Cap</span>
+                   			 <span style="float: right">
+                             <button type="button" onclick="{!c.capdescprice}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                            </span>
+                     </td>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}"></td>
+                </tr>
+                <aura:iteration items="{!v.cap}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+ 						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                   
+                    </tr>
+                    <tr class="{!item.edit + ' edit-detail'}" style="{!'display:' + v.cap_desc_price}" >
+                        <td>Desc &amp; price</td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="5"  moqMax="10"  overrideValue="{!item.x5Override}" qliId="{!v.qli.Id}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="10"  moqMax="15"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="15"  moqMax="20"  overrideValue="{!item.x15Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="20"  moqMax="25"  overrideValue="{!item.x20Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="25"  moqMax="30"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="30"  moqMax="50"  overrideValue="{!item.x30Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="50"  moqMax="100" overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="100" moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Cap" title="{!item.title}" moq="500" moqMax="0"   overrideValue="{!item.x500Override}" qliId="{!v.qli.Id}"/></td>
+						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecificOverride}"/></td>
+                   
+                    </tr>                    
+                    
+                </aura:iteration>                
+                
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                   <td colspan="11">Printing</td>
+                     <!--   Update by Thanina Rox 19/03
+                       <span>Printing</span>
+                        <span style="float: right">
+                             <button type="button" onclick="{!c.labellingadjust}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                    </span>
+
+                    </td> -->
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}"></td>
+                
+                </tr>
+                <aura:iteration items="{!v.printing}" var="item">
+                    <!-- added ticket 6329 -->
+                    <aura:if  isTrue="{!item.title != 'Labelling adjustments'}">
+                        <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                            
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+  						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                       </tr>
+                        <aura:set attribute="else">
+
+                            <tr class="edit-detail" >
+                                <td>Labelling adjustments</td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="5"  moqMax="10"  overrideValue="{!item.x5Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>                                
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="10"  moqMax="15"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="15"  moqMax="20"  overrideValue="{!item.x15Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="20"  moqMax="25"  overrideValue="{!item.x20Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="25"  moqMax="30"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="30"  moqMax="50"  overrideValue="{!item.x30Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="50"  moqMax="100" overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="100" moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="500" moqMax="0"   overrideValue="{!item.x500Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                <td class="divider"></td>
+                                <td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecificOverride}"/></td>
+                            </tr>
+                        </aura:set>
+                      </aura:if>
+                 <!-- added ticket 6329 -->
+                   <!-- <aura:if  isTrue="{!(item.title == 'Labelling')}">
+                    <tr class="edit-detail" style="{!'display:' + v.labelling_adjPrice}">
+                        <td>Labelling adjustments</td>                        
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="10"  moqMax="15"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="15"  moqMax="20"  overrideValue="{!item.x15Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="20"  moqMax="25"  overrideValue="{!item.x20Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="25"  moqMax="30"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="30"  moqMax="50"  overrideValue="{!item.x30Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="50"  moqMax="100" overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="100" moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Printing" title="{!item.title}" moq="500" moqMax="0"   overrideValue="{!item.x500Override}" qliId="{!v.qli.Id}"/></td>
+                        <td class="divider"></td>
+					    <td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecificOverride}"/></td>
+                    </tr>
+                    </aura:if> -->
+                    <!-- End added ticket 6329 -->
+                </aura:iteration>                 
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="11">Packing</td>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}"></td>
+                
+                </tr>
+                <aura:iteration items="{!v.packing}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+ 						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                   
+                    </tr>
+                </aura:iteration>                
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="11">Others</td>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','white-space: nowrap;','display:none;white-space: nowrap;')}"></td>
+                
+                </tr>
+                <aura:iteration items="{!v.others}" var="item">
+                   <aura:if  isTrue="{!item.title != 'Miscellaneous adjustments'}">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x5}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x15}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x20}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x30}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x500}"/></td>  
+ 						<td class="divider"></td>
+                      	<td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecific}"/></td>
+                    </tr>
+                       <aura:set attribute="else">
+                           
+                               <tr class="edit-detail">
+                                   <td>Miscellaneous adjustments</td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="5"  moqMax="10"  overrideValue="{!item.x5Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>                                   
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="10"  moqMax="15"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="15"  moqMax="20"  overrideValue="{!item.x15Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="20"  moqMax="25"  overrideValue="{!item.x20Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="25"  moqMax="30"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="30"  moqMax="50"  overrideValue="{!item.x30Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="50"  moqMax="100" overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="100" moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td><c:LC01_DetailPriceDisplayOverride section="Others" title="{!item.title}" moq="500" moqMax="0"   overrideValue="{!item.x500Override}" qliId="{!v.qli.Id}" disable="{!!v.hideLine}"/></td>
+                                   <td class="divider"></td>
+                                   <td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!item.xSpecificOverride}"/></td>
+                               </tr>
+
+                       </aura:set>
+                  </aura:if>
+                    <!-- added nina -->
+
+                    <!-- end nina -->
+                </aura:iteration>
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="line">
+                    <td colspan="11"></td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <aura:iteration items="{!v.total}" var="totalItem">
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!totalItem.List_Price__c}"/></td>
+                    </aura:iteration>
+                    <td class="divider"></td>
+                    <td style="{!if(v.isCombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!v.totalSpecificMOQ}"/></td>                
+                     
+                </tr>
+                
+                <tr class="combocomment" style="{!if(v.iscombo == 'Yes','','display:none;')}">
+                    <td>Combo > Prices given for...</td>
+                    <aura:iteration items="{!v.total}" var="totalItem">
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!totalItem.Rounded_List_Price__c}"/></td>
+                    </aura:iteration>
+                    <td><aura:unescapedHtml value="{!v.total.x5combocomments}"/></td>                    
+                    <td><aura:unescapedHtml value="{!v.total.x10combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x15combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x20combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x25combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x50combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x75combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x100combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x200combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x300combocomments}"/></td>
+                    <td><aura:unescapedHtml value="{!v.total.x500combocomments}"/></td>  
+                     <td class="divider"></td>
+                    <td style="{!if(v.total.iscombo == 'Yes','','display:none;')}"><aura:unescapedHtml value="{!v.specificCombo}"/></td>              
+                               
+                </tr>
+            </table>
+        </div>
+    </div>  
+                                
+    <br/>
+    <div class="slds-p-horizontal--small slds-align--absolute-left">
+    	<lightning:button variant="brand" label="Save Pricing Details" onclick="{!c.savedescprice}" iconPosition="left" aura:id="saveBtn" iconName="utility:save" class="saveButton"/>
+    	
+    </div>
+    <br/><br/> 
+     <aura:if isTrue="{!v.displayalert}">
+     	<c:LC00_Detail_EU_DispensingFoam_Alert />
+     </aura:if>
+</aura:component>

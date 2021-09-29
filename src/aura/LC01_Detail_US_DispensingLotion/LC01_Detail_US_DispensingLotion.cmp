@@ -1,0 +1,228 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" access="global"  controller="LC01_DetailCtrl" extends="c:LC00_QuotelineItem">
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}" />
+    <aura:attribute name="displayalert" type="Boolean" default="false"/>
+    <aura:attribute name="productDef" type="Object[]" default="Pump,Overcap,Bottle" />
+    <aura:attribute name="colorationUpcharge" type="Object[]" default="Actuator Coloration,Collar Coloration,Cap Coloration,Insert Coloration,Bottle Coloration,Bottle Ring Coloration" />
+    <aura:attribute name="pumpOpt" type="Object[]" default="PBT Body,Diptube length,Plastic Protection" />
+    <aura:attribute name="bottlepumpdecOpt" type="Object[]" default="Bottle Hot Stamping,Bottle Offset,Bottle Silk-Screening,Cap Decoration,Collar Decoration" />
+    <aura:attribute name="others" type="Object[]" default="End of Year Rebate" />
+    <aura:attribute name="editable" type="String" default="Pump,Overcap,Bottle,Actuator Coloration,Collar Coloration,Cap Coloration,Insert Coloration,Bottle Coloration,Bottle Ring Coloration,PBT Body,Diptube length,Plastic Protection,Bottle Hot Stamping,Bottle Offset,Bottle Silk-Screening,Cap Decoration,Collar Decoration" />     
+    <aura:attribute name="total" type="Object[]"/>    
+     <aura:attribute name="currency" type="String"/>
+    <aura:attribute name="currencyPosition" type="String"/>
+    
+	
+    <aura:attribute name="prod_def_desc_price" type="String" default="none"/>
+    <aura:attribute name="Coloration_Upcharge_desc_price" type="String" default="none"/>
+    <aura:attribute name="Pump_Options_desc_price" type="String" default="none"/>
+    <aura:attribute name="Bottle_Pump_Decoration_Options_desc_price" type="String" default="none"/>
+    
+    <!-- 
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler event="c:LE00_Detailed_Pricing" action="{!c.savedescprice}" />
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large" style="position:fixed;"/>
+    
+    
+    <div class="slds pm">
+       <!-- <c:LC01_Detail_Header pageName="Detailed Pricing : Lotion" qli="{!v.qli}" /> -->
+        <!--<c:LC01_Header pageName="Detailed Pricing : Lotion" qli="{!v.qli}" />-->
+        <div class="slds-m-bottom--small">
+            <table >
+                <tr class="moq_header">
+                    <td style="width:25%;">MOQ in Kunits</td>
+						<td>[10 - 25[</td>
+						<td>[25 - 50[</td>
+						<td>[50 - 100[</td>
+						<td>[100 - 250[</td>
+						<td>[250 - 500[</td>
+                </tr>
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="6"><span>Product Definition</span>
+                   			 <span style="float: right">
+                             <button type="button" onclick="{!c.proddefdescprice}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                            </span>
+                            </td>
+                </tr>
+                <aura:iteration items="{!v.productDef}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                     
+                    </tr>
+                    <tr class="{!item.edit + ' edit-detail'}" style="{!'display:' + v.prod_def_desc_price}">
+                        <td>Desc &amp; price</td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Product Definition" title="{!item.title}" moq="10"  moqMax="25"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Product Definition" title="{!item.title}" moq="25"  moqMax="50"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Product Definition" title="{!item.title}" moq="50"  moqMax="100"  overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Product Definition" title="{!item.title}" moq="100"  moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Product Definition" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                    </tr>                    
+                    
+                </aura:iteration>                                
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="6"><span>Coloration Upcharge</span>
+                   			 <span style="float: right">
+                             <button type="button" onclick="{!c.ColorationUpchargedescprice}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                            </span>
+                            </td>
+                </tr>
+                <aura:iteration items="{!v.colorationUpcharge}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                     
+                    
+                    </tr>
+                    <tr class="{!item.edit + ' edit-detail'}"  style="{!'display:' + v.Coloration_Upcharge_desc_price}">
+                        <td>Desc &amp; price</td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Coloration Upcharge" title="{!item.title}" moq="10"  moqMax="25"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Coloration Upcharge" title="{!item.title}" moq="25"  moqMax="50"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Coloration Upcharge" title="{!item.title}" moq="50"  moqMax="100"  overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Coloration Upcharge" title="{!item.title}" moq="100"  moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Coloration Upcharge" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                    </tr>                    
+                    
+                </aura:iteration>                                
+                
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="6"><span>Pump Options</span>
+                   			 <span style="float: right">
+                             <button type="button" onclick="{!c.PumpOptionsdescprice}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                            </span>
+                            </td>
+                </tr>
+                <aura:iteration items="{!v.pumpOpt}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                     
+                     
+                    </tr>
+                    <tr class="{!item.edit + ' edit-detail'}"  style="{!'display:' + v.Pump_Options_desc_price}">
+                        <td>Desc &amp; price</td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Pump Options" title="{!item.title}" moq="10"  moqMax="25"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Pump Options" title="{!item.title}" moq="25"  moqMax="50"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Pump Options" title="{!item.title}" moq="50"  moqMax="100"  overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Pump Options" title="{!item.title}" moq="100"  moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Pump Options" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                    </tr>                    
+                    
+                </aura:iteration>
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="6"><span>Bottle &amp; Pump Decoration Options</span>
+                   			 <span style="float: right">
+                             <button type="button" onclick="{!c.BottlePumpDecorationOptionsdescprice}" class="slds-float-right">
+                                <lightning:icon iconName="utility:edit" size="xx-small" />
+                            </button>
+                            </span>
+                            </td>
+                </tr>
+                <aura:iteration items="{!v.bottlepumpdecOpt}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                     
+                    
+                    </tr>
+                    <tr class="{!item.edit + ' edit-detail'}" style="{!'display:' + v.Bottle_Pump_Decoration_Options_desc_price}">
+                        <td>Desc &amp; price</td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Bottle &amp; Pump Decoration Options" title="{!item.title}" moq="10"  moqMax="25"  overrideValue="{!item.x10Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Bottle &amp; Pump Decoration Options" title="{!item.title}" moq="25"  moqMax="50"  overrideValue="{!item.x25Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Bottle &amp; Pump Decoration Options" title="{!item.title}" moq="50"  moqMax="100"  overrideValue="{!item.x50Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Bottle &amp; Pump Decoration Options" title="{!item.title}" moq="100"  moqMax="250" overrideValue="{!item.x100Override}" qliId="{!v.qli.Id}"/></td>
+                        <td><c:LC01_DetailPriceDisplayOverride section="Bottle &amp; Pump Decoration Options" title="{!item.title}" moq="250" moqMax="500" overrideValue="{!item.x250Override}" qliId="{!v.qli.Id}"/></td>
+                    </tr>                    
+                    
+                </aura:iteration>
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="sub_header">
+                    <td colspan="6">Others</td>
+                </tr>
+                <aura:iteration items="{!v.others}" var="item">
+                    <tr class="detail">
+                        <td>
+                            <span>{!item.title}</span>
+                        </td>
+                        
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x10}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x25}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x50}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x100}"/></td>
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!item.x250}"/></td>                     
+                     
+                    </tr>
+                </aura:iteration>
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="line">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <aura:iteration items="{!v.total}" var="totalItem">
+                        <td><c:LC01_DetailPriceDisplay currencyPosition="{!v.currencyPosition}" currency="{!v.currency}" price="{!totalItem.List_Price__c}"/></td>
+				   </aura:iteration>
+                </tr>
+            </table>
+        </div>
+    </div>
+       
+                                
+    <br/>
+    <div class="slds-p-horizontal--small slds-align--absolute-left">
+    	<lightning:button variant="brand" label="Save Pricing Details" onclick="{!c.savedescprice}" iconPosition="left" aura:id="saveBtn" iconName="utility:save" class="saveButton"/>
+    	
+    </div>
+    <br/><br/> 
+     <aura:if isTrue="{!v.displayalert}">
+     	<c:LC00_Detail_EU_DispensingFoam_Alert />
+     </aura:if>
+</aura:component>

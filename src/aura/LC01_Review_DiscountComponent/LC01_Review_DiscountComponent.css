@@ -1,0 +1,12 @@
+.THIS .Hide {
+    
+    display: none;
+}
+.THIS .Div {
+    text-align: center;
+	min-height:10px; 
+    width:100%;
+    border:none;
+    font-size: 105%;
+    
+}

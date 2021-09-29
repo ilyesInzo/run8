@@ -1,0 +1,32 @@
+<!--
+ - Created by Thanina on 05/08/2019.
+ -->
+
+<aura:component description="DisplayTableRow" access="global">
+
+    <aura:attribute name="row" type="sObject" description="record which is being displayed"/>
+    <aura:attribute name="val" type="boolean" default="false"/>
+    <aura:attribute name="key" type="String" />
+
+
+    <aura:attribute name="index" type="String" />
+    <aura:attribute name="currentPageNum" type="String"/>
+    <aura:attribute name="listCheckBoxes" type="Map" />
+    <aura:attribute name="fromSelectALL" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="saveSelectedRecord" type="c:GetSelectedRecord"/>
+
+    <div class="slds-form-element">
+        <div class="slds-form-element__control">
+            <label class="slds-checkbox">
+                <ui:inputCheckbox  change="{!c.checkboxSelect}" value="{!v.val}" aura:id="dependent" />
+                <span class="slds-checkbox_faux"></span>
+                <span class="slds-form-element__label text"></span>
+            </label>
+        </div>
+    </div>
+
+
+
+</aura:component>

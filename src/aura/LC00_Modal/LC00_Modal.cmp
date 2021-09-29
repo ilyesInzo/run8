@@ -1,0 +1,8 @@
+<aura:component extensible="true" abstract="true">
+    <div aria-hidden="true" role="dialog" class="panel slds-modal slds-modal--small slds-hide" aura:id="modal">
+        <div class="slds-modal__container">
+            {!v.body}
+        </div>
+    </div>
+    <div class="slds-backdrop" aura:id="backdrop"></div>
+</aura:component>

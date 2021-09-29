@@ -1,0 +1,138 @@
+<aura:component controller="LCC01_Scorings_Controller" implements="force:appHostable" extends="c:LC00_QuotelineItem">
+    
+<!--     <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="mapoptions" type="MAP"/>
+    <aura:attribute name="validatescore" type="Boolean"/>  
+<!--     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />  -->    
+    <aura:handler name="change" value="{!v.qli}" action="{!c.itemchanged}" /> 
+    
+    <aura:handler event="aura:doneWaiting" action="{!c.hidespinner}"/>
+    <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large"/>
+    
+    <ltng:require scripts="{!join(',',
+                           $Resource.jQuery_310 ,
+                           $Resource.MomentJS2141,
+                           $Resource.ALJSv2 +'/jquery.aljs-all.min.js'
+                           )}"
+                  styles="{!$Resource.PriceMatrixCSS}" 
+                  afterScriptsLoaded="{!c.init}"/>
+                  
+    <!-- <ltng:require scripts="/resource/jQuery_310,/resource/ALJSv2/jquery.aljs-all.min.js" 
+                  styles="{!$Resource.PriceMatrixCSS}" afterScriptsLoaded="{!c.init}"/>
+     -->
+    <div class="slds pm">
+    	<aura:if isTrue="{!!empty(v.mapoptions)}">
+        <c:LC01_Header pageName="Customer Scoring" qli="{!v.qli}" scorevalidation="{!v.validatescore}"/>
+        </aura:if>
+        <c:LC01_Wizard />
+        
+        <hr class="slds-m-top--medium slds-m-bottom--medium" />
+        
+        
+        <div class="slds-section">
+            <h3 class="slds-section__title">
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_CustomerKeyInformation}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size--3-of-12">
+                <label class="slds-form-element__label" for="customerKeyInfo">{!$Label.c.LBL_Customer}</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.qli.Quote.Opportunity.Account.Type}" class="slds-text-align--left"/>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size--3-of-12">
+                <label class="slds-form-element__label" for="customerKeyInfo">{!$Label.c.LBL_CUSTOMERNAME}</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.qli.Quote.Opportunity.Account.Name}" class="slds-text-align--left"/>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size--3-of-12">
+                <label class="slds-form-element__label" for="customerKeyInfo">{!$Label.c.LBL_CUSTOMERSIZE}</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText disabled="true" value="{!v.qli.Quote.Opportunity.Account.Customer_Size_PM__c}" class="slds-text-align--left"/>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size--3-of-12">
+                <label class="slds-form-element__label" for="customerKeyInfo">{!$Label.c.LBL_CUSTOMERTYPE}</label>
+                <c:LC00_HelpText helpText="{!$Label.c.HT_Customer_Type_EU}" width="200px" class=""/>  
+                <div class="slds-form-element__control">
+                    <!--<force:inputField value="{!v.qli.Customer_Type__c}" change="{!c.itemchanged}"/>-->
+                    <ui:inputSelect aura:id="Customer_Type__c" value="{!v.qli.Customer_Type__c}"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-section slds-m-top--x-small">
+            <h3 class="slds-section__title">
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_ScoreYourCustomer}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        <div class="slds-text slds-m-bottom--x-small">
+            <p>{!$Label.c.BTN_ScoringAlreadyDone}</p>
+        </div>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="BUSINESS AT OTHER PRODUCT LINE"  helptext="{!$Label.c.HT_BusinessOtherProdLine_EU}" group="Business_at_other_product_line__c" value="{!v.qli.Business_at_other_product_line__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+            
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="PAYMENT TERMS"  helptext="{!$Label.c.HT_PaymentTerms_EU}" group="Payment_terms__c" value="{!v.qli.Payment_terms__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="REQUIRED LEVEL OF DOCUMENTATION"  helptext="{!$Label.c.HT_ReqLevelDoc_EU}" group="Required_level_of_documentation__c" value="{!v.qli.Required_level_of_documentation__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="MONTHLY OVERDUE /DSO"  helptext="{!$Label.c.HT_MonthlyOverdueDSO_EU}" group="Monthly_overdue_DSO__c" value="{!v.qli.Monthly_overdue_DSO__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+						
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="PRODUCT QUALITY REQUIREMENT"  helptext="{!$Label.c.HT_ProdQualityReq_EU}" group="Quality_requirement__c" value="{!v.qli.Quality_requirement__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+			
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="CUSTOMER END OF YEAR REBATE"  helptext="{!$Label.c.HT_CustEndYearRebate_EU}" group="Customer_end_of_year_rebate__c" value="{!v.qli.Customer_end_of_year_rebate__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+						
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--5-of-6 slds-large-size--4-of-8 slds-m-bottom--x-small">            
+            	<c:LC00_InputRadio label="CUSTOMER EBB RATE"  helptext="{!$Label.c.HT_CustEBBrate_US}" group="Customer_EBB_rate__c" value="{!v.qli.Customer_EBB_rate__c}" mapoptions="{!v.mapoptions}"/>
+            </div> 
+        </div>
+        
+        <div class="slds-section slds-m-top--x-small">
+            <h3 class="slds-section__title">
+                <button class="slds-button slds-section__title-action slds-text-align--center">
+                    <lightning:icon iconName="utility:chevronright" size="xx-small"/>
+                    {!$Label.c.BTN_AdditionalCommentsCustomer}
+                </button>
+            </h3>
+            <div class="slds-section__content"></div>
+        </div>
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <!--<textarea id="textarea-input-01" class="slds-textarea" value="No comments" placeholder="" rows="3" style="height: 37px;"></textarea>
+-->
+                    	<ui:inputTextArea value="{!v.qli.Additional_comments_on_customer_scoring__c}"/>                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</aura:component>

@@ -1,0 +1,1 @@
+<aura:event type="APPLICATION" description="Used to track clicks on config options" />

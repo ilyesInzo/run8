@@ -1,0 +1,215 @@
+<aura:component extends="c:LC00_Section">
+	    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="18. Cap Name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Name__c" 
+                                    value="{!v.selectedconfig.Cap_Name__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Name', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Head__c', 'Actuator_Type__c']"
+                                    savedfieldName="Cap_Name__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Head_Name__c', 'Actuator_Type__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="26. Metalisation" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Metallization__c" 
+                                    value="{!v.selectedconfig.Metallization__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Metallization', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="Metallization__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>        						
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="19. Cap Aspect" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Head_Sleeve_Cap_Aspect_name__c" 
+                                    value="{!v.selectedconfig.Cap_Aspect__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Cap Aspect', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Cap_Aspect__c" 
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    /> 
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="27. Metalisation Type" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Metallization_Type__c" 
+                                    value="{!v.selectedconfig.Metallization_Type__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Metallization Type', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Metallization__c']"
+                                    savedfieldName="Metallization_Type__c"
+                                    saveddependentfields="['Metallization__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="20. Cap Color" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Head_Cap_Color_Name__c" 
+                                    value="{!v.selectedconfig.Cap_Color__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Color', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Cap_Color__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+		<div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="28. Lacquering"
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Lacquering__c" 
+                                    value="{!v.selectedconfig.Lacquering__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Lacquering', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="Lacquering__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />                 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="21. Cap Finish" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Finish__c" 
+                                    value="{!v.selectedconfig.Cap_Finish__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Finish', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Cap_Name__c']"
+                                    savedfieldName="Cap_Finish__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Cap_Name__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+                             
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="29. Lacquering Type" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Lacquering_Type__c" 
+                                    value="{!v.selectedconfig.Lacquering_Type__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Lacquering Type', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Lacquering__c']"
+                                    savedfieldName="Lacquering_Type__c"
+                                    saveddependentfields="['Lacquering__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />          
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="22. Cap Orifice" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Cap_Orifice__c" 
+                                    value="{!v.selectedconfig.Cap_Orifice__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Orifice', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c']"
+                                    savedfieldName="Cap_Orifice__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="30. Silk Screen" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Silk_screen__c" 
+                                    value="{!v.selectedconfig.Silk_screen__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Silk screen', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="Silk_screen__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="23. Cap Eurocode" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Eurocode__c" 
+                                    value="{!v.selectedconfig.Cap_Eurocode__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Cap Eurocode', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c', 'Actuator_Type__c', 'Cap_Name__c', 'Cap_Finish__c', 'Cap_Orifice__c']"
+                                    savedfieldName="Cap_Eurocode__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c', 'Actuator_Type__c', 'Cap_Name__c', 'Cap_Finish__c', 'Cap_Orifice__c']"
+                                    autoselect="true"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="31. Hot Stamp Top" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Top_hot_stamping__c" 
+                                    value="{!v.selectedconfig.Hot_Stamp_Top__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Top hot stamping', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="Hot_Stamp_Top__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="24. Peel Seal" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Peel_Seal__c" 
+                                    value="{!v.selectedconfig.Peel_Seal__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Peel seal', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Head__c', 'Eurocode__c']"
+                                    savedfieldName="Peel_Seal__c"
+                                    saveddependentfields="['Head_Name__c', 'Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="32. HS Contouring" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="X360_Hot_Stamping__c" 
+                                    value="{!v.selectedconfig.HS_Contouring__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : '360 Hot Stamping', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="HS_Contouring__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="25. Manual Capping" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Manual_Capping__c" 
+                                    value="{!v.selectedconfig.Manual_Capping__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Manual Capping', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Manual_Capping__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    DefaultVal="No"
+                                    />
+                                    
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="33. Shrink Band" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Shrink_band__c" 
+                                    value="{!v.selectedconfig.Shrink_band__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Shrink band', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Eurocode__c']"
+                                    savedfieldName="Shrink_band__c"
+                                    saveddependentfields="['Cap_Eurocode__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div> 
+        
+        
+    </div>
+</aura:component>

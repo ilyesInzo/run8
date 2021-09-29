@@ -1,0 +1,62 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName" access="global" controller="LC01_SimulatorButtons">
+
+	<aura:attribute name="qliId" type="String" default="" />
+    <aura:attribute name="oppId" type="String" default="" />
+    
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:handler event="aura:donewaiting" action="{!c.hideSpinner}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    
+    <aura:attribute name="qli" type="QuoteLineItem" default="{ 'sobjectType': 'QuoteLineItem'}" />
+	<aura:attribute name="recordError" type="String" access="private"/>
+    
+    <!--<aura:if isTrue="True">  -->                       
+      <div class="slds-text-align--right slds-p-top--small">   
+        <div aura:id="mySpinner3" class="slds-hide mySpinner" >
+              			<!-- <lightning:spinner alternativeText="Loading" size="medium" /> -->
+              			<div class="slds-spinner_container">
+                			<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                  				<span class="slds-assistive-text">Loading</span>
+                  				<div class="slds-spinner__dot-a"></div>
+                  				<div class="slds-spinner__dot-b"></div>
+                			</div>
+              			</div>
+     	</div>
+        <lightning:button variant="brand" label="Validate" 
+                          iconName="utility:check" iconPosition="left" onclick="{!c.validateConfiguration}">
+            Validate <c:LC00_HelpText helpText="Change the quote status from 'simulation' to 'draft'" width="200px"/>
+        </lightning:button>
+
+        <lightning:button variant="brand" label="Delete" 
+                          iconName="utility:delete" iconPosition="left" onclick="{!c.deleteConfiguration}">
+        	Delete <c:LC00_HelpText helpText="Delete this simulation" width="200px"/>
+        </lightning:button>
+        <aura:if isTrue="{!not(empty(v.qliId))}">                  
+        <lightning:button variant="brand" label="Save" 
+                          iconName="utility:save" iconPosition="left" onclick="{!c.saveConfiguration}">
+        	Save <c:LC00_HelpText helpText="Save this simulation" width="200px"/>
+        </lightning:button>
+		</aura:if>
+      </div>
+      
+      <br/>
+      <aura:if isTrue="{!and(not(empty(v.qliId)),empty(v.qli.Customer_Scoring__c))}"> 
+      	<div class ="messageClass">
+            <div class="slds-grid slds-wrap">
+  				<div class="slds-col slds-size_1-of-12">
+    				<lightning:icon class="redic" iconName="utility:info" alternativeText="info" />
+  				</div>
+  				<div class="slds-col slds-size_11-of-12">
+    				<ui:outputText value="{!$Label.c.MSG_PriceSimulator}"/>
+  				</div>
+          	</div>
+        </div>
+          
+      </aura:if>
+    
+      <div aura:id="showChildModal" ></div>
+
+</aura:component>

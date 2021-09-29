@@ -1,0 +1,15 @@
+.THIS .slds-text {
+    color:grey;
+    font-size:11px;
+    font-style:italic;
+}
+
+
+.THIS .uiInput--select.select:not([multiple]), .THIS .uiInput--select .select:not([multiple]), .THIS .uiInput--select .uiPopupTrigger a {
+    height: 1.3rem;
+}
+
+
+.THIS .slds-form-element__label {
+    font-size: 11px;
+}

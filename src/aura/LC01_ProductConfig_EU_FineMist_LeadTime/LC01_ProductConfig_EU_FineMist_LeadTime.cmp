@@ -1,0 +1,24 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">  
+            
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="26. AERO possibility" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Possibility__c" 
+									savedfieldName="Lean_possibility__c"
+									value="{!v.selectedconfig.Lean_possibility__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'AERO possibility', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Dosage__c','Neck_Finish__c','Actuator__c','Insert_Type__c']"
+									concat="['_','_','_','_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>  
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">27. 5 days lead time</label>
+            <ui:inputText value="{!v.selectedconfig.X5_days_lead_time__c}" disabled="true"/> 
+        </div>  
+        
+    </div>
+</aura:component>

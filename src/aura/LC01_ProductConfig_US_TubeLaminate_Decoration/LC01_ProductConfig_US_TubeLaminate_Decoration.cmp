@@ -1,0 +1,84 @@
+<aura:component extends="c:LC00_Section">
+
+    <aura:attribute name="NB_Offset_Colors__c" type="Integer" default="0"/>
+    <aura:attribute name="NB_Flexo_Colors__c" type="Integer" default="0"/>
+    <aura:attribute name="NB_SS_Colors__c" type="Integer" default="0"/>
+    
+    <aura:handler event="c:LE00_DependentPicklist" action="{!c.handleEvent}" />
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="27. Printing Techno" 
+									fieldName="Printing_type__c" 
+									savedfieldName="Printing_type__c"
+									value="{!v.selectedconfig.Printing_type__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Laminate', Table_Name__c : 'Deco', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+                
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <label class="slds-form-element__label">31. Cold Stamping</label>
+            <ui:inputText aura:id="Cold_Stamping" value="{!v.selectedconfig.Cold_Stamping__c}" disabled="true"/> 
+        </div>
+          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <ui:inputSelect aura:id="NB_Offset_Colors__c" value="{!v.selectedconfig.NB_Offset_Colors__c}" label="28. # Offset Colors" disabled="{!v.NB_Offset_Colors__c == 0}" />
+            <span style="color:green" >{!if(v.NB_Offset_Colors__c > 0, 'Max ' + v.NB_Offset_Colors__c + ' colors', '')}</span>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            			<c:LC00_DependantFields label="32. Printing Effect" 
+									fieldName="Printing_Effects__c" 
+									savedfieldName="Printing_Effects__c"
+									value="{!v.selectedconfig.Printing_Effects__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Laminate', Table_Name__c : 'Print Effect', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="" 
+									saveddependentfields=""
+												selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <ui:inputSelect aura:id="NB_Flexo_Colors__c" value="{!v.selectedconfig.NB_Flexo_Colors__c}" label="29. # Flexo Colors"  disabled="{!v.NB_Flexo_Colors__c == 0}"/>
+            <span style="color:green" >{!if(v.NB_Flexo_Colors__c > 0, 'Max ' + v.NB_Flexo_Colors__c + ' colors', '')}</span>
+            
+        </div>
+        		
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            			<c:LC00_DependantFields label="33. Varnish" 
+									fieldName="Name" 
+									savedfieldName="Coating__c"
+									value="{!v.selectedconfig.Coating__c}" 
+									objectName="ProductConfigYesNo__c" 
+									parameters="{}" 
+									dependentfields="" 
+									saveddependentfields=""
+												selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <ui:inputSelect aura:id="NB_SS_Colors__c" value="{!v.selectedconfig.NB_SS_Colors__c}" label="30. # SS Colors"  disabled="{!v.NB_SS_Colors__c == 0}"/>
+            <span style="color:green" >{!if(v.NB_SS_Colors__c > 0, 'Max ' + v.NB_SS_Colors__c + ' colors', '')}</span>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            			<c:LC00_DependantFields label="34. Hologram" 
+									fieldName="Name" 
+									savedfieldName="Hologram__c"
+									value="{!v.selectedconfig.Hologram__c}" 
+									objectName="ProductConfigYesNo__c" 
+									parameters="{}" 
+									dependentfields="" 
+									saveddependentfields=""
+												selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+
+    </div>
+</aura:component>

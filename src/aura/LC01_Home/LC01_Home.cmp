@@ -1,0 +1,173 @@
+<aura:component implements="force:appHostable" controller="LC01_HomeCtrl" >
+    
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    
+    <aura:attribute name="qliId" type="String" required="true" default="" />
+    <aura:attribute name="qli" type="QuoteLineItem" default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    <aura:attribute name="opp" type="Opportunity" default="{ 'sobjectType': 'Opportunity'}" />
+    <aura:attribute name="quo" type="Quote" default="{ 'sobjectType': 'Quote'}" />
+   	<aura:attribute name="prod" type="Product2" default="{ 'sobjectType': 'Product2'}" />
+    <aura:attribute name="productSegment" type="String" default="" />
+    <aura:attribute name="enterPricematriX" type="Boolean" default="false" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <div class="slds pm">
+        <c:LC01_Header pageName="Home Page" qli="{!v.qli}" />
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2 slds-m-bottom--small">
+                <div class="albea-header">
+                    <h2>{!$Label.c.LBL_KeyQuotationInformation}</h2>
+                </div>
+                <div class="slds-form_horizontal">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="project-name">Project Name</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.opp.Name}" class="{! (v.opp.Name) ? 'slds-input' : 'slds-input input-error'}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="offer">Offer</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.quo.Name}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="quotation-version">Quotation Version#</label>
+                        <div class="slds-form-element__control">
+                            <input id="quotation-version" class="slds-input" type="text" placeholder="" value="1" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="product-line">Product Line</label>
+                        <div class="slds-form-element__control">
+                            <input id="product-line" class="slds-input" type="text" placeholder="" value="{!v.qli.Product_Line__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="product-segment">Product Segment</label>
+                        <div class="slds-form-element__control">
+                            <input id="product-segment" class="{! (v.productSegment) ? 'slds-input' : 'slds-input input-error'}" type="text" placeholder="" value="{! v.productSegment }" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="type-of-project">Type of Project</label>
+                        <div class="slds-form-element__control">
+                            <input id="type-of-project" class="{! (v.quo.Project_TYpe__c) ? 'slds-input' : 'slds-input input-error'}" type="text" placeholder="" value="{!v.quo.Project_TYpe__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="RFQ-reception-date">RFQ Reception Date</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputDate displayDatePicker="true" class="{! (v.opp.CloseDate) ? 'slds-input' : 'slds-input input-error'}" value="{!v.opp.CloseDate}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="quote-due-date">Quote Due Date</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputDate displayDatePicker="true" value="{!v.quo.Quote_Due_Date__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-is-required">
+                        <label class="slds-form-element__label" for="first-delivery-date">First Delivery Date</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputDate displayDatePicker="true" value="{!v.quo.First_Delivery_Date__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-is-required">
+                        <label class="slds-form-element__label" for="billing-currency">Billing Currency</label>
+                        <div class="slds-form-element__control">
+                            <input id="billing-currency" class="{! (v.qli.Billing_Currency__c) ? 'slds-input' : 'slds-input input-error'}" type="text" required="true" placeholder="" value="{!v.qli.Billing_Currency__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="main-competitor1">Main Competitor #1</label>
+                        <div class="slds-form-element__control">
+                            <input id="main-competitor1" class="slds-input" type="text" placeholder="" value="{!v.quo.Main_compet_1__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="main-competitor2">Main Competitor #2</label>
+                        <div class="slds-form-element__control">
+                            <input id="main-compititor2" class="slds-input" type="text" placeholder="" value="{!v.quo.Main_compet_2__c}" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+                <div class="albea-header">
+                    <h2>{!$Label.c.LBL_PersonalInformation}</h2>
+                </div>
+                <div class="slds-form_horizontal">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" style="padding: inherit !important;" for="account-manager-KAM">Account Manager/KAM</label>
+                        <div class="slds-form-element__control">
+                            <input id="account-manager-KAM" class="{! (v.opp.KamFullName__c) ? 'slds-input' : 'slds-input input-error'}" type="text" placeholder="" value="{!v.opp.KamFullName__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="sales-manager">Sales Manager</label>
+                        <div class="slds-form-element__control">
+                            <input id="sales-manager" class="slds-input" type="text" placeholder="" value="{!v.opp.SalesManagerFullName__c}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="sales-director">Sales Director</label>
+                        <div class="slds-form-element__control">
+                            <input id="sales-director" class="slds-input" type="text" placeholder="" value="{!v.opp.SalesDirectorFullName__c}" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="albea-header slds-m-top--medium">
+                    <h2>{!$Label.c.LBL_CustomerInformation}</h2>
+                </div>
+                <div class="slds-form_horizontal">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="customer-country">Customer Country</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.opp.Account.Country__r.Name}" class="{! (v.opp.Account.Country__r.Name) ? 'slds-input' : 'slds-input input-error'}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="customer-type">Customer</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.opp.Account.Type}" class="{! (v.opp.Account.Type) ? 'slds-input' : 'slds-input input-error'}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="customer-name">Customer Name</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.opp.Account.Name}" class="{! (v.opp.Account.Name) ? 'slds-input' : 'slds-input input-error'}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="product_segment">Customer Group</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText value="{!v.opp.Account.Customer_Group__r.Name}" disabled="true" />
+                        </div>
+                    </div>
+                    <div class="{! v.enterPricematriX ? 'slds-button slds-button--brand slds-p-around--x-small slds-m-top--x-small' : 'slds-button slds-button--destructive slds-p-around--x-small slds-m-top--x-small' }" 
+                         style="display: inherit !important;">
+                        <lightning:button variant="{! v.enterPricematriX ? 'brand' : 'destructive' }" onclick="{!c.enterMatrix}" class="slds-align--absolute-center">
+                            <lightning:icon iconName="utility:chevronright" size="large" class="whitefill"/>
+                            <span class="slds-text-heading--large ">{!$Label.c.BTN_EnterTheMatrix}</span>
+                        </lightning:button>
+                    </div>
+
+                    <!-- div class="slds-button slds-button- -brand slds-p-around- -x-small slds-m-top- -x-small">
+                        <lightning:button variant="brand" onclick="{!c.enterMatrixHasseeb}" class="slds-align- -absolute-center">
+                            <lightning:icon iconName="utility:chevronright" size="large" class="whitefill"/>
+                            <span class="slds-text-heading- -large ">RECO Hasseeb</span>
+                        </lightning:button>
+                    </div -->
+
+                    <!-- div class="slds-button slds-button- -brand slds-p-around- -x-small slds-m-top- -x-small">
+                        <lightning:button variant="brand" onclick="{!c.enterMatrixChris}" class="slds-align- -absolute-center">
+                            <lightning:icon iconName="utility:chevronright" size="large" class="whitefill"/>
+                            <span class="slds-text-heading- -large ">RECO Chris</span>
+                        </lightning:button>
+                    </div -->
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,71 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">       
+       
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="18. Coloring" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Coloring__c"
+						value="{!v.selectedconfig.Coloring__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Coloring', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+                        dependentfields="['Concatenate__c']"
+                        saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+                        concat="['_']"
+                        selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="21. Hot Stamping" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Hot_Stamping__c" 
+						savedfieldName="Hot_Stamping__c"
+						value="{!v.selectedconfig.Hot_Stamping__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Hot Stamping', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+						concat="['_']"
+						selectedConfig="{!v.selectedconfig}"
+						/>  
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="19. Silk-Screening" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Silk_Screening__c" 
+						savedfieldName="Silk_Screening__c"
+						value="{!v.selectedconfig.Silk_Screening__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle SilkScreening', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+						concat="['_']"
+						selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="22. Metalization" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Bottle_Metalization__c" 
+						savedfieldName="Bottle_Metalization__c"
+						value="{!v.selectedconfig.Bottle_Metalization__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Metalization', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+						concat="['_']"
+						selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="20. Spray coating" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Spray_Coating__c" 
+						savedfieldName="Spray_Coating__c"
+						value="{!v.selectedconfig.Spray_Coating__c}"
+						parameters="{Location__c : 'US', Table_Name__c : 'Bottle Spray Coating', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Product_Name__c', 'Product_Type__c']"
+						concat="['_']"
+						selectedConfig="{!v.selectedconfig}"
+						/> 
+        </div>    
+		
+    </div>
+</aura:component>

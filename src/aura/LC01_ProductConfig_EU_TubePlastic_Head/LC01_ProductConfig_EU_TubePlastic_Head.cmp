@@ -1,0 +1,82 @@
+<aura:component extends="c:LC00_Section">
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">   
+        <div style="display:none">
+            <c:LC00_DependantFields label="Dispensing Name clean"  
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Dispensing_Name_clean__c" 
+                                    value="{!v.selectedconfig.Dispensing_Name_clean__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Tube + Pompe (actuator)', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c','Actuator_Type__c']"
+                                    savedfieldName="Dispensing_Name_clean__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c','Actuator_Type__c']"
+                                    isDisabled="true"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+                 
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="15. Head Name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Head__c" 
+                                    value="{!v.selectedconfig.Head_Name__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c']"
+                                    savedfieldName="Head_Name__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c']"
+                                    isDisabled="true"
+                                    displayCond="{!empty(v.selectedconfig.Dispensing_Name_clean__c)}"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+             <span style="color:red" >{!if(and(v.selectedconfig.Head_Name__c == '14UNF',v.selectedconfig.Diameter_mm__c == '22'), 'Offer not available, please contact the marketing team.', '')}</span> 
+            <c:LC00_DependantFields label="15. Head Name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Head__c" 
+                                    value="{!v.selectedconfig.Head_Name__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_System_Name__c']"
+                                    savedfieldName="Head_Name__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c', 'Dispensing_Name_clean__c']"
+                                    isDisabled="true"
+                                    displayCond="{!!empty(v.selectedconfig.Dispensing_Name_clean__c)}"
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="17. Head Color" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Color__c" 
+                                    value="{!v.selectedconfig.Head_Color__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Head_Color__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+            <!--                           
+            <c:LC00_DependentPicklist picklistLabel="17. Head Color" 
+                             name="Color__c" location="EU" segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Head / Sleeve / Cap" 
+                             dependsOn="" savedConfig="{!v.savedConfig}" saveField="Head_Color__c"/>
+                              -->
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="16. Head Aspect" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Aspect__c" 
+                                    value="{!v.selectedconfig.Head_Aspect__c}"
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Head / Sleeve / Cap', Tubes_segment__c : 'Plastic', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields=""
+                                    savedfieldName="Head_Aspect__c"
+                                    saveddependentfields=""
+                                    selectedConfig="{!v.selectedconfig}"
+                                    />
+            <!--                        
+            <c:LC00_DependentPicklist picklistLabel="16. Head Aspect" 
+                             name="Aspect__c" location="EU" segment="Plastic" sObjectName="PM_Tubes_Config__c" tableName="Head / Sleeve / Cap" 
+                             dependsOn="" savedConfig="{!v.savedConfig}" saveField="Head_Aspect__c"/>
+                             -->
+        </div> 
+    </div> 
+</aura:component>

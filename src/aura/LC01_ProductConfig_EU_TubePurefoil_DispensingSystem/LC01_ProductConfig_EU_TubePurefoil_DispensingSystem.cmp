@@ -1,0 +1,56 @@
+<aura:component extends="c:LC00_Section">
+    
+    
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="11. Family" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Dispensing_System_Family__c" 
+                                    value="{!v.selectedconfig.Dispensing_System_Family__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Dispensing System Family', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c']"
+                                    savedfieldName="Dispensing_System_Family__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     /> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="13. Collar type" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Collar_Type__c" 
+                                    value="{!v.selectedconfig.Collar_Type__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Tube + Pompe (collar)', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Dispensing_System_Name__c','Diameter_mm__c']"
+                                    savedfieldName="Collar_Type__c"
+                                    saveddependentfields="['Dispensing_System_Name__c','Diameter_mm__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     />
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="12. Dispensing name" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Dispensing_System_Name__c" 
+                                    value="{!v.selectedconfig.Dispensing_System_Name__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Dispensing System Name', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c']"
+                                    savedfieldName="Dispensing_System_Name__c"
+                                    saveddependentfields="['Shape__c','Diameter_mm__c', 'Dispensing_System_Family__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     />
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="14. Actuator type" 
+                                    objectName="PM_Tubes_Config__c" 
+                                    fieldName="Actuator_Type__c" 
+                                    value="{!v.selectedconfig.Actuator_Type__c}" 
+                                    parameters="{Location__c : 'EU', Table_Name__c : 'Tube + Pompe (actuator)', Tubes_segment__c : 'Purefoil', ActiveValue__c : 'TRUE'}" 
+                                    dependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c']"
+                                    savedfieldName="Actuator_Type__c"
+                                    saveddependentfields="['Diameter_mm__c', 'Dispensing_System_Name__c', 'Collar_Type__c']"
+                                    selectedConfig="{!v.selectedconfig}"
+                                     />
+        </div>  
+    </div>
+</aura:component>

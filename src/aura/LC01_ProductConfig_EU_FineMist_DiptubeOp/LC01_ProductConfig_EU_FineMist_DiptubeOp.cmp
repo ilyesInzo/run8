@@ -1,0 +1,47 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">  
+            
+       <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="23. Diptube Material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Diptube_type__c" 
+									savedfieldName="Diptube_Material__c"
+									value="{!v.selectedconfig.Diptube_Material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Diptube type', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Name__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>  
+				<label class="slds-form-element__label">Length (mm)</label>
+            	<ui:inputNumber value="{!v.selectedconfig.Diptube_Material_length_mm__c}"/>  
+				<span style="color:red" >{!if(or(v.selectedconfig.Diptube_Material__c =='Optionnal (Transparent TPX)', v.selectedconfig.Diptube_Material__c=='Optionnal (Invisible)'), 'Important : Don\'t forget to precise diptube length to calculate the upcharge', '')}</span>  
+        </div>   
+         <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="25. Colored Diptube" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Colored_Tube__c" 
+									savedfieldName="Colored_Diptube__c"
+									value="{!v.selectedconfig.Colored_Diptube__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Colored Tube', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Attachment__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                	<c:LC00_DependantFields label="24. Diptube Length" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Diptube_Length__c" 
+									savedfieldName="Diptube_Length__c"
+									value="{!v.selectedconfig.Diptube_Length__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Diptube length', Product_Segment__c : 'Fine mist pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Name__c','Diptube_Material__c']"
+											selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>   
+        
+        
+    </div>
+</aura:component>

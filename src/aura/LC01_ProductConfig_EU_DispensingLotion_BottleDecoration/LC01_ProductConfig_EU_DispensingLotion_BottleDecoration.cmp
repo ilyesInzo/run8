@@ -1,0 +1,93 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">       
+       
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="27. Coloring" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Coloring__c"
+						value="{!v.selectedconfig.Coloring__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Coloring', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c']"
+                        concat="['_','_','_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                    isNotDef="true"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="30. Hot Stamping" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Hot_Stamping__c" 
+						savedfieldName="Hot_Stamping__c"
+						value="{!v.selectedconfig.Hot_Stamping__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Hot Stamping', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c']"
+                        concat="['_','_','_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                    isNotDef="true"
+						/>  
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="28. Silk-Screening" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Silk_Screening__c" 
+						savedfieldName="Silk_Screening__c"
+						value="{!v.selectedconfig.Silk_Screening__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle silk-screening', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c']"
+                        concat="['_','_','_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                    isNotDef="true"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="31. Ring Coloration" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Color__c" 
+						savedfieldName="Ring_Coloration__c"
+						value="{!v.selectedconfig.Ring_Coloration__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Ring coloration', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c']"
+                        concat="['_','_','_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                    isNotDef="true"
+						/> 
+        </div>    
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="29. Offset" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Offset__c" 
+						savedfieldName="Offset__c"
+						value="{!v.selectedconfig.Offset__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Offset', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+						saveddependentfields="['Engine_Name__c', 'Product_Type__c', 'Pack_Name__c','Bottle_Material__c','Bottle_Volume__c']"
+                        concat="['_','_','_','_']"
+						selectedConfig="{!v.selectedconfig}"
+                                    isNotDef="true"
+						/> 
+        </div>    
+        
+        <!-- Added by zakaria riadi / DEleted by Amira to fullfill the ticket 9697
+
+		
+            <c:LC00_DependantFields label="31. Digital printing" 
+						objectName="PM_Dispensing_Config__c" 
+						fieldName="Digital_printing__c" 
+						savedfieldName="Digital_printing__c"
+						value="{!v.selectedconfig.Digital_printing__c}"
+						parameters="{Location__c : 'EU', Table_Name__c : 'Bottle digital printing', Product_Segment__c : 'Lotion pumps', ActiveValue__c : 'TRUE'}" 
+						dependentfields="['Concatenate__c']"
+                        saveddependentfields="['Engine_Name__c','Product_Name__c']"
+                        concat="['_']"                                    
+						selectedConfig="{!v.selectedconfig}"
+						/> 
+       
+        -->
+        
+    </div>
+</aura:component>

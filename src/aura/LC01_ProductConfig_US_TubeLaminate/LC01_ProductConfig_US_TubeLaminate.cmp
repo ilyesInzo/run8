@@ -1,0 +1,54 @@
+<aura:component implements="force:appHostable" controller="LC01_SelectedProductConfigCtrl" extends="c:LC00_QuotelineItem">
+    <!-- 
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  /> -->
+    <aura:attribute name="showProductImg" type="boolean" default="false" />
+    <aura:attribute name="selectedtubeconfig" type="PM_Selected_Tubes_Config__c" description="Saved config" default="{ 'sobjectType': 'PM_Selected_Tubes_Config__c'}" />
+    
+    
+    <aura:attribute name="collapseStatus" type="Map" default="{Tube_Basis:true, Packing:true, Decoration:true, Cap:true,Sleeve: true, Head: true, Dispensing_System: true, initial_config:true}" />
+    
+    <!--<aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+    <aura:handler name="change" value="{!v.qli}" action="{!c.init}" />
+    <aura:handler name="SectionCollapseEvent" event="c:LE00_SectionAccordionCollapse" action="{!c.handleCollapseEvent}"/>
+    
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/>
+    <div class="slds pm">
+        <!-- <c:LC01_Header pageName="Product Configuration: Laminate Tube"  qli="{!v.qli}" /> -->
+                <c:LC01_ProductConfig_Header pageName="Product Configuration: Laminate Tube" qli="{!v.qli}" showCombo="true" 
+                                     configPageName="c:LC01_ProductConfig_US_TubeLaminate"
+                                     savedConfig="{!v.selectedtubeconfig}" selectedconfig="{!v.selectedtubeconfig}"/>
+         
+        <c:LC01_Wizard step="1"/>
+        <br/><br/>
+          
+        
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3">
+                <!-- 
+                <c:LC01_ProductConfig_imagePreview qli="{!v.qli}" showProductImg="{!v.showProductImg}"  />
+                 -->
+                 <div aura:id="specPreconfig"> 
+                        <c:LC01_ProductConfig_SpecPreconfigContainer selectedConfig="{!v.selectedtubeconfig}" 
+                            location="US" productSubSegment="Laminate" quoteStatus="{!v.qli.copy_quote_status__c}" /> 
+                 </div> 
+            </div>
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--2-of-3">
+                <c:LC01_ProductConfig_US_TubeLaminate_InitialConfig name="Deal Context" open="{!v.collapseStatus.initial_config}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_US_TubeLaminate_TubeBasis name="Tube Basis" open="{!v.collapseStatus.Tube_Basis}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_US_TubeLaminate_DispensingSystem name="Dispensing System" open="{!v.collapseStatus.Dispensing_System}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_US_TubeLaminate_Sleeve name="Sleeve" open="{!v.collapseStatus.Sleeve}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_US_TubeLaminate_Cap name="Cap" open="{!v.collapseStatus.Cap}" selectedconfig="{!v.selectedtubeconfig}"/>  
+                <c:LC01_ProductConfig_US_TubeLaminate_Decoration name="Decoration" open="{!v.collapseStatus.Decoration}" selectedconfig="{!v.selectedtubeconfig}"/>
+                <c:LC01_ProductConfig_US_TubeLaminate_Packing name="Packing" open="{!v.collapseStatus.Packing}" selectedconfig="{!v.selectedtubeconfig}"/>
+    			<c:LC00_SaveButton selectedconfig="{!v.selectedtubeconfig}" /> 
+            </div>
+            
+        </div>
+    	<c:LC01_Combo_US selectedconfig="{!v.selectedtubeconfig}"/>
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 ">
+                <c:LC01_ProductConfig_US_TubeLaminate_Header name="List Price" open="true" qli="{!v.qli}" selectedconfig="{!v.selectedtubeconfig}"/>     
+            </div> 
+        </div>  
+    </div>
+</aura:component>

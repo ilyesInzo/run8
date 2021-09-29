@@ -1,0 +1,49 @@
+<aura:component >
+    <aura:attribute name="qli" type="QuoteLineItem"  required="true"  default="{ 'sobjectType': 'QuoteLineItem'}"  />
+    
+    <div class="slds-grid slds-wrap slds-m-top--medium slds-grid slds-grid--vertical-align-end">
+        <div class="slds-size--1-of-6 ">
+            <div class="slds-box slds-float--right open-scoring-page" onclick="{!c.openCustomerScoring}" >
+                <lightning:icon iconName="standard:person_account" size="small" alternativeText="Customer"/>
+            </div>
+        </div>
+        <div class="slds-size--1-of-6">
+            <div class="slds-text-align--center slds-text-heading--small">{!$Label.c.LBL_Customer}</div>
+            <div>
+                <ui:inputNumber class="slds-text-align--center" value="{!v.qli.Customer_Scoring__c}" disabled="true" format="0.0"/>
+            </div>
+        </div>
+        <div class="slds-size--1-of-6 ">
+            <div class="slds-box slds-float--right open-scoring-page" onclick="{!c.openDealScoring}" >
+                <lightning:Icon iconName="standard:opportunity" size="small" alternativeText="Deal" />
+            </div>
+        </div>
+        <div class="slds-size--1-of-6">
+            <div class="slds-text-align--center slds-text-heading--small">{!$Label.c.LBL_Deal}</div>
+            <div>
+                <ui:inputNumber class="slds-text-align--center" value="{!v.qli.Deal_Scoring__c}" disabled="true" format="0.0"/>
+            </div>
+        </div>
+        <div class="slds-size--1-of-6">
+            <div class="slds-box slds-float--right open-scoring-page" onclick="{!c.openServiceScoring}">
+                <lightning:Icon iconName="standard:service_contract" size="small" alternativeText="Service"/>
+            </div>
+        </div>
+        <div class="slds-size--1-of-6">
+            <div class="slds-text-align--center slds-text-heading--small">{!$Label.c.LBL_Service}</div>
+            <div>
+                <ui:inputNumber class="slds-text-align--center" value="{!v.qli.Service_Scoring__c}" disabled="true" format="0.0"/>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap slds-m-top--large slds-grid slds-grid--align-center">
+            <div class="slds-size--1-of-6">
+            <div class="slds-box--small slds-text-align--center">{!$Label.c.LBL_Total}</div>
+        </div>
+        <div class="slds-size--5-of-6 slds-p-top--small">
+            <c:LC01_Score score="{!v.qli.Total_Score__c}" /> 
+        </div>
+        </div>
+
+    
+</aura:component>

@@ -1,0 +1,158 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="1. Product Hierarchy" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Name__c" 
+									savedfieldName="Product_Hierarchy__c"
+									value="{!v.selectedconfig.Product_Hierarchy__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Product Hierarchy', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>      
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="7. Ball &amp; Spring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Type__c" 
+									savedfieldName="Ball_Spring__c"
+									value="{!v.selectedconfig.Ball_Spring__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Ball and Spring', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Type__c']"
+									saveddependentfields="['Engine_Type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="2. Engine Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Engine_Type__c" 
+									savedfieldName="Engine_Type__c"
+									value="{!v.selectedconfig.Engine_Type__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Engine Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="8. High Force" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Type__c" 
+									savedfieldName="High_Force__c"
+									value="{!v.selectedconfig.High_Force__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'High Force', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Type__c']"
+									saveddependentfields="['Engine_Type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <!-- Added By Zakaria RIADI-->
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="3. Pump Material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Pump_material__c" 
+									savedfieldName="Pump_material__c"
+									value="{!v.selectedconfig.Pump_material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Pump material', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Engine_Type__c']"
+									concat="['_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        <!-- End Added By Zakaria RIADI-->
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">        
+                     <c:LC00_DependantFields label="9. Cap" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="OverCap_Type__c" 
+									savedfieldName="Cap__c"
+									value="{!v.selectedconfig.Cap__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'OverCap Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Nozzle_Type__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Actuator__c']"
+											 selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+         <c:LC00_DependantFields label="4. Actuator" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Nozzle_Type__c" 
+									savedfieldName="Actuator__c"
+									value="{!v.selectedconfig.Actuator__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Nozzle Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Engine_Type__c', 'Pump_material__c']"
+                                    concat="['_','_']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="10a. Holder Casing" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Holder_Casting_Type__c"
+									savedfieldName="Holder_Casing__c"
+									value="{!v.selectedconfig.Holder_Casing__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Holder Casing', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']" selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="5.	Ouptut" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Ouptut__c" 
+									savedfieldName="Ouptut__c"
+									value="{!v.selectedconfig.Ouptut__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Engine Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Engine_Type__c']"
+									concat="['_']"
+									isDisabled="true"
+									 selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="10b. Clip" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Clip_Type__c" 
+									savedfieldName="Clip__c"
+									value="{!v.selectedconfig.Clip__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Clip', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>                   
+        </div>       
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="6. Foam Quality" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Foam_Quality__c" 
+									savedfieldName="Foam_Quality__c"
+									value="{!v.selectedconfig.Foam_Quality__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Foam Quality', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+
+            <label class="slds-form-element__label" style="color: orange;">11. Dip tube Length (mm)</label>
+            <ui:inputText value="{!v.selectedconfig.Diptube_length_mm__c}" /> 
+        </div> 
+		
+    </div>
+</aura:component>

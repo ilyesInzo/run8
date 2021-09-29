@@ -1,0 +1,231 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="LC01_RECO_EU_RecapTableCtrl" access="global" >
+    <ltng:require styles="{!$Resource.PriceMatrixCSS}"/> 
+    <aura:attribute name="context" type="string" default="{! v.qli.Product_Sub_segment__c}" />
+    <aura:attribute name="Sleeve_Length" type="string" />
+    <aura:attribute name="Sleeve_Material" type="string" />
+    <aura:attribute name="Printing_technologies" type="string" />
+    <aura:attribute name="NB_Offset_Colors" type="string" />
+   
+    <aura:attribute name="price1" type="string" />
+    <aura:attribute name="price2" type="string" />
+    <aura:attribute name="price3" type="string" />
+    <aura:attribute name="price4" type="string" />
+    <aura:attribute name="price5" type="string" />
+    <aura:attribute name="price6" type="string" />
+    <aura:attribute name="price7" type="string" />
+     <aura:attribute name="managerEmail" type="string" />
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="msg" type="String" />
+    <aura:attribute name="FinalPriceOfferList" type="List" />
+    <aura:attribute name="qli" type="QuoteLineItem"  default="{ 'sobjectType': 'QuoteLineItem'}" />
+    <aura:attribute name="selectedTube" type="PM_Selected_Tubes_Config__c"  />
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:LE00_NotifySelectedTubeConfig" action="{!c.refreshNetPriceOffer}" />
+     <lightning:spinner aura:id="mySpinner" class="slds-hide" variant="brand" size="large" style="position:fixed;"/>
+   
+    <div class="slds pm">
+        <article class="slds-card">
+            
+            <div class="slds-card__body"  style=" width:auto;display:flex;">
+                <div  class="Recap-Table-Container" >
+                    <table id="table1" name="DisplayRecapPart">
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapProduct_Sub_segment}</div></td>
+                            <td ><div class="Recap-Line">{! v.qli.Product_Sub_segment__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.LBL_CUSTOMERNAME}</div></td>
+                            <td ><div class="Recap-Line"> {! v.qli.Quote.Opportunity.Account.Name}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.LBL_CUSTOMERSIZE}</div></td>
+                            <td ><div class="Recap-Line"> {! v.qli.Quote.Opportunity.Account.Customer_Size_PM__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.LBL_BrandPositionning}</div></td>
+                            <td ><div class="Recap-Line"> {! v.qli.Brand_Positionning__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapQuantity}</div></td>
+                            <td ><div class="Recap-Line"> {! v.qli.Quantity}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapDiameter_mm}</div></td>
+                            <td ><div class="Recap-Line">{! v.selectedTube.Diameter_mm__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapSleeve_Length_mm}</div></td>
+                            <td ><div class="Recap-Line">{! v.Sleeve_Length}</div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapSleeve_Material}</div></td>
+                            <td ><div class="Recap-Line">{! v.Sleeve_Material} </div></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%" ><div class="Recap-header">{!$Label.c.RecapSleeve_Color}</div></td>
+                            <td ><div class="Recap-Line">{! v.selectedTube.Sleeve_Color__c}</div></td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%" ><div class="Recap-header">{!$Label.c.RecapHead_Name}</div></th>
+                            <td ><div class="Recap-Line">{! v.selectedTube.Head_Name__c}</div></td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%" ><div class="Recap-header">{!$Label.c.RecapHead_Color}</div></th>
+                            <td ><div class="Recap-Line"> {! v.selectedTube.Head_Color__c}</div></td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%" ><div class="Recap-header"> {!$Label.c.RecapCap_Eurocode}</div></th>
+                            <td ><div class="Recap-Line"> {! v.selectedTube.Cap_Eurocode__c}</div></td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%"><div class="Recap-header">{!$Label.c.RecapCap_Color}</div></th>
+                            <td><div class="Recap-Line">{! v.selectedTube.Cap_Color__c}</div></td>
+                        </tr>                   
+                        <tr>
+                            <th style="width:50%" ><div class="Recap-header">{!$Label.c.RecapPrinting_technologies} </div></th>
+                            <td >
+                                <div class="Recap-Line">{! v.Printing_technologies}</div></td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%" ><div class="Recap-header">{!$Label.c.RecapNB_Offset_Colors}</div></th>
+                            <td ><div class="Recap-Line"> {! v.NB_Offset_Colors}</div> </td>
+                        </tr>
+                    </table>
+                </div>
+                <div  class="Recap-Table-Container"  >
+                    <table id='table2' name="EditablePart">
+                        <tr>
+                            <td style="position: relative;width:50%" rowspan="8"><div class="Recap-header Recap-Div-Rowspan">{!$Label.c.RecapOthers}</div></td>
+                            <td  ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others1__c}"  style="margin:1px 0px;"/>
+                            <div style="display: none;">{!v.selectedTube.Recap_Others1__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td > <lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others2__c}"  style="margin:1px 0px;"/>
+                                <div style="display: none;">{!v.selectedTube.Recap_Others2__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others3__c}"  style="margin:1px 0px;"/> 
+                             <div style="display: none;">{!v.selectedTube.Recap_Others3__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others4__c}"  style="margin:1px 0px;"/> 
+                                <div style="display: none;">{!v.selectedTube.Recap_Others4__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others5__c}"  style="margin:1px 0px;"/> 
+                                <div style="display: none;">{!v.selectedTube.Recap_Others5__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others6__c}"  style="margin:1px 0px;"/>
+                                <div style="display: none;">{!v.selectedTube.Recap_Others6__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others7__c}"  style="margin:1px 0px;"/> 
+                                <div style="display: none;">{!v.selectedTube.Recap_Others7__c}</div></td>
+                        </tr>
+                         <tr>
+                            <td ><lightning:input type="text" variant = "label-hidden" value="{!v.selectedTube.Recap_Others8__c}"  style="margin:1px 0px;"/> 
+                                <div style="display: none;">{!v.selectedTube.Recap_Others8__c}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice1}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ1__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price1__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price1}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ1__c}/ {!v.selectedTube.Recap_Price1__c}/ {!v.price1}</div></td>
+                        </tr>
+                        <tr>
+                            <td > <div class="Recap-header">{!$Label.c.RecapPrice2}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ2__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price2__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price2}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ2__c}/ {!v.selectedTube.Recap_Price2__c}/ {!v.price2}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice3}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ3__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price3__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price3}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ3__c}/ {!v.selectedTube.Recap_Price3__c}/ {!v.price3}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice4}</div> </td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ4__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price4__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price4}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ4__c}/ {!v.selectedTube.Recap_Price4__c}/ {!v.price4}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice5}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ5__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price5__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price5}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ5__c}/ {!v.selectedTube.Recap_Price5__c}/ {!v.price5}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice6}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ6__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price6__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price6}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ6__c}/ {!v.selectedTube.Recap_Price6__c}/ {!v.price6}</div></td>
+                        </tr>
+                        <tr>
+                            <td ><div class="Recap-header">{!$Label.c.RecapPrice7}</div></td>
+                            <td ><div style="display:inline-flex"><lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.selectedTube.Recap_MOQ7__c}"  style="margin:1px 0px;width:30%;"/> 
+                                /<lightning:input type="text" variant = "label-hidden"  value="{!v.selectedTube.Recap_Price7__c}"  style="margin:1px 0px;width:40%;"/>/ 
+                                 <lightning:input type="text" variant = "label-hidden" disabled="true" value="{!v.price7}"  style="margin:1px 0px;width:30%"/> </div>                     
+                                 <div style="display: none;">{!v.selectedTube.Recap_MOQ7__c}/ {!v.selectedTube.Recap_Price7__c}/ {!v.price7}</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+           <div class="card__footer">
+                <div class="Recap-Section-Header" >
+                    <div class="slds-float_right" >
+                        <lightning:button aura:id="saveBtn" iconName="utility:email" variant="brand" label="Send eMail" onclick="{!c.OpenSendMailModal}" iconPosition="left"  />                      
+                   		<lightning:button aura:id="saveBtn" iconName="utility:save" variant="brand" label="Save" onclick="{!c.SaveRecap}" iconPosition="left"  />	 
+                        <lightning:Button aura:id="copyBtn" iconName="utility:copy" variant="brand" label="Copy"  onclick="{! c.CopyToClipboard }"  iconPosition="left"  />
+				 	 
+                    </div>
+                   
+                </div>             
+            </div>
+        </article>
+    </div>
+    <section  role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox1" class="slds-modal slds-modal_large">       
+                <div class="slds-modal__container" style="width: 65%;">
+                    <header  class="slds-modal__header" style="--sds-c-modal-header-color-background: rgb(243, 242, 242)">
+                        <p>{!$Label.c.LBL_Send_Email}</p>
+                    </header >
+                   
+                           
+                    <div class="slds-modal__content slds-p-around--medium">
+                         <div >
+                             <table>
+                                 <tr> 
+                                    <td><p>{!$Label.c.Email_To_Label}</p></td>
+                            		<td><lightning:pill label="{!v.managerEmail}" href="">
+                                            <aura:set attribute="media">
+                                                <lightning:icon iconName="standard:account"  alternativeText="Account"/>
+                                            </aura:set>
+                                        </lightning:pill>
+                                  	</td>    
+                                 </tr>
+                                 <tr>
+									<td><p>{!$Label.c.Email_Subject_Label} </p> </td>
+                                     <td><lightning:input type="text" variant = "label-hidden"  value="{!v.subject}"  style="margin:1px 0px;"/> </td>  
+                                 </tr>
+                             </table>
+                    	</div>
+                        
+                        <lightning:inputRichText label="Message " aura:id="msg" value="{!v.msg}" />                    
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button class="slds-button slds-button_brand" label="Send" onclick="{!c.SendMail }" />
+                        <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.cancel}" />
+                    </footer>
+                </div>     
+    </section >
+    
+   
+</aura:component>

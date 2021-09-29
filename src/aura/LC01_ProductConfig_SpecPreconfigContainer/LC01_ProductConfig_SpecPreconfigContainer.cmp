@@ -1,0 +1,30 @@
+<aura:component controller="LC01_ProductConfig_SpecPreconfigCtrl">
+	<aura:attribute name="selectedConfig" type="sObject" />
+	<aura:attribute name="location" type="String" />
+	<aura:attribute name="productSubSegment" type="String" />
+	<aura:attribute name="preconfigList" type="PM_SpecPreconfig__c[]" default="[]"/>
+	<aura:attribute name="selectedPreconfig" type="PM_SpecPreconfig__c" />
+	<aura:attribute name="quoteStatus" type="String" />
+
+    <aura:handler event="c:LC01_SpecPreconfigEvent" action="{!c.updateConfig}"/>
+
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:if isTrue="{!v.preconfigList.length > 0}">
+        <div style="margin-left: 13px;font-size: 16px;margin-top: 10px;">Pre-configurations</div>
+	</aura:if>
+	
+    <div class="slds-grid slds-wrap slds-grid--pull-padded slds-form--inline  slds-p-horizontal--small ">
+        <aura:iteration var="item" items="{!v.preconfigList}" indexVar="indx">
+			<c:LC01_ProductConfig_SpecPreconfigElement selectedConfig="{!v.selectedConfig}" 
+                        preconfig = "{!item}" selectedPreconfig="{!v.selectedPreconfig}" quoteStatus="{!v.quoteStatus}"/>  
+		</aura:iteration>
+   
+    </div>
+    <div class="undoButton">
+    	  <lightning:button  variant="neutral" label="Reset Configuration" iconName="utility:undo" iconPosition="left" onclick="{!c.resetConfigJS}" disabled="{!and(and(v.quoteStatus != 'Draft', v.quoteStatus != 'Presented'), v.quoteStatus != 'Simulation')}"/>
+    </div>
+  
+	
+	  
+</aura:component>

@@ -1,0 +1,7 @@
+<aura:component >
+	<aura:attribute name="value" type="Decimal" />
+    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--left-right">
+        <ui:inputNumber value="{!v.value}" class="input-ku-left" />
+        <ui:inputText value="Ku" disabled="true" class="input-ku-right" />
+    </div>
+</aura:component>

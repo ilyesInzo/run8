@@ -1,0 +1,70 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+                    <c:LC00_DependantFields label="16. Neck" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Diameter__c" 
+									savedfieldName="Neck__c"
+									value="{!v.selectedconfig.Neck__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Diameter', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									isDisabled="true"
+											selectedConfig="{!v.selectedconfig}"
+									/>          
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="19. Name" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Bottle_Shape_Name__c" 
+									savedfieldName="Bottle_Name__c"
+									value="{!v.selectedconfig.Bottle_Name__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Name', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Material_Shape__c','Size__c']"
+									saveddependentfields="['Product_Hierarchy__c','Material__c','Bottle_Size__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="17.	Material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Material_Shape__c" 
+									savedfieldName="Material__c"
+									value="{!v.selectedconfig.Material__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Material', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="20. Shape" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Shape__c" 
+									savedfieldName="Bottle_Shape__c"
+									value="{!v.selectedconfig.Bottle_Shape__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Name', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Material_Shape__c','Size__c','Bottle_Shape_Name__c']"
+									saveddependentfields="['Product_Hierarchy__c','Material__c','Bottle_Size__c','Bottle_Name__c']"
+									isDisabled="true"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="18.	Size (ml)" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Size__c" 
+									savedfieldName="Bottle_Size__c"
+									value="{!v.selectedconfig.Bottle_Size__c}"
+									parameters="{Location__c : 'EU', Table_Name__c : 'Bottle Size', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Material_Shape__c']"
+									saveddependentfields="['Product_Hierarchy__c','Material__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+        
+    </div>
+</aura:component>

@@ -1,0 +1,172 @@
+<aura:component extends="c:LC00_Section"> 
+	
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="16. Cap Name" 
+									fieldName="Cap_Name__c" 
+									savedfieldName="Cap_Name__c"
+									value="{!v.selectedconfig.Cap_Name__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Cap Name', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c','Dispensing_System_Name__c','Shape__c','Dispensing_System_Family__c']" 
+									saveddependentfields="['Diameter_inches__c','Dispensing_System_Name__c','Shape__c','Dispensing_System_Family__c']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	 <!-- <c:LC00_Picklist label="22. Cust. Directed" options="['', 'Yes', 'No']" value="{!v.selectedconfig.Cust_Directed__c}"/>  -->
+        	 <c:LC00_DependantFields label="22. Cust. Directed" 
+									fieldName="Name" 
+									savedfieldName="Cust_Directed__c"
+									value="{!v.selectedconfig.Cust_Directed__c}" 
+									objectName="ProductConfigYesNo__c" 
+									parameters="{}" 
+									dependentfields="" 
+									saveddependentfields=""
+									 selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="17. Cap Aspect" 
+									fieldName="Head_Sleeve_Cap_Aspect_name__c" 
+									savedfieldName="Cap_Aspect__c"
+									value="{!v.selectedconfig.Cap_Aspect__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Head / Sleeve / Cap Aspect', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="" 
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="23. Consigned Cap" 
+									fieldName="Consigned_Caps__c" 
+									savedfieldName="Consigned_Cap__c"
+									value="{!v.selectedconfig.Consigned_Cap__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Consigned Caps', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="18. Cap Color" 
+									fieldName="Head_Cap_Color_Name__c" 
+									savedfieldName="Cap_Color__c"
+									value="{!v.selectedconfig.Cap_Color__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Head / Cap Color', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="" 
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="24. Seal" 
+									fieldName="Peel_Seal__c" 
+									savedfieldName="Peel_Seal__c"
+									value="{!v.selectedconfig.Peel_Seal__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Seal', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Eurocode__c']" 
+									saveddependentfields="['Cap_Eurocode__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="19. Cap Finish" 
+									fieldName="Cap_Finish__c" 
+									savedfieldName="Cap_Finish__c"
+									value="{!v.selectedconfig.Cap_Finish__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Cap Finish', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c','Dispensing_System_Name__c','Cap_Name__c','Shape__c','Dispensing_System_Family__c']" 
+									saveddependentfields="['Diameter_inches__c','Dispensing_System_Name__c','Cap_Name__c','Shape__c','Dispensing_System_Family__c']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+																		
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="25. Shrink Band" 
+									fieldName="Shrink_Band__c" 
+									savedfieldName="Shrink_Band__c"
+									value="{!v.selectedconfig.Shrink_band__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Shrink band', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Eurocode__c']" 
+									saveddependentfields="['Cap_Eurocode__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+		
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="20. Cap Orifice" 
+									fieldName="Cap_Orifice__c" 
+									savedfieldName="Cap_Orifice__c"
+									value="{!v.selectedconfig.Cap_Orifice__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Cap Orifice', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Shape__c','Dispensing_System_Family__c','Diameter_inches__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c']" 
+									saveddependentfields="['Shape__c','Dispensing_System_Family__c','Diameter_inches__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c']"
+									selectedConfig="{!v.selectedconfig}"
+			/>
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="26. Hot Stamping" 
+									fieldName="Shrink_Band__c" 
+									savedfieldName="Cap_Hot_Stamping__c"
+									value="{!v.selectedconfig.Cap_Hot_Stamping__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Hot Stamping', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Eurocode__c']" 
+									saveddependentfields="['Cap_Eurocode__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									 
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="21. Cap Eurocode" 
+									fieldName="Eurocode__c" 
+									savedfieldName="Cap_Eurocode__c"
+									value="{!v.selectedconfig.Cap_Eurocode__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Cap Eurocode', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Shape__c','Dispensing_System_Family__c','Diameter_inches__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c', 'Cap_Orifice__c']" 
+									saveddependentfields="['Shape__c','Dispensing_System_Family__c','Diameter_inches__c', 'Dispensing_System_Name__c', 'Cap_Name__c', 'Cap_Finish__c', 'Cap_Orifice__c']"
+                                    autoselect="true"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+									
+        </div>
+
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+			<c:LC00_DependantFields label="27. Hand Capping" 
+									fieldName="Manual_Capping__c" 
+									savedfieldName="Manual_Capping__c"
+									value="{!v.selectedconfig.Manual_Capping__c}" 
+									parameters="{Location__c : 'US', Tubes_segment__c : 'Plastic', Table_Name__c : 'Consigned Caps', ActiveValue__c : 'TRUE'}" 
+									objectName="PM_Tubes_Config__c" 
+									dependentfields="['Diameter_inches__c']" 
+									saveddependentfields="['Diameter_inches__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>
+
+    </div> 
+</aura:component>

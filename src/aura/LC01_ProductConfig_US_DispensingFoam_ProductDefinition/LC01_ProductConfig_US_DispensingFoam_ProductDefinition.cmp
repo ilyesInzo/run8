@@ -1,0 +1,168 @@
+<aura:component extends="c:LC00_Section">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">          
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="1. Product Range" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Name__c" 
+									savedfieldName="Product_Range__c"
+									value="{!v.selectedconfig.Product_Range__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Product Range', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields=""
+									saveddependentfields=""
+									selectedConfig="{!v.selectedconfig}"
+									/> 
+        </div>  
+        
+         <!-- FOAM QUALITY ==> new option, added by maryem 15/03/2018  -->
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="7. Foam Quality" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Foam_Quality__c" 
+									savedfieldName="Foam_Quality__c"
+									value="{!v.selectedconfig.Foam_Quality__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Foam Quality', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c','Product_Hierarchy__c']"
+									saveddependentfields="['Product_Range__c','Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="2. Product Hierarchy" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Product_Hierarchy__c" 
+									savedfieldName="Product_Hierarchy__c"
+									value="{!v.selectedconfig.Product_Hierarchy__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Product Hierarchy', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Name__c']"
+									saveddependentfields="['Product_Range__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div> 
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="8. Actuator" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Nozzle_Type__c" 
+									savedfieldName="Actuator__c"
+									value="{!v.selectedconfig.Actuator__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Nozzle Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Hierarchy__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+                  <!-- PUMP SEGMENTATION ==> new option, added by Zakaria 28/02/2020  -->
+         <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="3. Pump Segmentation" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Pump_Segmentation__c" 
+									savedfieldName="Pump_Segmentation__c"
+									value="{!v.selectedconfig.Pump_Segmentation__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Product Configuration', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Hierarchy__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">      
+                     <c:LC00_DependantFields label="9. Cap" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="OverCap_Type__c" 
+									savedfieldName="Cap__c"
+									value="{!v.selectedconfig.Cap__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'OverCap Type', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Hierarchy__c','Nozzle_Type__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Actuator__c']"
+											 selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="4. Pump material" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Pump_material__c" 
+									savedfieldName="Pump_material__c"
+									value="{!v.selectedconfig.Pump_material__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Pump material', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Hierarchy__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="10. Ball &amp; Spring" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Type__c" 
+									savedfieldName="Ball_Spring__c"
+									value="{!v.selectedconfig.Ball_Spring__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Ball and Spring US', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Type__c']"
+									saveddependentfields="['Engine_Type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div> 
+        
+        
+        
+         <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+            <c:LC00_DependantFields label="5. Engine Type" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Engine_Type__c" 
+									savedfieldName="Engine_Type__c"
+									value="{!v.selectedconfig.Engine_Type__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Engine Type Output', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Product_Hierarchy__c']"
+									saveddependentfields="['Product_Hierarchy__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>   
+        </div> 
+        
+        <div class="slds-hidden">
+        	<c:LC00_DependantFields label="11. Metal Upcharge" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Type__c" 
+									savedfieldName="Metal_Upcharge__c"
+									value="{!v.selectedconfig.Metal_Upcharge__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Ball and Spring', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Hierarchy__c','Engine_Type__c','Ball_Spring__c']"
+									concat="['_','_']"
+									selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+             <c:LC00_DependantFields label="6.	Ouptut" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Ouptut__c" 
+									savedfieldName="Ouptut__c"
+									value="{!v.selectedconfig.Ouptut__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'Engine Type Output', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Concatenate__c']"
+									saveddependentfields="['Product_Hierarchy__c', 'Engine_Type__c']"
+									concat="['_']"
+									isDisabled="true"
+									 selectedConfig="{!v.selectedconfig}"
+									/>  
+        </div>                        
+        
+        <div class="slds-p-horizontal--small slds-size--1-of-2 slds-m-bottom--small">
+        	<c:LC00_DependantFields label="12. High Force" 
+									objectName="PM_Dispensing_Config__c" 
+									fieldName="Type__c" 
+									savedfieldName="High_Force__c"
+									value="{!v.selectedconfig.High_Force__c}"
+									parameters="{Location__c : 'US', Table_Name__c : 'High Force', Product_Segment__c : 'Foam pumps', ActiveValue__c : 'TRUE'}" 
+									dependentfields="['Engine_Type__c']"
+									saveddependentfields="['Engine_Type__c']"
+									selectedConfig="{!v.selectedconfig}"
+									/>
+        </div>
+        
+        
+		
+    </div>
+</aura:component>

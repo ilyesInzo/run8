@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Used to generate values based on a selected value">
+	<aura:attribute name="name" type="String" />
+	<aura:attribute name="selectedValue" type="String" />
+    <aura:attribute name="dependsOn" type="String[]" />
+</aura:event>

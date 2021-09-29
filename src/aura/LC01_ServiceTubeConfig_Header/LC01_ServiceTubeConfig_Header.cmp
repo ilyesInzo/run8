@@ -1,0 +1,18 @@
+<aura:component extends="c:LC00_Header" controller="LC01_SelectedProductConfigCtrl">
+    <aura:attribute name="isService" type="Boolean" default="false"/>
+    <aura:attribute name="servicetube" type="PM_Selected_Service_Tubes_Config__c" description="service tube config" default="{ 'sobjectType': 'PM_Selected_Service_Tubes_Config__c'}" />
+    <aura:attribute name="configId" type="String" />
+    <aura:attribute name="serviceId" type="String" />
+    
+    <aura:if isTrue="{!v.isService}">
+        <lightning:button variant="neutral" label="Back to Services" iconName="utility:left" 
+                                iconPosition="left" onclick="{!c.backToServices}" />
+        <aura:set attribute="else">
+            <lightning:button variant="neutral" label="Details" iconName="utility:summarydetail" 
+                                iconPosition="left" onclick="{!c.gotoServiceTubeDetails}" />
+            <lightning:button variant="neutral" label="Go to configurator" iconName="utility:left" 
+                                iconPosition="left" onclick="{!c.backToProductConfig}" />        
+        </aura:set>
+    </aura:if>
+	
+</aura:component>

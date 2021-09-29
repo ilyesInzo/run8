@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:attribute name="score" type="Decimal" default="0"/>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{!v.score}" aria-valuemin="0" aria-valuemax="100" style="{!'width:'+v.score*10+'%'}">
+            <ui:outputNumber value="{!v.score}" format="0.0"/>
+        </div>
+    </div>
+</aura:component>
