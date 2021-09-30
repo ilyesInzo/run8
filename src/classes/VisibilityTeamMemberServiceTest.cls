@@ -164,6 +164,7 @@ public with sharing class VisibilityTeamMemberServiceTest {
         Test.startTest();
         List<Sales_Allocations__c> salesAllocations = [SELECT Id FROM Sales_Allocations__c];
         System.assert(salesAllocations.size() == 5);
+        // get the number of account Team Member = must equal to 10
         Test.stopTest();
 
     }

@@ -71,18 +71,27 @@ public with sharing class VisibilityTeamMemberService {
         }
 
         // at the end of this call, we have all the AccountTeamMembers to create/update/delete
-        treatAndFillAccountTeamMembers(newUpdatedSalesAllocationMap, oldSalesAllocationsById, accountIds, changedTeamRoleBySalesTeamMap, accountToUpdatedSalesAllocationMap, newSalesTeams, oldSalesTeam, isInsert);
-        // in case of insert no opportunity exist for the SA
+        AccountTeamVisibility accountTeamMembers = treatAndFillAccountTeamMembers(newUpdatedSalesAllocationMap, oldSalesAllocationsById, accountIds, changedTeamRoleBySalesTeamMap, accountToUpdatedSalesAllocationMap, newSalesTeams, oldSalesTeam, isInsert);
+        // in case of insert no opportunity exist for the SA and no objectives yet
+        OpportunityTeamVisibility opportunityTeamMembers = new OpportunityTeamVisibility();
         if (isInsert != true) {
             // at the end of this call, we have all the opportunityTeamMembers to create/update/delete
-            treatAndFillOpportunityTeamMembers(newUpdatedSalesAllocationMap, newSalesTeams, changedTeamRoleBySalesTeamMap);
+            opportunityTeamMembers = treatAndFillOpportunityTeamMembers(newUpdatedSalesAllocationMap, newSalesTeams, changedTeamRoleBySalesTeamMap);
+            updateKamObjective(newUpdatedSalesAllocationMap);
         }
 
-        //updateKamObjectif(newUpdatedSalesAllocations);
-
-        // treat the Objectives either alone or inside the opportunities
-        // should we also update opp owners when treating the OPP members?
-        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - getNewTeamVisibility Stop');
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB accountTeam To Add ' + accountTeamMembers.accountTeamToAdd.size());
+        //insert accountTeamMembers.accountTeamToAdd;
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB accountTeam To Remove ' + accountTeamMembers.accountTeamToRemove.size());
+        //delete accountTeamMembers.accountTeamToRemove;
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB opportunityTeam To Add ' + opportunityTeamMembers.opportunityTeamToAdd.size());
+        //insert opportunityTeamMembers.opportunityTeamToAdd;
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB opportunityTeam To Remove ' + opportunityTeamMembers.opportunityTeamToRemove.size());
+        //delete opportunityTeamMembers.opportunityTeamToRemove;
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB opportunityTeam To Update ' + opportunityTeamMembers.opportunityTeamToUpdate.size());
+        //update opportunityTeamMembers.opportunityTeamToUpdate;
+        System.debug(LoggingLevel.INFO, LOG_CLASS_NAME + ' - NB opportunitiesOwner to update ' + opportunityTeamMembers.opportunitiesWithDifferentOwnerToUpdate.size());
+        //update opportunityTeamMembers.opportunitiesWithDifferentOwnerToUpdate;
     }
     private static Map<Id, Map<Id, Set<String>>> getAccountToNotUpdatedSalesAllocationMap(Map<Id, Sales_Allocations__c> newUpdatedSalesAllocations, set<Id> accountIds, Boolean isInsert) {
 
@@ -624,7 +633,7 @@ public with sharing class VisibilityTeamMemberService {
 
     }
 
-    private static void updateKamObjectif(Map<Id, Sales_Allocations__c> newUpdatedSalesAllocations){
+    private static void updateKamObjective(Map<Id, Sales_Allocations__c> newUpdatedSalesAllocations){
 
         Integer year = system.date.today().year()-1;
         Set<Id> newSalesAllocationIDs = newUpdatedSalesAllocations.keySet();
@@ -634,7 +643,11 @@ public with sharing class VisibilityTeamMemberService {
         where Sales_Allocation__c IN:newSalesAllocationIDs
         and Calendar_Year(Date__c) >=: year  ];
 
+        // currently we will keep the old objective share
+        // it should just be optimized (why the user is redundant for the objectShare related to an Objective
+        AP01_Objective_Rules.kamObjectiveshare(objectivesToUpdate);
 
+        /*
         Map<Id, Objectives__c> filteredObjectives = new Map<Id, Objectives__c>();
         Set<Id> filteredObjectivesIds = new Set<Id>();
         for (Objectives__c obj : objectivesToUpdate) {
@@ -647,21 +660,7 @@ public with sharing class VisibilityTeamMemberService {
 
         filteredObjectivesIds = filteredObjectives.keySet();
         List<Objectives__Share> lObjShare = [SELECT Id From Objectives__Share WHERE ParentId in :filteredObjectivesIds and AccessLevel != 'All'];
-
-        /*
-        for (Objectives__c objectives : filteredObjectives.values()) {
-            if (!accountToUpdatedSalesAllocationMap.containsKey(salesAllocation.Account__c)) {
-                accountToUpdatedSalesAllocationMap.put(salesAllocation.Account__c, new Map<Id, Sales_Allocations__c>());
-            }
-            accountToUpdatedSalesAllocationMap.get(salesAllocation.Account__c).put(salesAllocation.Id, salesAllocation);
-        }*/
-
-
-
-
-
-
-        //AP01_Objective_Rules.kamObjectiveshare(objectivesToUpdate);
+        */
 
     }
 

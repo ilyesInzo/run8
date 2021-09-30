@@ -624,8 +624,6 @@ public class SalesAllocationsService extends SalesService {
         set<Id> oldSalesTeamIDs = new set<Id>();
         List<Sales_Allocations__c> newSalesAllocationsToUpdate = new List<Sales_Allocations__c>();
         //in case of insert we are only interested on SA with a ST affected (they affect visibility)
-        System.debug(isInsert);
-        System.debug(newSalesAllocations);
         for (Sales_Allocations__c sa: newSalesAllocations) {
 
             accountIds.add(sa.Account__c);

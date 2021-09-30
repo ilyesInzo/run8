@@ -24,6 +24,9 @@ public class SalesAllocationsTriggerHandler extends TriggerHandler {
 		SalesAllocationsService.getInstance().setSalesAllocationUniqueChecker(newSalesAllocations);		
 		// we will delegate the call to an async mechanism
 		SalesAllocationsService.getInstance().manageTeamMemberVisibility(newSalesAllocations, oldSalesAllocationsById, true);
+
+        /*VisibilityTeamMemberQueue visibilityQueue = new VisibilityTeamMemberQueue(newSalesAllocations, oldSalesAllocationsById, true);
+        System.enqueueJob(visibilityQueue);*/
 		//SalesAllocationsService.getInstance().updateRequestForSalesAllocations(newSalesAllocations, oldSalesAllocationsById);
 		// This call is intended to be removed and replaced by manageTeamMemberVisibility
 		// SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, true);
@@ -34,6 +37,8 @@ public class SalesAllocationsTriggerHandler extends TriggerHandler {
 		SalesAllocationsService.getInstance().setSalesAllocationUniqueChecker(newSalesAllocations);
 		// we will delegate the call to an async mechanism
 		SalesAllocationsService.getInstance().manageTeamMemberVisibility(newSalesAllocations, oldSalesAllocationsById, false);
+        /*VisibilityTeamMemberQueue visibilityQueue = new VisibilityTeamMemberQueue(newSalesAllocations, oldSalesAllocationsById, false);
+        System.enqueueJob(visibilityQueue);*/
 		SalesAllocationsService.getInstance().updateRequestForSalesAllocations(newSalesAllocations, oldSalesAllocationsById);
 		// This call is intended to be removed and replaced by manageTeamMemberVisibility
 		// SalesAllocationsService.getInstance().updateSalesAllocVisibility(newSalesAllocations, oldSalesAllocationsById, false);
